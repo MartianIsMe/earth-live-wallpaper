@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hello">Hello World, SLWP!</string>
+	<string name="app_name">EarthRot</string>
+	<string name="description">rotación Globe (OpenGL VBO)</string>
+	<string name="p_speed">velocidad</string>
+	<string name="p_speedsum">Elija la velocidad de rotación de la Tierra</string>
+	<string name="p_clouds">Nubes</string>
+	<string name="p_cloudson">nubes se muestran</string>
+	<string name="p_cloudsoff">nubes son ocultos</string>
+	<string name="p_touchrot">Rotación Touch</string>
+	<string name="p_touchroton">La rotación es sensible al toque</string>
+	<string name="p_touchrotoff">La rotación no es sensible al toque</string>
+	<string name="p_textures">Carta</string>
+	<string name="p_texturessum">Elija la carta </string>
+	<string name="p_dir">Rotación natural</string>
+	<string name="p_diron">La rotación es natural</string>
+	<string name="p_diroff">La rotación se invierte</string>
+	<string name="p_freespin">Rotación libre</string>
+	<string name="p_freespinon">Rotación es libre</string>
+	<string name="p_freespinoff">Rotación no es libre</string>
+	<string name="p_zoom">Tamaño del planeta</string>
+	<string name="p_zoomsum">aumentar o disminuir el radio del planeta</string>
+	<string name="p_bg">Elección de fondo </string>
+	<string name="p_bgsum"> Elegir el fondo de pantalla </string>
+	<string name="p_usebg"> Utilice un fondo </string>
+	<string name="p_usebgon"> el fondo está habilitado </string>
+	<string name="p_usebgoff"> el fondo está desactivado </string>
+	<string name="p_ref"> actualiza </string>
+	<string name="p_refsum"> Seleccione la frecuencia de actualización del mapa </string>
+	<string name="p_raxis"> eje natural de la Tierra </string>
+	<string name="p_raxison"> girar alrededor del eje de la Tierra físicas  </string>
+	<string name="p_raxisoff"> giran alrededor de un eje vertical </string>
+	
+	<string name="p_bgsdir">Deslizamiento invertido</string>
+	<string name="p_bgsdiron">diapositivas de fondo no sigue la dirección de la pantalla</string>
+	<string name="p_bgsdiroff">diapositivas de fondo en la dirección de la pantalla</string>
+	<string name="p_slidep">Deslizamiento del mundo</string>
+	<string name="p_slidepon">El mundo se mueve con la pantalla</string>
+	<string name="p_slidepoff">El mundo se fija a la pantalla</string>
+	<string name="p_syncrot">rotación resbaladizo</string>
+	<string name="p_syncroton">rotación de la tierra tras el derrumbe</string>
+	<string name="p_syncrotoff">rotación de la Tierra no sigue la diapositiva </string>
+	
+	<string name="p_xpos">Posición horizontal </string>
+	<string name="p_xpossum">Mueve el mundo horizontal </string>
+	
+	<string name="p_ypos">Posición vertical </string>
+	<string name="p_ypossum">Mueve el mundo vertical</string>
+	
+	<string name="p_showmoon">Luna en órbita</string>
+	<string name="p_showmoonsum">observar la luna en órbita alrededor de la Tierra</string>
+	
+	<string name="p_randlistsum">Elección de los planetas utilizados en azar</string>
+	<string name="p_randlist">Lista aleatoria</string>
+	
+	<string-array name="tex_id">
+		<item>Aleatorio</item>
+		<item>Tiempo real</item>
+		<item>Tierra+Nubes</item>
+		<item>Tierra</item>
+		<item>Ciudades luz</item>
+		<item>Luna</item>
+		<item>Mars</item>
+		<item>Mercury</item>
+		<item>Venus</item>
+		<item>Jupiter</item>
+		<item>Saturn</item>
+		<item>Uranus</item>
+		<item>Neptune</item>
+		<item>Io</item>
+		<item>Europa</item>
+		<item>Ganymede</item>
+		<item>Phoebe</item>
+		<item>Endor</item>
+		<item>Tatooine</item>
+		<item>Naboo</item>
+		<item>Hoth</item>
+		<item>Geonosis</item>
+		<item>DeathStar 1</item>
+		<item>DeathStar 2</item>
+	</string-array>
+	<string-array name="refresh_id">
+		<item>Siempre (no recom.)</item>
+		<item>5min</item>
+		<item>15min</item>
+		<item>30min</item>
+		<item>1h</item>
+		<item>3h (nubes)</item>
+		<item>6h</item>
+	</string-array>
+</resources>
+

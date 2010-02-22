@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content" android:orientation="vertical">
+<RelativeLayout android:id="@+id/LinearLayout01" android:layout_height="wrap_content" android:layout_width="fill_parent"><ImageView android:id="@+id/ImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/icon" android:layout_alignParentLeft="true" android:layout_marginLeft="3dp"></ImageView><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="EARTH LIVE WALLPAPER" android:textStyle="bold" android:typeface="normal" android:textColor="#ffcc00" android:layout_centerVertical="true" android:layout_toRightOf="@id/ImageView01" android:layout_marginLeft="4px"></TextView><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/donate" android:id="@+id/Bt_donate" android:layout_gravity="center" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:layout_marginRight="5px"></Button></RelativeLayout>
+<ListView android:layout_width="wrap_content" android:layout_height="fill_parent" android:id="@+id/android:list"></ListView>
+
+
+
+
+</LinearLayout>
