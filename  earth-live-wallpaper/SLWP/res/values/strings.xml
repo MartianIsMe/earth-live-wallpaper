@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hello">Hello World, SLWP!</string>
+	<string name="app_name">EarthRot</string>
+	<string name="description">Rotating earth globe (Opengl VBO)</string>
+
+
+	<string name="p_speed">Rotation speed</string>
+	<string name="p_speedsum">Choose the globe rotation speed</string>
+	<string name="p_clouds">Clouds</string>
+	<string name="p_cloudson">Clouds are shown</string>
+	<string name="p_cloudsoff">CLouds are hidden</string>
+	<string name="p_touchrot">Touch rotation</string>
+	<string name="p_touchroton">Globe rotation on touch is on</string>
+	<string name="p_touchrotoff">Globe rotation on touch is off</string>
+	<string name="p_textures">Map</string>
+	<string name="p_texturessum">Choose the globe map</string>
+	<string name="p_dir">Natural Rotation</string>
+	<string name="p_diron">Globe rotation is natural</string>
+	<string name="p_diroff">Globe rotation is inverted</string>
+	<string name="p_freespin">Free rotation</string>
+	<string name="p_freespinon">Globe rotate around 2 axis</string>
+	<string name="p_freespinoff">Globe rotate around 1 axis</string>
+	<string name="p_zoom">Globe size</string>
+	<string name="p_zoomsum">increase or shrink the globe radius</string>
+	<string name="p_bg">Choose background</string>
+	<string name="p_bgsum">Choose the background to display</string>
+	<string name="p_usebg">Show background</string>
+	<string name="p_usebgon">Background is on</string>
+	<string name="p_usebgoff">Background is off</string>
+	<string name="p_ref">Refresh rate</string>
+	<string name="p_refsum">Choose how often the realtime map is refreshed (around 70KB of datas downloaded on each refresh)</string>
+	<string name="p_refdesc">Be carerefull !! each refresh consume around 70KB of datas</string>
+	<string name="texerror">Error loading texture</string>
+	<string name="p_raxis">Planet natural axis</string>
+	<string name="p_raxison">Rotate around planet\'s natural axis</string>
+	<string name="p_raxisoff">Rotate around vertical axis</string>
+	<string name="p_bgsdir">Inverse background sliding</string>
+	<string name="p_bgsdiron">Background is sliding opposite to the screen</string>
+	<string name="p_bgsdiroff">Background is sliding like the screen </string>
+	<string name="p_slidep">Slide globe</string>
+	<string name="p_slidepon">Globe is sliding with screen</string>
+	<string name="p_slidepoff">Globe position is fixed</string>
+	<string name="p_syncrot">Slide rotation</string>
+	<string name="p_syncroton">Globe is rotating synchronous with screen (better if rot. speed=0)</string>
+	<string name="p_syncrotoff">Globe isn\'t rotating synchronous with screen</string>
+	
+	<string name="p_xpos">Globe x position</string>
+	<string name="p_xpossum">move the globe horizontally on screen</string>
+	
+	<string name="p_ypos">Globe y position</string>
+	<string name="p_ypossum">move the globe vertically on screen</string>
+	
+	<string name="p_showmoon">Orbiting moon</string>
+	<string name="p_showmoonsum">Show the moon orbiting around earth</string>
+	
+	<string name="p_randlistsum">Choose the maps to use in random map mode</string>
+	<string name="p_randlist">Random List</string>
+	
+	<declare-styleable name="Wallpaper">
+		<!--
+			Component name of an activity that allows the user to modify the
+			current settings for this wallpaper.
+		-->
+		<attr name="settingsActivity" format="reference" />
+		<!-- Reference to a the wallpaper's thumbnail bitmap. -->
+		<attr name="thumbnail" format="reference" />
+		<!-- Name of the author of this component, e.g. Google. -->
+		<attr name="author" format="reference" />
+		<!-- Short description of the component's purpose or behavior. -->
+		<attr name="description" format="reference" />
+	</declare-styleable>
+
+	<string-array name="tex_id">
+		<item>Random each wakeup</item>
+		<item>Realtime Earth+Clouds</item>
+		<item>Static Earth+Clouds</item>
+		<item>Earth</item>
+		<item>Earth city lights</item>
+		<item>Moon</item>
+		<item>Mars</item>
+		<item>Mercury</item>
+		<item>Venus</item>
+		<item>Jupiter</item>
+		<item>Saturn</item>
+		<item>Uranus</item>
+		<item>Neptune</item>
+		<item>Io</item>
+		<item>Europa</item>
+		<item>Ganymede</item>
+		<item>Phoebe</item>
+		<item>Endor</item>
+		<item>Tatooine</item>
+		<item>Naboo</item>
+		<item>Hoth</item>
+		<item>Geonosis</item>
+		<item>DeathStar 1</item>
+		<item>DeathStar 2</item>
+	</string-array>
+
+	<string-array name="tex_value">
+		<item>-1</item>
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
+		<item>15</item>
+		<item>9</item>
+		<item>19</item>
+		<item>20</item>
+		<item>10</item>
+		<item>11</item>
+		<item>12</item>
+		<item>13</item>
+		<item>14</item>
+		<item>16</item>
+		<item>17</item>
+		<item>18</item>
+		<item>21</item>
+		<item>22</item>
+	</string-array>
+	<string-array name="bg_id">
+		<item>From gallery</item>
+		<item>Background 1</item>
+		<item>Background 2</item>
+		<item>Background 3</item>
+	</string-array>
+	<string-array name="bg_value">
+		<item>-1</item>
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+	
+	<string-array name="refresh_id">
+		<item>Every wakeup (not recom.)</item>
+		<item>5min</item>
+		<item>15min</item>
+		<item>30min</item>
+		<item>1h</item>
+		<item>3h (like clouds)</item>
+		<item>6h</item>
+	</string-array>
+	
+	<string-array name="refresh_value">
+		<item>0</item>
+		<item>5</item>
+		<item>15</item>
+		<item>30</item>
+		<item>60</item>
+		<item>180</item>
+		<item>360</item>
+	</string-array>
+</resources>
+

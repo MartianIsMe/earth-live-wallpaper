@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hello">Hello World, SLWP!</string>
+	<string name="app_name">EarthRot</string>
+	<string name="description">Globe terrestre rotatif (Opengl VBO)</string>
+	<string name="p_speed">Vitesse de rotation</string>
+	<string name="p_speedsum">Choisissez la vitesse de rotation du globe</string>
+	<string name="p_clouds">Nuages</string>
+	<string name="p_cloudson">Les nuages sont affichés</string>
+	<string name="p_cloudsoff">Les nuages sont cachés</string>
+	<string name="p_touchrot">Rotation au toucher</string>
+	<string name="p_touchroton">La rotation se controle au toucher</string>
+	<string name="p_touchrotoff">La rotation ne se controle pas au toucher</string>
+	<string name="p_textures">Carte</string>
+	<string name="p_texturessum">Choisissez la carte</string>
+	<string name="p_dir">Rotation naturelle</string>
+	<string name="p_diron">La rotation est naturelle</string>
+	<string name="p_diroff">La rotation est inversée</string>
+	<string name="p_freespin">Rotation libre</string>
+	<string name="p_freespinon">Le globe tourne sur 2 axes</string>
+	<string name="p_freespinoff">Le globe tourne sur 1 axe</string>
+	<string name="p_zoom">Taille du globe</string>
+	<string name="p_zoomsum">augmenter où  diminuer le rayon du globe</string>
+	<string name="p_bg">Choix de l\'arrière-plan </string>
+	<string name="p_bgsum"> Choisissez l\'arrière-plan à afficher </string>
+	<string name="p_usebg"> Utiliser un arrière-plan </string>
+	<string name="p_usebgon"> arrière-plan est activé </string>
+	<string name="p_usebgoff"> l\'arrière-plan est déactivé </string>
+	<string name="p_ref"> rafraîchissement </string>
+	<string name="p_refsum"> Choisissez la fréquence de rafraîchissement de la carte temps réel (environ 70Ko par actualisation)</string>
+	<string name="texerror">Erreur lors du chargement de texture </string>
+	<string name="p_raxis"> axe naturel de la Terre </string>
+	<string name="p_raxison"> pivoter autour l\'axe naturel de la Terre  </string>
+	<string name="p_raxisoff"> pivoter autour d\'un axe vertical </string>
+	<string name="p_bgsdir">Glissement inversé</string>
+	<string name="p_bgsdiron">l\'arrière-plan glisse en opposition a l\'écran</string>
+	<string name="p_bgsdiroff">l\'arrière-plan glisse dans le sens de l\'écran</string>
+	<string name="p_slidep">Glissement du globe</string>
+	<string name="p_slidepon">Le globe se déplace avec l\'ecran</string>
+	<string name="p_slidepoff">Le globe reste fixe à l\'écran</string>
+	<string name="p_syncrot">Rotation glissante</string>
+	<string name="p_syncroton">La rotation du globe suit le glissement</string>
+	<string name="p_syncrotoff">La rotation du globe ne suit pas le glissement</string>
+	
+	<string name="p_xpos">Position horizontale</string>
+	<string name="p_xpossum">Déplace le globe horizontalement</string>
+	
+	<string name="p_ypos">Position verticale</string>
+	<string name="p_ypossum">Déplace le globe verticallement</string>
+	
+	<string name="p_showmoon">Lune en orbite</string>
+	<string name="p_showmoonsum">Montre la lune en orbite autour de la terre</string>
+	
+	<string name="p_randlistsum">Choix des cartes utilisées en mode aléatoire</string>
+	<string name="p_randlist">Liste aléatoire</string>
+	<string-array name="tex_id">
+		<item>Aléatoire</item>
+		<item>Conditions réelles</item>
+		<item>Terre+Nuages</item>
+		<item>Terre nue</item>
+		<item>Terre de nuit</item>
+		<item>Lune</item>
+		<item>Mars</item>
+		<item>Mercure</item>
+		<item>Venus</item>
+		<item>Jupiter</item>
+		<item>Saturne</item>
+		<item>Uranus</item>
+		<item>Neptune</item>
+		<item>Io</item>
+		<item>Europe</item>
+		<item>Ganymede</item>
+		<item>Phoebe</item>
+		<item>Endor</item>
+		<item>Tatooine</item>
+		<item>Naboo</item>
+		<item>Hoth</item>
+		<item>Geonosis</item>
+		<item>DeathStar 1</item>
+		<item>DeathStar 2</item>
+	</string-array>
+	<string-array name="refresh_id">
+		<item>Systématique (deconseillé)</item>
+		<item>5min</item>
+		<item>15min</item>
+		<item>30min</item>
+		<item>1h</item>
+		<item>3h (comme les nuages)</item>
+		<item>6h</item>
+	</string-array>
+</resources>
+

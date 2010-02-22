@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.seb.SLWP" android:versionName="1.2.1" android:versionCode="24">
+<application android:label="@string/app_name" android:icon="@drawable/icon" android:debuggable="false">
+		<activity android:launchMode="standard" android:name="Prefs">
+			<intent-filter>
+				<category android:name="android.intent.category.PREFERENCE"></category>
+				<action android:name="android.intent.action.MAIN"></action>
+			</intent-filter>
+		</activity>
+		
+		<service android:name="SLWP" android:enabled="true"
+			android:icon="@drawable/icon" android:label="@string/app_name"
+			android:permission="android.permission.BIND_WALLPAPER">
+			<intent-filter android:priority="1">
+				<action android:name="android.service.wallpaper.WallpaperService" />
+			</intent-filter>
+			<meta-data android:name="android.service.wallpaper"
+				android:resource="@xml/wallpaper" />
+		</service>
+</application>
+<uses-sdk android:minSdkVersion="7" />
+<supports-screens android:largeScreens="true" android:smallScreens="true" android:normalScreens="true" android:resizeable="true" android:anyDensity="true"></supports-screens>
+
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+</manifest> 
