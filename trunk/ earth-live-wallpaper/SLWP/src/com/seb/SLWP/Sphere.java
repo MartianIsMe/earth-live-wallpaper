@@ -42,6 +42,7 @@ class Sphere implements Serializable {
 	private static int intTex;
 	private float moonangle = 0f;
 	private int IdxCnt;
+	private float langle=0f;
 	//public static final Handler mHandler = new Handler();
 	// Create runnable for posting
 	public static final Runnable mUpdateTex = new Runnable() {
@@ -250,8 +251,12 @@ class Sphere implements Serializable {
 				textures.setTexture(R.drawable.moon);
 			else
 				textures.setTexture(R.drawable.deathstar);
+			gl11.glRotatef(langle-=0.2f, 0f, 0f, 1f);
 			gl11.glTranslatef(3.2f, 0f, 0f);
 			gl11.glScalef(0.26f, 0.26f, 0.26f);
+			gl11.glRotatef(180f, 0f, 1f, 0f);
+			
+			
 			
 			gl11.glDrawElements(GL11.GL_TRIANGLES, IdxCnt,
 					GL11.GL_UNSIGNED_SHORT, 0);

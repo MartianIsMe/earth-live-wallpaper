@@ -61,7 +61,7 @@ public class SLWP extends GLWallpaperService implements
 	public boolean needresume;
 	public boolean fstart;
 	private String[] randlist;
-	public int curtexidx=0;
+	public int curtexidx=-99;
 
 
 	@Override
@@ -461,16 +461,17 @@ public class SLWP extends GLWallpaperService implements
 				DT.cancel(true);
 				needresume = true;
 			}
+			if (Randomtex) {
+				Tex = randtex();
+				renderer.setTex(Tex);
+			}
 		}
 
 		@Override
 		public void onResume() {
 			super.onResume();
 			NOW = new Date().getTime();
-			if (Randomtex) {
-				Tex = randtex();
-				renderer.setTex(Tex);
-			}
+			
 			if ((Tex == 0
 					&& (!Fcache.exists() || Fcache.length() < 35 * 1024 || Fcache
 							.lastModified() < NOW - Synctime) && !isPreview() /*
@@ -495,7 +496,7 @@ public class SLWP extends GLWallpaperService implements
 
 		private int randtex() {
 			int rval = -1;
-			if(randlist==null) return 1;
+			if(randlist==null || randlist.length<=1) return 1;
 			float rmax=randlist.length-1;
 			while ((rval = (int) Math.rint(Math.random() * rmax)) == curtexidx)
 				;
