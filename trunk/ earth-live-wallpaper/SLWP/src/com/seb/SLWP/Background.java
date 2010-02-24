@@ -51,9 +51,11 @@ class Background implements Serializable {
 	private int bmpW;
 	private int bmpH;
 	private float curratio;
-	private float xoffset;
+	private float xoffset=0f;
+	private float yoffset=0f;
 	private float scrw;
-
+	private float zlev=1f;
+	private float zdir=1f;
 	public Background(Context context) {
 		mContext = context;
 		mCropWorkspace = new int[4];
@@ -99,11 +101,18 @@ class Background implements Serializable {
 		else
 			gl.glBindTexture(GL10.GL_TEXTURE_2D, texf[0]);
 		if (vH >= vW)
-			((GL11Ext) gl).glDrawTexfOES(xpos-xoffset, 0f, 0f, scrw , vH);
+			((GL11Ext) gl).glDrawTexfOES(xpos-xoffset, -yoffset, 0f, scrw*zlev , vH*zlev);
 		else {
 			((GL11Ext) gl).glDrawTexfOES(0f, 0f, 0f, vW, vW);
-
 		}
+		
+		
+		zlev+=Math.sin(zlev)*0.0002*zdir;
+		if(zlev>=3f)zdir=-1f;
+		if(zlev<=1)zdir=1f;
+		
+		xoffset=((scrw*zlev)-vH)/2;
+		yoffset=(vH*zlev-vH)/2;
 	}
 
 	public static void setTexture(int t) {
