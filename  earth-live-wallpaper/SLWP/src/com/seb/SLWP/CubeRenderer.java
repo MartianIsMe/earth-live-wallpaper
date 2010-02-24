@@ -61,10 +61,12 @@ class CubeRenderer implements Renderer, Serializable {
 	boolean showmoon = true;
 	public boolean deathstar2 = false;
 	private boolean inited = false;
-
+	private StarField mStarfield;
+	
 	public CubeRenderer(Context context) {
 		mContext = context;
 		mBg = new Background(mContext);
+		mStarfield=new StarField();
 		// mSphere = new Sphere(mContext);
 		// mRings = new Rings(mContext);
 		// new InitTask().execute();
@@ -157,7 +159,9 @@ class CubeRenderer implements Renderer, Serializable {
 			mBg.draw(gl);
 			gl.glDepthMask(true);
 		}
-
+		
+		//mStarfield.draw(gl);
+		
 		gl.glPushMatrix();
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
@@ -198,7 +202,7 @@ class CubeRenderer implements Renderer, Serializable {
 			mRings.draw(gl);
 
 		gl.glPopMatrix();
-
+		
 	}
 
 	public int[] getConfigSpec() {
