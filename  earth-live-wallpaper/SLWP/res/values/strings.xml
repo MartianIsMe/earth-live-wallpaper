@@ -57,6 +57,9 @@
 	<string name="p_randlistsum">Choose the maps to use in random map mode</string>
 	<string name="p_randlist">Random List</string>
 	
+	<string name="p_animbgsum">Make the background slide slowly</string>
+	<string name="p_animbg">Animate background</string>
+	
 	<declare-styleable name="Wallpaper">
 		<!--
 			Component name of an activity that allows the user to modify the

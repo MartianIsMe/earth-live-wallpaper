@@ -53,6 +53,10 @@
 	
 	<string name="p_randlistsum">Choix des cartes utilisées en mode aléatoire</string>
 	<string name="p_randlist">Liste aléatoire</string>
+	
+	<string name="p_animbgsum">Fait glisser lentemet le fond</string>
+	<string name="p_animbg">Animé l\'arriére plan</string>
+	
 	<string-array name="tex_id">
 		<item>Aléatoire</item>
 		<item>Conditions réelles</item>

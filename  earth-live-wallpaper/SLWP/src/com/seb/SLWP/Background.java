@@ -54,14 +54,14 @@ class Background implements Serializable {
 	private float xoffset = 0f;
 	private float yoffset = 0f;
 	private float scrw;
-	private float zlev = 2f;
+	private float zlev = 1.2f;
 	private float zdir = 1f;
 	private double zspeed = 0.02f;
 	private int zsens;
 	public static boolean animbg = true;
 	private Point[] ellipse;
 	private int elidx = 0;
-	private final int STEPS = 360;
+	private final int STEPS = 3600;
 	private final int MODSTEPS = STEPS - 1;
 	private float elx=0f;
 	private float ely=0f;
@@ -97,7 +97,7 @@ class Background implements Serializable {
 		xoffset = ((vH * bmpRatio - vH) / 2);
 		scrw = vH * bmpRatio;
 
-		 ellipse=calculateEllipse(0,0, (vH * bmpRatio)/ 4, vH/16, 0f, STEPS);
+		 ellipse=calculateEllipse(0,0, (vH * bmpRatio)/ 10, vH/10, 0f, STEPS);
 		//ellipse = calculateEllipse(-scrw, 256*zlev, scrw, vH / 16, 0f, STEPS);
 	}
 
@@ -123,7 +123,7 @@ class Background implements Serializable {
 			elx = (float) ellipse[elidx].x;
 			ely = (float) ellipse[elidx].y;
 			elidx = (elidx + 1) % MODSTEPS;
-
+			//zlev=(float) (Math.cos(elx*0.01f)+Math.sin(ely*0.01f));
 			/*
 			 * zlev += Math.sin(zlev) * zspeed * zdir; if (zlev >= 2f){ zdir =
 			 * -1f; } if (zlev <= 1){ zdir = 1f; zsens=(int)
@@ -135,11 +135,11 @@ class Background implements Serializable {
 			 * vH) / 2; yoffset = (vH * zlev - vH) / 2; }
 			 */
 		}
-		xoffset = ((scrw * zlev) - vH) / 2;
-		yoffset = (vH * zlev - vH) / 2;
+		xoffset = (((scrw * zlev) - vH) / 2)+elx;
+		yoffset = ((vH * zlev - vH) / 2)+ely;
 		
 		if (vH >= vW)
-			((GL11Ext) gl).glDrawTexfOES(xpos - xoffset , yoffset, 0f, scrw
+			((GL11Ext) gl).glDrawTexfOES(xpos - xoffset , -yoffset, 0f, scrw
 					* zlev, vH * zlev);
 		else {
 			((GL11Ext) gl).glDrawTexfOES(0f, 0f, 0f, vW, vW);
