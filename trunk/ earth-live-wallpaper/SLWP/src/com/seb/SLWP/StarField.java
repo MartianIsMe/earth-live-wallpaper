@@ -12,7 +12,8 @@ public class StarField {
 	private final int NBSTARS = 2100;
 	private float[] stars;
 
-	private final float squareVertices[] = { -0.5f, -0.5f,
+	private final float squareVertices[] = {
+			-0.5f, -0.5f,
 			0.5f,  -0.5f,
 			-0.5f,  0.5f,
 			0.5f,   0.5f };
@@ -24,10 +25,10 @@ public class StarField {
 	public StarField() {
 		stars = new float[NBSTARS];
 		for (int i = 0; i < NBSTARS; i+=3) {
-			float t = (float) (Math.PI * 2.0f * (Math.random())/32768);
+			float t = (float) (Math.PI * 2.0f * (Math.random()));
 			stars[i] = (float) (Math.sin(t) * 1.0f); // x-coordinate for this											// star
 			stars[i + 1] = (float) (Math.cos(t) * 1.0f);
-			stars[i + 2] = (float) ((Math.random()/32768) * (-50.0f));
+			stars[i + 2] = (float) ((Math.random()) * (-50.0f));
 		}
 		
 		ByteBuffer nbv = ByteBuffer.allocateDirect(squareVertices.length * 4 * 2);

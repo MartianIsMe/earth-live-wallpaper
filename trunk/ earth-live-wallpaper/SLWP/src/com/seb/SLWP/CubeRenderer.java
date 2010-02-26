@@ -71,7 +71,11 @@ class CubeRenderer implements Renderer, Serializable {
 		// mRings = new Rings(mContext);
 		// new InitTask().execute();
 	}
-
+	
+	public void setAnimbg(Boolean b){
+		Background.animbg=b;
+	}
+	
 	public void setTex(int t) {
 		showrings = t == 15 ? true : false;
 		switch (t) {

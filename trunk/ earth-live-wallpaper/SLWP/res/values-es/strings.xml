@@ -54,6 +54,9 @@
 	<string name="p_randlistsum">Elección de los planetas utilizados en azar</string>
 	<string name="p_randlist">Lista aleatoria</string>
 	
+	<string name="p_animbgsum">deslice el fondo poco a poco</string>
+	<string name="p_animbg">Fondo animado</string>
+	
 	<string-array name="tex_id">
 		<item>Aleatorio</item>
 		<item>Tiempo real</item>

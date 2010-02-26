@@ -34,8 +34,10 @@
 		android:entries="@array/refresh_id" android:key="Synctime"
 		android:summary="@string/p_refsum" android:title="@string/p_ref"
 		android:defaultValue="60" android:dialogTitle="@string/p_ref"></ListPreference>
-	<com.seb.SLWP.ListPreferenceMultiSelect android:key="Randlist"
-		android:summary="@string/p_randlistsum" android:title="@string/p_randlist" android:entries="@array/tex_id" android:entryValues="@array/tex_value"></com.seb.SLWP.ListPreferenceMultiSelect>
+	<com.seb.SLWP.ListPreferenceMultiSelect
+		android:key="Randlist" android:summary="@string/p_randlistsum"
+		android:title="@string/p_randlist" android:entries="@array/tex_id"
+		android:entryValues="@array/tex_value"></com.seb.SLWP.ListPreferenceMultiSelect>
 	<CheckBoxPreference android:key="Showmoon"
 		android:title="@string/p_showmoon" android:summary="@string/p_showmoonsum"
 		android:defaultValue="true"></CheckBoxPreference>
@@ -51,12 +53,15 @@
 		android:key="Bgslidedir" android:summaryOff="@string/p_bgsdiroff"
 		android:title="@string/p_bgsdir" android:dependency="Usebg"
 		android:defaultValue="false"></CheckBoxPreference>
+	<CheckBoxPreference android:title="@string/p_animbg"
+		android:summary="@string/p_animbgsum" android:key="Animbg" android:dependency="Usebg" android:defaultValue="false"></CheckBoxPreference>
 	<CheckBoxPreference android:key="TouchRot"
 		android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff"
 		android:title="@string/p_touchrot" android:defaultValue="false"></CheckBoxPreference>
 	<CheckBoxPreference android:summaryOn="@string/p_freespinon"
 		android:key="Freespin" android:title="@string/p_freespin"
 		android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot"></CheckBoxPreference>
+
 
 
 

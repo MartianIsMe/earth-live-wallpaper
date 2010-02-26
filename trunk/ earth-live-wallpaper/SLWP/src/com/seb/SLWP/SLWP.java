@@ -168,6 +168,9 @@ public class SLWP extends GLWallpaperService implements
 			Syncrot = PreferenceManager.getDefaultSharedPreferences(this)
 					.getBoolean("Syncrot", false);
 
+			renderer.setAnimbg(PreferenceManager.getDefaultSharedPreferences(this)
+					.getBoolean("Animbg", false));
+			
 			// reg pref listener
 			PreferenceManager.getDefaultSharedPreferences(SLWP.this)
 					.registerOnSharedPreferenceChangeListener(SLWP.this);
@@ -254,7 +257,10 @@ public class SLWP extends GLWallpaperService implements
 			renderer.ypos = ((PreferenceManager.getDefaultSharedPreferences(
 					SLWP.this).getInt("Ypos", 100) / 100f) - 1f) * 2f;
 		}
-
+		else if(key.compareToIgnoreCase("AnimBg") == 0){
+			renderer.setAnimbg(PreferenceManager.getDefaultSharedPreferences(this)
+					.getBoolean("Animbg", false));
+		}
 		else if (key.compareToIgnoreCase("TouchRot") == 0) {
 			TouchRot = PreferenceManager.getDefaultSharedPreferences(this)
 					.getBoolean("TouchRot", false);
