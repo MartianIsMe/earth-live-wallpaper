@@ -461,17 +461,17 @@ public class SLWP extends GLWallpaperService implements
 				DT.cancel(true);
 				needresume = true;
 			}
-			if (Randomtex) {
-				Tex = randtex();
-				renderer.setTex(Tex);
-			}
+			
 		}
 
 		@Override
 		public void onResume() {
 			super.onResume();
 			NOW = new Date().getTime();
-			
+			if (Randomtex) {
+				Tex = randtex();
+				renderer.setTex(Tex);
+			}
 			if ((Tex == 0
 					&& (!Fcache.exists() || Fcache.length() < 35 * 1024 || Fcache
 							.lastModified() < NOW - Synctime) && !isPreview() /*

@@ -74,48 +74,60 @@ class CubeRenderer implements Renderer, Serializable {
 
 	public void setTex(int t) {
 		showrings = t == 15 ? true : false;
-		deathstar2 = false;
 		switch (t) {
 		case 0:
 		case 1:
 		case 2:
 		case 3:
 			axisangle = 23.27f;
+			deathstar2 = false;
 			break;
 		case 4:
 			axisangle = 5.145f;
+			deathstar2 = false;
 			break;
 		case 5:
+			deathstar2 = false;
 			axisangle = 25.19f;
 			break;
 		case 6:
+			deathstar2 = false;
 			axisangle = 0.01f;
 			break;
 		case 7:
+			deathstar2 = false;
 			axisangle = 177.36f;
 			break;
 		case 8:
+			deathstar2 = false;
 			axisangle = 3.12f;
 			break;
 		case 9:
+			deathstar2 = false;
 			axisangle = 97.77f;
 			break;
 		case 10:
+			deathstar2 = false;
 			axisangle = 0.469f;
 			break;
 		case 11:
+			deathstar2 = false;
 			axisangle = 0.117f;
 			break;
 		case 12:
+			deathstar2 = false;
 			axisangle = 175.986f;
 			break;
 		case 15:
+			deathstar2 = false;
 			axisangle = 26.73f;
 			break;
 		case 19:
+			deathstar2 = false;
 			axisangle = 29.58f;
 			break;
 		case 21:
+			deathstar2 = false;
 			axisangle = 0f;
 			break;
 		case 22:
@@ -123,6 +135,7 @@ class CubeRenderer implements Renderer, Serializable {
 			axisangle = 0f;
 			break;
 		default:
+			deathstar2 = false;
 			axisangle = 0f;
 			break;
 		}
@@ -193,12 +206,12 @@ class CubeRenderer implements Renderer, Serializable {
 
 		if (deathstar2) {
 			gl.glEnable(GL10.GL_BLEND);
-			mDs.draw(gl);
+			if(mDs!=null)mDs.draw(gl);
 			gl.glDisable(GL10.GL_BLEND);
 		} else if (mSphere != null)
 			mSphere.draw(gl, showmoon);
 
-		if (showrings)
+		if (showrings&&mRings!=null)
 			mRings.draw(gl);
 
 		gl.glPopMatrix();

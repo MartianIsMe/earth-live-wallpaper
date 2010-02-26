@@ -59,7 +59,7 @@ class Sphere implements Serializable {
 	}
 
 	public static void InitTex() {
-		if (gl11 == null)
+		if (gl11 == null || SLWP.Tex==22 )
 			return;
 		setTexture(SLWP.Tex);
 		textures = new GLTextures(gl11, mContext);
