@@ -144,7 +144,7 @@ class CubeRenderer implements Renderer, Serializable {
 			break;
 		}
 		curtex = t;
-		Sphere.InitTex();
+		if(t!=0)Sphere.InitTex();
 	}
 
 	public void setBg(int t) {
