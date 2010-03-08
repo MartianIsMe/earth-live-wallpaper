@@ -63,6 +63,7 @@
 		<item>Tierra+Nubes</item>
 		<item>Tierra</item>
 		<item>Ciudades luz</item>
+		<item>Sol</item>
 		<item>Luna</item>
 		<item>Mars</item>
 		<item>Mercury</item>
@@ -72,6 +73,8 @@
 		<item>Uranus</item>
 		<item>Neptune</item>
 		<item>Io</item>
+		<item>Titan</item>
+		<item>Callisto</item>
 		<item>Europa</item>
 		<item>Ganymede</item>
 		<item>Phoebe</item>
@@ -80,6 +83,7 @@
 		<item>Naboo</item>
 		<item>Hoth</item>
 		<item>Geonosis</item>
+		<item>Mustafar</item>
 		<item>DeathStar 1</item>
 		<item>DeathStar 2</item>
 	</string-array>
