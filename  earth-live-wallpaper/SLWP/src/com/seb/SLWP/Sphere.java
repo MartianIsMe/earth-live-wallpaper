@@ -357,6 +357,18 @@ class Sphere implements Serializable {
 		case 21:
 			mTex = R.drawable.deathstar;
 			break;
+		case 23:
+			mTex = R.drawable.mustafar;
+			break;
+		case 24:
+			mTex = R.drawable.titan;
+			break;
+		case 25:
+			mTex = R.drawable.callisto;
+			break;
+		case 26:
+			mTex = R.drawable.sun;
+			break;
 		}
 	}
 

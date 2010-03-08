@@ -66,7 +66,7 @@ class CubeRenderer implements Renderer, Serializable {
 	public CubeRenderer(Context context) {
 		mContext = context;
 		mBg = new Background(mContext);
-		mStarfield=new StarField();
+		mStarfield=new StarField(mContext);
 		// mSphere = new Sphere(mContext);
 		// mRings = new Rings(mContext);
 		// new InitTask().execute();
@@ -177,7 +177,7 @@ class CubeRenderer implements Renderer, Serializable {
 			gl.glDepthMask(true);
 		}
 		
-		//mStarfield.draw(gl);
+		mStarfield.draw(gl);
 		
 		gl.glPushMatrix();
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
@@ -256,8 +256,25 @@ class CubeRenderer implements Renderer, Serializable {
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
 		gl.glFrustumf(-mRatio, mRatio, -1f, 1f, 2f, 15f);
+		
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
+		/*gl.glViewport(0, 0, width, height);
+		gl.glMatrixMode(GL10.GL_PROJECTION);
+		gl.glLoadIdentity();
+		float xmin, xmax, ymin, ymax;
+		float aspect = (float) width / height;
+		float zNear = 0.1f;
+		float zFar = 100.0f;
+
+		ymax = (float) (zNear * Math.tan(45.0f * Math.PI / 360.0));
+		ymin = -ymax;
+		xmin = ymin * aspect;
+		xmax = ymax * aspect;
+
+		gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);*/
+		
+		
 		if (mDs == null && deathstar2) {
 			mDs = new DeathStar(mContext);
 		}
@@ -271,6 +288,7 @@ class CubeRenderer implements Renderer, Serializable {
 				mRings = new Rings(mContext);
 			mRings.Init(gl);
 		}
+		if(mStarfield!=null)mStarfield.init(gl);
 
 	}
 
