@@ -13,7 +13,7 @@ import android.content.Context;
 public class StarField {
 
 	
-	private final int NBSTARS = 1200;
+	private int NBSTARS = 1200;
 	private float[] stars;
 
 	static int VertSize = 6 * 2 * 4;
@@ -27,6 +27,7 @@ public class StarField {
 	
 	
 	private static final int UVsize = 6 * 2 * 4;
+	private static final float MAXDIST = -20f;
 	private final float UV[] = {
 			0.0f, 0.0f,
 			0.0f, 1.0f,
@@ -49,13 +50,16 @@ public class StarField {
 
 	public StarField(Context context) {
 		mContext=context;
-		stars = new float[NBSTARS*4];
-		for (int i = 0; i < NBSTARS; i+=4) {
-			float t = (float) (Math.PI * 2.0f * Math.random());
-			stars[i] = (float) Math.sin(t); // x-coordinate for this											// star
-			stars[i + 1] = (float) Math.cos(t);
-			stars[i + 2] = (float) (Math.random() * -100.0f);
-			stars[i + 3] = (float) (Math.random()*0.3f); 
+		stars = new float[NBSTARS*5];
+		for (int i = 0; i < NBSTARS; i+=5) {
+			float t = (float) (Math.PI *2.0f* Math.random());
+			//stars[i] = (float) ((float) Math.sin(t)>=0f?Math.sin(t)+2f:Math.sin(t)-2f);
+			//stars[i + 1] = (float) ((float) Math.cos(t)>=0f?Math.cos(t)+2f:Math.cos(t)-2f);
+			stars[i] = (float) Math.sin(t)*2.0f;
+			stars[i + 1] = (float) Math.cos(t)*2.0f;
+			stars[i + 2] = (float) (Math.random() * MAXDIST);
+			stars[i + 3] = (float) Math.max(0.01f,Math.random()*0.1f); 
+			stars[i + 4] = (float) Math.max(0.8f,Math.random()*2f); 
 		}
 		
 		ByteBuffer nbv = ByteBuffer.allocateDirect(VertSize);
@@ -117,7 +121,7 @@ public class StarField {
 	public void draw(GL10 gl) {
 		GL11 gl11=(GL11)gl;
 		//gl.glEnableClientState(GL11.GL_COLOR_ARRAY);
-		gl.glPushMatrix();
+		
 		
 		gl.glDisable(GL10.GL_CULL_FACE);
 		gl.glEnable(GL10.GL_TEXTURE_2D);
@@ -126,13 +130,15 @@ public class StarField {
 		gl.glAlphaFunc( GL10.GL_GREATER, 0.5f ) ;
 		gl.glEnable ( GL10.GL_ALPHA_TEST ) ;
 		tex.setTexture(R.drawable.starfield);
-		for (int i = 0; i < NBSTARS; i = i + 4) {
-			gl.glScalef(stars[i+3], stars[i+3], 1.0f);
+		gl.glPushMatrix();
+		for (int i = 0; i < NBSTARS; i = i + 5) {
+			
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i], stars[i + 1], stars[i + 2]);
+			gl.glScalef(stars[i+4],stars[i+4],1.0f);
 			stars[i + 2] = (float) (stars[i + 2] + stars[i+3]);
 			if (stars[i + 2] > 0) {
-				stars[i + 2] = -100.0f;
+				stars[i + 2] = MAXDIST;
 			}
 
 		//gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mc);
@@ -147,9 +153,10 @@ public class StarField {
 			gl.glColorPointer(4, GL10.GL_UNSIGNED_BYTE, 0, bC);
 			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);*/
 		}
+		gl.glPopMatrix();
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glDisable(GL10.GL_BLEND);
-		gl.glPopMatrix();
+		
 		//gl.glDisableClientState(GL11.GL_COLOR_ARRAY);
 	}
 
