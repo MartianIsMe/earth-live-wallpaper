@@ -1,75 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:title="Main">
-	<com.seb.SLWP.SldDlgPref android:key="RotSpeed"
-		android:title="@string/p_speed" android:summary="@string/p_speedsum" />
-	<CheckBoxPreference android:defaultValue="false"
-		android:title="@string/p_syncrot" android:summaryOn="@string/p_syncroton"
-		android:key="Syncrot" android:summaryOff="@string/p_syncrotoff"></CheckBoxPreference>
-	<com.seb.SLWP.SldDlgPref android:key="Zoomfactor"
-		android:title="@string/p_zoom" android:summary="@string/p_zoomsum" />
-
-	<com.seb.SLWP.SldDlgPref android:key="Xpos"
-		android:title="@string/p_xpos" android:summary="@string/p_xpossum" />
-
-	<com.seb.SLWP.SldDlgPref android:key="Ypos"
-		android:title="@string/p_ypos" android:summary="@string/p_ypossum" />
-
-
-	<CheckBoxPreference android:summaryOn="@string/p_slidepon"
-		android:key="Slideplanet" android:summaryOff="@string/p_slidepoff"
-		android:title="@string/p_slidep" android:defaultValue="false"></CheckBoxPreference>
-	<CheckBoxPreference android:summaryOn="@string/p_diron"
-		android:key="Direction" android:title="@string/p_dir"
-		android:summaryOff="@string/p_diroff" android:defaultValue="true"></CheckBoxPreference>
-	<CheckBoxPreference android:summaryOn="@string/p_raxison"
-		android:title="@string/p_raxis" android:summaryOff="@string/p_raxisoff"
-		android:key="Realaxis" android:defaultValue="false"></CheckBoxPreference>
-	<ListPreference android:entries="@array/tex_id"
-		android:entryValues="@array/tex_value" android:dialogTitle="@string/p_textures"
-		android:key="Tex" android:title="@string/p_textures"
-		android:negativeButtonText="Cancel" android:enabled="true"
-		android:summary="@string/p_texturessum" android:defaultValue="1"></ListPreference>
-	<ListPreference android:entryValues="@array/refresh_value"
-		android:entries="@array/refresh_id" android:key="Synctime"
-		android:summary="@string/p_refsum" android:title="@string/p_ref"
-		android:defaultValue="60" android:dialogTitle="@string/p_ref"></ListPreference>
-	<com.seb.SLWP.ListPreferenceMultiSelect
-		android:key="Randlist" android:summary="@string/p_randlistsum"
-		android:title="@string/p_randlist" android:entries="@array/tex_id"
-		android:entryValues="@array/tex_value"></com.seb.SLWP.ListPreferenceMultiSelect>
-	<CheckBoxPreference android:key="Showmoon"
-		android:title="@string/p_showmoon" android:summary="@string/p_showmoonsum"
-		android:defaultValue="true"></CheckBoxPreference>
-	<CheckBoxPreference android:key="Usebg"
-		android:summaryOn="@string/p_usebgon" android:summaryOff="@string/p_usebgoff"
-		android:title="@string/p_usebg" android:defaultValue="true"></CheckBoxPreference>
-	<ListPreference android:negativeButtonText="Cancel"
-		android:enabled="true" android:title="@string/p_bg" android:entries="@array/bg_id"
-		android:summary="@string/p_bgsum" android:key="Bg"
-		android:dialogTitle="@string/p_bg" android:dependency="Usebg"
-		android:defaultValue="2" android:entryValues="@array/bg_value"></ListPreference>
-	<CheckBoxPreference android:summaryOn="@string/p_bgsdiron"
-		android:key="Bgslidedir" android:summaryOff="@string/p_bgsdiroff"
-		android:title="@string/p_bgsdir" android:dependency="Usebg"
-		android:defaultValue="false"></CheckBoxPreference>
-	<CheckBoxPreference android:title="@string/p_animbg"
-		android:summary="@string/p_animbgsum" android:key="Animbg" android:dependency="Usebg" android:defaultValue="false"></CheckBoxPreference>
-	<CheckBoxPreference android:key="TouchRot"
-		android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff"
-		android:title="@string/p_touchrot" android:defaultValue="false"></CheckBoxPreference>
-	<CheckBoxPreference android:summaryOn="@string/p_freespinon"
-		android:key="Freespin" android:title="@string/p_freespin"
-		android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot"></CheckBoxPreference>
-
-
-
-
-
-
-
-
-
-
-
+	<PreferenceScreen android:title="Globe aspect"
+		android:orderingFromXml="true" android:summary="Change globe aspect and position">
+		<com.seb.SLWP.SldDlgPref android:key="RotSpeed"
+			android:title="@string/p_speed" android:summary="@string/p_speedsum" />
+		<CheckBoxPreference android:defaultValue="false"
+			android:title="@string/p_syncrot" android:summaryOn="@string/p_syncroton"
+			android:key="Syncrot" android:summaryOff="@string/p_syncrotoff" />
+		<com.seb.SLWP.SldDlgPref android:key="Zoomfactor"
+			android:title="@string/p_zoom" android:summary="@string/p_zoomsum" />
+		<com.seb.SLWP.SldDlgPref android:key="Xpos"
+			android:title="@string/p_xpos" android:summary="@string/p_xpossum" />
+		<com.seb.SLWP.SldDlgPref android:key="Ypos"
+			android:title="@string/p_ypos" android:summary="@string/p_ypossum" />
+		<CheckBoxPreference android:summaryOn="@string/p_slidepon"
+			android:key="Slideplanet" android:summaryOff="@string/p_slidepoff"
+			android:title="@string/p_slidep" android:defaultValue="false" />
+		<CheckBoxPreference android:summaryOn="@string/p_diron"
+			android:key="Direction" android:title="@string/p_dir"
+			android:summaryOff="@string/p_diroff" android:defaultValue="true" />
+		<CheckBoxPreference android:summaryOn="@string/p_raxison"
+			android:title="@string/p_raxis" android:summaryOff="@string/p_raxisoff"
+			android:key="Realaxis" android:defaultValue="false" />
+		<CheckBoxPreference android:key="TouchRot"
+			android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff"
+			android:title="@string/p_touchrot" android:defaultValue="false" />
+		<CheckBoxPreference android:summaryOn="@string/p_freespinon"
+			android:key="Freespin" android:title="@string/p_freespin"
+			android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot" />
+	</PreferenceScreen>
+	<PreferenceScreen android:title="Maps"
+		android:orderingFromXml="true" android:summary="Choose the planet to display">
+		<ListPreference android:entries="@array/tex_id"
+			android:entryValues="@array/tex_value" android:dialogTitle="@string/p_textures"
+			android:key="Tex" android:title="@string/p_textures"
+			android:negativeButtonText="Cancel" android:enabled="true"
+			android:summary="@string/p_texturessum" android:defaultValue="1" />
+		<ListPreference android:entryValues="@array/refresh_value"
+			android:entries="@array/refresh_id" android:key="Synctime"
+			android:summary="@string/p_refsum" android:title="@string/p_ref"
+			android:defaultValue="60" android:dialogTitle="@string/p_ref" />
+		<com.seb.SLWP.ListPreferenceMultiSelect
+			android:key="Randlist" android:summary="@string/p_randlistsum"
+			android:title="@string/p_randlist" android:entries="@array/tex_id"
+			android:entryValues="@array/tex_value" />
+		<CheckBoxPreference android:key="Showmoon"
+			android:title="@string/p_showmoon" android:summary="@string/p_showmoonsum"
+			android:defaultValue="true" />
+	</PreferenceScreen>
+	<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+		android:title="Background" android:orderingFromXml="true"
+		android:summary="Choose the background">
+		<CheckBoxPreference android:key="Usebg"
+			android:summaryOn="@string/p_usebgon" android:summaryOff="@string/p_usebgoff"
+			android:title="@string/p_usebg" android:defaultValue="true" />
+		<ListPreference android:negativeButtonText="Cancel"
+			android:enabled="true" android:title="@string/p_bg" android:entries="@array/bg_id"
+			android:summary="@string/p_bgsum" android:key="Bg"
+			android:dialogTitle="@string/p_bg" android:dependency="Usebg"
+			android:defaultValue="2" android:entryValues="@array/bg_value" />
+		<CheckBoxPreference android:summaryOn="@string/p_bgsdiron"
+			android:key="Bgslidedir" android:summaryOff="@string/p_bgsdiroff"
+			android:title="@string/p_bgsdir" android:dependency="Usebg"
+			android:defaultValue="false" />
+		<CheckBoxPreference android:title="@string/p_animbg"
+			android:summary="@string/p_animbgsum" android:key="Animbg"
+			android:dependency="Usebg" android:defaultValue="false" />
+	</PreferenceScreen>
+	<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+		android:title="Starfield" android:orderingFromXml="true"
+		android:summary="Display an animated starfield in background">
+		<CheckBoxPreference android:key="Usestarfield"
+			android:title="Starfield" android:summary="Display a starfield"
+			android:defaultValue="false" />
+		<com.seb.SLWP.SldDlgPref android:key="Nbstars"
+			android:title="Stars density" android:summary="Set the stars density" android:dependency="Usestarfield"/>
+		<com.seb.SLWP.SldDlgPref android:key="Starspeed"
+			android:summary="choose the stars speed" android:title="Stars speed" android:dependency="Usestarfield" />
+	</PreferenceScreen>
 </PreferenceScreen>
