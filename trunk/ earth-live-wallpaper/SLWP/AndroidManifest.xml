@@ -20,10 +20,13 @@
 		</service>
 </application>
 <uses-sdk android:minSdkVersion="7" />
+<uses-feature android:name="android.software.live_wallpaper" />
 <supports-screens android:largeScreens="true" android:smallScreens="true" android:normalScreens="true" android:resizeable="true" android:anyDensity="true"></supports-screens>
 
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+
+
 </manifest> 
