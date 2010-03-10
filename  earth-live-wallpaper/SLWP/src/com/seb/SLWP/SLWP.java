@@ -31,6 +31,10 @@ import com.seb.SLWP.SLWP.GlEngine.DownloadTask;
 
 public class SLWP extends GLWallpaperService implements
 		OnSharedPreferenceChangeListener {
+	/* (non-Javadoc)
+	 * @see android.app.Service#onLowMemory()
+	 */
+
 	public static final long SLEEPTIME = 1000 * 60 * 30; // 30 minutes
 	private GlEngine mGle;
 	private CubeRenderer renderer;
@@ -385,7 +389,7 @@ public class SLWP extends GLWallpaperService implements
 				// TOUCH_SCALE_FACTOR+"-"+renderer.dy* TOUCH_SCALE_FACTOR);
 				// CubeRenderer.mAngleX += (renderer.dx * TOUCH_SCALE_FACTOR);
 				// CubeRenderer.mAngleY += (renderer.dy * TOUCH_SCALE_FACTOR);
-				requestRender();
+				//requestRender();
 				break;
 			case MotionEvent.ACTION_UP:
 				break;

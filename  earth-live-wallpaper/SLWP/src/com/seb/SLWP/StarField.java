@@ -132,7 +132,6 @@ public class StarField {
 		gl11.glTexCoordPointer(2, GL11.GL_FLOAT, 0, 0);
 		for (int i = 0; i < NBSTARS; i = i + 20) {
 			
-			
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i], stars[i + 1], stars[i + 2]);
 			gl.glScalef(stars[i + 4], stars[i + 4], 1.0f);
