@@ -12,9 +12,9 @@ import javax.microedition.khronos.egl.EGLSurface;
 import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.os.Looper;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import com.seb.SLWP.BaseConfigChooser.ComponentSizeChooser;
@@ -379,7 +379,7 @@ class EglHelper {
 		 */
 		if (!mEgl.eglMakeCurrent(mEglDisplay, mEglSurface, mEglSurface,
 				mEglContext)) {
-			//throw new RuntimeException("eglMakeCurrent failed.");
+			// throw new RuntimeException("eglMakeCurrent failed.");
 			return null;
 		}
 
@@ -485,7 +485,7 @@ class GLThread extends Thread {
 		this.mEGLContextFactory = contextFactory;
 		this.mEGLWindowSurfaceFactory = surfaceFactory;
 		this.mGLWrapper = wrapper;
-		
+
 	}
 
 	@Override
@@ -647,7 +647,7 @@ class GLThread extends Thread {
 					 */
 					mEglHelper.swap();
 				}
-				
+
 			}
 		} finally {
 			/*

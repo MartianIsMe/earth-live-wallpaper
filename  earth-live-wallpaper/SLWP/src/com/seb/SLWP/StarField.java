@@ -41,6 +41,8 @@ public class StarField {
 	private GLTextures tex;
 	private FloatBuffer bU;
 	private int mu = 0;
+	public static float speedfactor=1.0f;
+	public static float stardensity=1.0f;
 
 	public StarField(Context context) {
 		mContext = context;
@@ -53,7 +55,7 @@ public class StarField {
 			// Math.cos(t)>=0f?Math.cos(t)+2f:Math.cos(t)-2f);
 			stars[i] = (float) Math.sin(t) * 2.0f;
 			stars[i + 1] = (float) Math.cos(t) * 2.0f;
-			stars[i + 2] = (float) (Math.random() * MAXDIST);
+			stars[i + 2] = (float) (Math.random() * MAXDIST*stardensity);
 			stars[i + 3] = (float) Math.max(0.01f, Math.random() * 0.1f);
 			stars[i + 4] = (float) Math.max(0.8f, Math.random() * 2f);
 		}
@@ -135,18 +137,18 @@ public class StarField {
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i], stars[i + 1], stars[i + 2]);
 			gl.glScalef(stars[i + 4], stars[i + 4], 1.0f);
-			stars[i + 2] = (float) (stars[i + 2] + stars[i + 3]);
+			stars[i + 2] = (float) (stars[i + 2] + stars[i + 3]*speedfactor);
 			if (stars[i + 2] > 0) {
-				stars[i + 2] = MAXDIST;
+				stars[i + 2] = MAXDIST*stardensity;
 			}
 			gl11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
 			
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i+5], stars[i + 6], stars[i + 7]);
 			gl.glScalef(stars[i + 9], stars[i + 9], 1.0f);
-			stars[i + 7] = (float) (stars[i + 7] + stars[i + 8]);
+			stars[i + 7] = (float) (stars[i + 7] + stars[i + 8]*speedfactor);
 			if (stars[i + 7] > 0) {
-				stars[i + 7] = MAXDIST;
+				stars[i + 7] = MAXDIST*stardensity;
 			}
 			gl11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
 			
@@ -154,18 +156,18 @@ public class StarField {
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i+10], stars[i + 11], stars[i + 12]);
 			gl.glScalef(stars[i + 14], stars[i + 14], 1.0f);
-			stars[i + 12] = (float) (stars[i + 12] + stars[i + 13]);
+			stars[i + 12] = (float) (stars[i + 12] + stars[i + 13]*speedfactor);
 			if (stars[i + 12] > 0) {
-				stars[i + 12] = MAXDIST;
+				stars[i + 12] = MAXDIST*stardensity;
 			}
 			gl11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
 			
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i+15], stars[i + 16], stars[i + 17]);
 			gl.glScalef(stars[i + 19], stars[i + 19], 1.0f);
-			stars[i + 17] = (float) (stars[i + 17] + stars[i + 18]);
+			stars[i + 17] = (float) (stars[i + 17] + stars[i + 18]*speedfactor);
 			if (stars[i + 17] > 0) {
-				stars[i + 17] = MAXDIST;
+				stars[i + 17] = MAXDIST*stardensity;
 			}
 			gl11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
 			

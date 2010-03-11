@@ -97,7 +97,7 @@ public class HttpTexture {
 	
 			int error = gl.glGetError();
 			if (error != GL10.GL_NO_ERROR) {
-				Log.e("SLWP", "Texture Load GLError: " + error);
+				Log.w("SLWP", "Texture Load GLError: " + error);
 			}
 		}
 	}

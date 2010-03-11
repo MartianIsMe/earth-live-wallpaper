@@ -76,7 +76,7 @@ public class GLTextures {
             
             int error = gl.glGetError();
             if (error != GL10.GL_NO_ERROR) {
-                Log.e("VboCube", "Texture Load GLError: " + error);
+                Log.w("VboCube", "Texture Load GLError: " + error);
             }
 
 		}

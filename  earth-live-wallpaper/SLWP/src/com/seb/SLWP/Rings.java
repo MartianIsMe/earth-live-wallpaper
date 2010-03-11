@@ -51,7 +51,7 @@ class Rings implements Serializable {
 	public Rings(Context context) {
 		mContext = context;
 		loadObj();
-		Log.e("SLWP", "RINGS LOADED");
+		Log.i("SLWP", "RINGS LOADED");
 
 	}
 
@@ -78,7 +78,7 @@ class Rings implements Serializable {
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mVertBufferIndex);
 		gl11.glBufferData(GL11.GL_ARRAY_BUFFER, mVertexBuffer.capacity() * 4,
 				mVertexBuffer, GL11.GL_STATIC_DRAW);
-		Log.e("VboCube", "Vx ok");
+	
 
 		// normal buffer.
 		gl11.glGenBuffers(1, buffer, 0);
@@ -86,7 +86,7 @@ class Rings implements Serializable {
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mNormBufferIndex);
 		gl11.glBufferData(GL11.GL_ARRAY_BUFFER, mNormBuffer.capacity() * 4,
 				mNormBuffer, GL11.GL_STATIC_DRAW);
-		Log.e("VboCube", "Vn ok");
+	
 
 		// texcoord buffer
 		gl11.glGenBuffers(1, buffer, 0);
@@ -94,7 +94,7 @@ class Rings implements Serializable {
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
 		gl11.glBufferData(GL11.GL_ARRAY_BUFFER, mTexBuffer.capacity() * 4,
 				mTexBuffer, GL11.GL_STATIC_DRAW);
-		Log.e("VboCube", "Vt ok");
+	
 
 		// unbind array buffer
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
@@ -108,7 +108,7 @@ class Rings implements Serializable {
 
 		// Unbind the element array buffer.
 		gl11.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
-		Log.e("VboCube", "Idx ok");
+		
 	}
 
 	private void loadObj() {
@@ -254,7 +254,7 @@ class Rings implements Serializable {
 		mTexBufferIndex = 0;
 		mNormBufferIndex = 0;
 
-		Log.e("VboCube", "hardware buffer freed");
+		Log.i("VboCube", "hardware buffer freed");
 
 	}
 
