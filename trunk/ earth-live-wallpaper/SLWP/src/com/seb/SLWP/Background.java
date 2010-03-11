@@ -264,7 +264,7 @@ class Background implements Serializable {
 
 		int error = gl.glGetError();
 		if (error != GL10.GL_NO_ERROR) {
-			Log.e("SLWP", "Background Load GLError: " + error);
+			Log.w("SLWP", "Background Load GLError: " + error);
 		}
 	}
 

@@ -49,7 +49,7 @@ class DeathStar implements Serializable {
 	public DeathStar(Context context) {
 		mContext = context;
 		loadObj();
-		Log.e("DeathStar2", "LOADED");
+		Log.i("DeathStar2", "LOADED");
 
 	}
 
@@ -76,7 +76,7 @@ class DeathStar implements Serializable {
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mVertBufferIndex);
 		gl11.glBufferData(GL11.GL_ARRAY_BUFFER, mVertexBuffer.capacity() * 4,
 				mVertexBuffer, GL11.GL_STATIC_DRAW);
-		Log.e("VboCube", "Vx ok");
+		
 
 		// normal buffer.
 		gl11.glGenBuffers(1, buffer, 0);
@@ -84,7 +84,7 @@ class DeathStar implements Serializable {
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mNormBufferIndex);
 		gl11.glBufferData(GL11.GL_ARRAY_BUFFER, mNormBuffer.capacity() * 4,
 				mNormBuffer, GL11.GL_STATIC_DRAW);
-		Log.e("VboCube", "Vn ok");
+
 
 		// texcoord buffer
 		gl11.glGenBuffers(1, buffer, 0);
@@ -92,7 +92,7 @@ class DeathStar implements Serializable {
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
 		gl11.glBufferData(GL11.GL_ARRAY_BUFFER, mTexBuffer.capacity() * 4,
 				mTexBuffer, GL11.GL_STATIC_DRAW);
-		Log.e("VboCube", "Vt ok");
+	
 
 		// unbind array buffer
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
@@ -106,7 +106,7 @@ class DeathStar implements Serializable {
 
 		// Unbind the element array buffer.
 		gl11.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
-		Log.e("VboCube", "Idx ok");
+	
 		IdxCnt=mIndexBuffer.capacity();
 	}
 

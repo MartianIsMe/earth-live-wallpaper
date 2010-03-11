@@ -5,31 +5,23 @@
 		android:orderingFromXml="true" android:summary="Change globe aspect and position">
 		<com.seb.SLWP.SldDlgPref android:key="RotSpeed"
 			android:title="@string/p_speed" android:summary="@string/p_speedsum" />
-		<CheckBoxPreference android:defaultValue="false"
-			android:title="@string/p_syncrot" android:summaryOn="@string/p_syncroton"
-			android:key="Syncrot" android:summaryOff="@string/p_syncrotoff" />
+		
 		<com.seb.SLWP.SldDlgPref android:key="Zoomfactor"
 			android:title="@string/p_zoom" android:summary="@string/p_zoomsum" />
 		<com.seb.SLWP.SldDlgPref android:key="Xpos"
 			android:title="@string/p_xpos" android:summary="@string/p_xpossum" />
 		<com.seb.SLWP.SldDlgPref android:key="Ypos"
 			android:title="@string/p_ypos" android:summary="@string/p_ypossum" />
-		<CheckBoxPreference android:summaryOn="@string/p_slidepon"
-			android:key="Slideplanet" android:summaryOff="@string/p_slidepoff"
-			android:title="@string/p_slidep" android:defaultValue="false" />
+		
 		<CheckBoxPreference android:summaryOn="@string/p_diron"
 			android:key="Direction" android:title="@string/p_dir"
 			android:summaryOff="@string/p_diroff" android:defaultValue="true" />
 		<CheckBoxPreference android:summaryOn="@string/p_raxison"
 			android:title="@string/p_raxis" android:summaryOff="@string/p_raxisoff"
 			android:key="Realaxis" android:defaultValue="false" />
-		<CheckBoxPreference android:key="TouchRot"
-			android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff"
-			android:title="@string/p_touchrot" android:defaultValue="false" />
-		<CheckBoxPreference android:summaryOn="@string/p_freespinon"
-			android:key="Freespin" android:title="@string/p_freespin"
-			android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot" />
-	</PreferenceScreen>
+		
+		
+	</PreferenceScreen><PreferenceScreen android:orderingFromXml="true" android:title="Globe behaviour" android:summary="Change how you interact with the globe"><CheckBoxPreference android:defaultValue="false" android:title="@string/p_syncrot" android:summaryOn="@string/p_syncroton" android:key="Syncrot" android:summaryOff="@string/p_syncrotoff" /><CheckBoxPreference android:summaryOn="@string/p_slidepon" android:key="Slideplanet" android:summaryOff="@string/p_slidepoff" android:title="@string/p_slidep" android:defaultValue="false" /><CheckBoxPreference android:key="TouchRot" android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff" android:title="@string/p_touchrot" android:defaultValue="false" /><CheckBoxPreference android:summaryOn="@string/p_freespinon" android:key="Freespin" android:title="@string/p_freespin" android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot" /></PreferenceScreen>
 	<PreferenceScreen android:title="Maps"
 		android:orderingFromXml="true" android:summary="Choose the planet to display">
 		<ListPreference android:entries="@array/tex_id"
@@ -72,11 +64,12 @@
 		android:title="Starfield" android:orderingFromXml="true"
 		android:summary="Display an animated starfield in background">
 		<CheckBoxPreference android:key="Usestarfield"
-			android:title="Starfield" android:summary="Display a starfield"
-			android:defaultValue="false" />
+			android:title="Starfield" android:summary="Display a starfield" android:defaultValue="false"/>
 		<com.seb.SLWP.SldDlgPref android:key="Nbstars"
 			android:title="Stars density" android:summary="Set the stars density" android:dependency="Usestarfield"/>
 		<com.seb.SLWP.SldDlgPref android:key="Starspeed"
 			android:summary="choose the stars speed" android:title="Stars speed" android:dependency="Usestarfield" />
-	</PreferenceScreen>
+	
+</PreferenceScreen><CheckBoxPreference android:key="Runinforeground" android:summary="Run the wallpaper in foreground " android:title="Foreground"></CheckBoxPreference>
+
 </PreferenceScreen>

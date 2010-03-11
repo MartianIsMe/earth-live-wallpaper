@@ -62,6 +62,7 @@ class CubeRenderer implements Renderer, Serializable {
 	public boolean deathstar2 = false;
 	private boolean inited = false;
 	private StarField mStarfield;
+	public static boolean useStarfield;
 	
 	public CubeRenderer(Context context) {
 		mContext = context;
@@ -177,7 +178,8 @@ class CubeRenderer implements Renderer, Serializable {
 			gl.glDepthMask(true);
 		}
 		
-		mStarfield.draw(gl);
+		if(useStarfield)
+			mStarfield.draw(gl);
 		
 		gl.glPushMatrix();
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
