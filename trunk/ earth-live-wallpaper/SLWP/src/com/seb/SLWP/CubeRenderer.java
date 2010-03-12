@@ -221,7 +221,6 @@ class CubeRenderer implements Renderer, Serializable {
 			mRings.draw(gl);
 
 		gl.glPopMatrix();
-		
 	}
 
 	public int[] getConfigSpec() {

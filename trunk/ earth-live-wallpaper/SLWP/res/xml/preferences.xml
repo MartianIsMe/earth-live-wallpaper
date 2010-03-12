@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:title="Main">
-	<PreferenceScreen android:title="Globe aspect"
-		android:orderingFromXml="true" android:summary="Change globe aspect and position">
+	<PreferenceScreen android:orderingFromXml="true" android:summary="@string/p_gas" android:title="@string/p_ga">
 		<com.seb.SLWP.SldDlgPref android:key="RotSpeed"
 			android:title="@string/p_speed" android:summary="@string/p_speedsum" />
 		
@@ -21,9 +20,8 @@
 			android:key="Realaxis" android:defaultValue="false" />
 		
 		
-	</PreferenceScreen><PreferenceScreen android:orderingFromXml="true" android:title="Globe behaviour" android:summary="Change how you interact with the globe"><CheckBoxPreference android:defaultValue="false" android:title="@string/p_syncrot" android:summaryOn="@string/p_syncroton" android:key="Syncrot" android:summaryOff="@string/p_syncrotoff" /><CheckBoxPreference android:summaryOn="@string/p_slidepon" android:key="Slideplanet" android:summaryOff="@string/p_slidepoff" android:title="@string/p_slidep" android:defaultValue="false" /><CheckBoxPreference android:key="TouchRot" android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff" android:title="@string/p_touchrot" android:defaultValue="false" /><CheckBoxPreference android:summaryOn="@string/p_freespinon" android:key="Freespin" android:title="@string/p_freespin" android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot" /></PreferenceScreen>
-	<PreferenceScreen android:title="Maps"
-		android:orderingFromXml="true" android:summary="Choose the planet to display">
+	</PreferenceScreen><PreferenceScreen android:orderingFromXml="true" android:summary="@string/p_gbs" android:title="@string/p_gb"><CheckBoxPreference android:defaultValue="false" android:title="@string/p_syncrot" android:summaryOn="@string/p_syncroton" android:key="Syncrot" android:summaryOff="@string/p_syncrotoff" /><CheckBoxPreference android:summaryOn="@string/p_slidepon" android:key="Slideplanet" android:summaryOff="@string/p_slidepoff" android:title="@string/p_slidep" android:defaultValue="false" /><CheckBoxPreference android:key="TouchRot" android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff" android:title="@string/p_touchrot" android:defaultValue="false" /><CheckBoxPreference android:summaryOn="@string/p_freespinon" android:key="Freespin" android:title="@string/p_freespin" android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot" /></PreferenceScreen>
+	<PreferenceScreen android:orderingFromXml="true" android:summary="@string/p_m" android:title="@string/p_m">
 		<ListPreference android:entries="@array/tex_id"
 			android:entryValues="@array/tex_value" android:dialogTitle="@string/p_textures"
 			android:key="Tex" android:title="@string/p_textures"
@@ -42,8 +40,7 @@
 			android:defaultValue="true" />
 	</PreferenceScreen>
 	<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-		android:title="Background" android:orderingFromXml="true"
-		android:summary="Choose the background">
+		android:orderingFromXml="true" android:summary="@string/p_bs" android:title="@string/p_b">
 		<CheckBoxPreference android:key="Usebg"
 			android:summaryOn="@string/p_usebgon" android:summaryOff="@string/p_usebgoff"
 			android:title="@string/p_usebg" android:defaultValue="true" />
@@ -61,15 +58,14 @@
 			android:dependency="Usebg" android:defaultValue="false" />
 	</PreferenceScreen>
 	<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-		android:title="Starfield" android:orderingFromXml="true"
-		android:summary="Display an animated starfield in background">
+		android:orderingFromXml="true" android:summary="@string/p_ss" android:title="@string/p_s">
 		<CheckBoxPreference android:key="Usestarfield"
-			android:title="Starfield" android:summary="Display a starfield" android:defaultValue="false"/>
+			android:defaultValue="false" android:summary="@string/p_pss" android:title="@string/p_ps"/>
 		<com.seb.SLWP.SldDlgPref android:key="Nbstars"
-			android:title="Stars density" android:summary="Set the stars density" android:dependency="Usestarfield"/>
+			android:title="@string/p_sdens" android:dependency="Usestarfield" android:summary="@string/p_ssdens"/>
 		<com.seb.SLWP.SldDlgPref android:key="Starspeed"
-			android:summary="choose the stars speed" android:title="Stars speed" android:dependency="Usestarfield" />
+			android:dependency="Usestarfield" android:title="@string/p_sspeed" android:summary="@string/p_ssspeed"/>
 	
-</PreferenceScreen><CheckBoxPreference android:key="Runinforeground" android:summary="Run the wallpaper in foreground " android:title="Foreground"></CheckBoxPreference>
+</PreferenceScreen><CheckBoxPreference android:key="Runinforeground" android:summary="@string/p_fs" android:title="@string/p_f"></CheckBoxPreference>
 
 </PreferenceScreen>

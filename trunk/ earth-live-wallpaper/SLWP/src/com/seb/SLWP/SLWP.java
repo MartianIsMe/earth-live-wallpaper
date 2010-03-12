@@ -101,23 +101,13 @@ public class SLWP extends GLWallpaperService implements
 			mStopForeground = getClass().getMethod("stopForeground",
 					mStopForegroundSignature);
 		} catch (NoSuchMethodException e) {
-			// Running on an older platform.
 			mStartForeground = mStopForeground = null;
 		}
-		// In this sample, we'll use the same text for the ticker and the
-		// expanded notification
 		CharSequence text = "Running in foreground...";
-
-		// Set the icon, scrolling text and timestamp
 		Notification notification = new Notification(R.drawable.notificon, text,
 				System.currentTimeMillis());
-
-		// The PendingIntent to launch our activity if the user selects this
-		// notification
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				new Intent(this, Prefs.class), 0);
-
-		// Set the info for the views that show in the notification panel.
 		notification.setLatestEventInfo(this, "Earth live wallpaper", text,
 				contentIntent);
 
@@ -227,7 +217,7 @@ public class SLWP extends GLWallpaperService implements
 			StarField.speedfactor = (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Starspeed", 100) / 100f);
 			
-			StarField.stardensity = (PreferenceManager
+			StarField.stardensity = 2*(PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Nbstars", 100) / 100f);
 			// usebackground ??
 			Usebg = PreferenceManager.getDefaultSharedPreferences(this)
@@ -437,6 +427,11 @@ public class SLWP extends GLWallpaperService implements
 				StopFG();
 			}
 		}
+		else if(key.compareToIgnoreCase("Nbstars") == 0){
+			StarField.stardensity = 2f*(PreferenceManager
+					.getDefaultSharedPreferences(this).getInt("Nbstars", 100) / 100f);
+			StarField.InitStars();
+		}
 	}
 
 	@Override
@@ -522,6 +517,39 @@ public class SLWP extends GLWallpaperService implements
 			// TODO Auto-generated method stub
 			super.onVisibilityChanged(visible);
 			SLWP.visible = visible;
+			if(visible){
+				NOW = new Date().getTime();
+				if (Randomtex) {
+					Tex = randtex();
+					renderer.setTex(Tex);
+				}
+				if ((Tex == 0
+						&& (!Fcache.exists() || Fcache.length() < 35 * 1024 || Fcache
+								.lastModified() < NOW - Synctime) && !isPreview() /*
+																				 * &&
+																				 * !
+																				 * loading
+																				 */)
+						/* || (Tex == 0 && needresume) */
+						|| (Tex == 0
+								&& (!Fcache.exists() || Fcache.length() < 35 * 1024) && isPreview())) {
+
+					needresume = false;
+					startDownload();
+				}
+				if (fstart) {
+					if (Tex == 0 && !isPreview()) {
+						GlEngine.this.queueEvent(Sphere.mUpdateTex);
+					}
+					fstart = false;
+				}
+			}
+			else{
+				if (DT != null) {
+					DT.cancel(true);
+					needresume = true;
+				}
+			}
 		}
 
 		public void startDownload() {
@@ -564,41 +592,14 @@ public class SLWP extends GLWallpaperService implements
 		public void onPause() {
 			// TODO Auto-generated method stub
 			super.onPause();
-			if (DT != null) {
-				DT.cancel(true);
-				needresume = true;
-			}
+			
 
 		}
 
 		@Override
 		public void onResume() {
 			super.onResume();
-			NOW = new Date().getTime();
-			if (Randomtex) {
-				Tex = randtex();
-				renderer.setTex(Tex);
-			}
-			if ((Tex == 0
-					&& (!Fcache.exists() || Fcache.length() < 35 * 1024 || Fcache
-							.lastModified() < NOW - Synctime) && !isPreview() /*
-																			 * &&
-																			 * !
-																			 * loading
-																			 */)
-					/* || (Tex == 0 && needresume) */
-					|| (Tex == 0
-							&& (!Fcache.exists() || Fcache.length() < 35 * 1024) && isPreview())) {
-
-				needresume = false;
-				startDownload();
-			}
-			if (fstart) {
-				if (Tex == 0 && !isPreview()) {
-					GlEngine.this.queueEvent(Sphere.mUpdateTex);
-				}
-				fstart = false;
-			}
+			
 		}
 
 		private int randtex() {

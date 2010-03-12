@@ -232,6 +232,7 @@ class Sphere implements Serializable {
 			textures.setTexture(mTex);
 		else
 			if(httptexture!=null)httptexture.setTexture();
+		
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
 		gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);
 

@@ -41,21 +41,35 @@
 	<string name="p_syncrot">Rotation glissante</string>
 	<string name="p_syncroton">La rotation du globe suit le glissement</string>
 	<string name="p_syncrotoff">La rotation du globe ne suit pas le glissement</string>
-	
 	<string name="p_xpos">Position horizontale</string>
 	<string name="p_xpossum">Déplace le globe horizontalement</string>
-	
 	<string name="p_ypos">Position verticale</string>
 	<string name="p_ypossum">Déplace le globe verticallement</string>
-	
 	<string name="p_showmoon">Lune en orbite</string>
 	<string name="p_showmoonsum">Montre la lune en orbite autour de la terre</string>
-	
 	<string name="p_randlistsum">Choix des cartes utilisées en mode aléatoire</string>
 	<string name="p_randlist">Liste aléatoire</string>
-	
 	<string name="p_animbgsum">Fait glisser lentemet le fond</string>
 	<string name="p_animbg">Animé l\'arriére plan</string>
+	
+	<string name="p_ga">Aspect du globe</string>
+	<string name="p_gas">Changer l\'apparence et la position du globe</string>
+	<string name="p_gb">Comportement du globe</string>
+	<string name="p_gbs">Changer la façon d\'interragir avec le globe</string>
+	<string name="p_m">Cartes</string>
+	<string name="p_ms">Choisissez la planète à afficher</string>
+	<string name="p_b">Arrière-plan</string>
+	<string name="p_bs">Choisissez l\'arrière-plan</string>
+	<string name="p_s">Starfield</string>
+	<string name="p_ss">Ajoutez un effet "starfield"</string>
+	<string name="p_f">Premier plan</string>
+	<string name="p_fs">Faire tourner le service au premier plan (evite certains bugs)</string>
+	<string name="p_ps">Starfield</string>
+	<string name="p_pss">Activer l\'effet "starfield"</string>
+	<string name="p_sspeed">Vitesse des étoiles</string>
+	<string name="p_ssspeed">Choisissez la vitesse maximale des étoiles</string>
+	<string name="p_sdens">Densité d\'étoiles</string>
+	<string name="p_ssdens">Choisissez le nombre d\'étoiles</string>
 	
 	<string-array name="tex_id">
 		<item>Aléatoire</item>
