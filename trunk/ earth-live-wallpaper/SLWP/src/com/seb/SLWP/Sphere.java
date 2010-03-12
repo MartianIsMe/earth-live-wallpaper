@@ -246,7 +246,7 @@ class Sphere implements Serializable {
 		gl11.glDrawElements(GL11.GL_TRIANGLES, IdxCnt,
 				GL11.GL_UNSIGNED_SHORT, 0);
 
-		if (showmoon && (intTex < 4 || intTex == 13)) {
+		if (showmoon && (intTex < 4 || intTex == 13|| intTex == 29)) {
 
 			if (intTex < 4)
 				textures.setTexture(R.drawable.moon);
@@ -369,6 +369,18 @@ class Sphere implements Serializable {
 			break;
 		case 26:
 			mTex = R.drawable.sun;
+			break;
+		case 27:
+			mTex = R.drawable.coruscant;
+			break;
+		case 28:
+			mTex = R.drawable.utapau;
+			break;
+		case 29:
+			mTex = R.drawable.yavin4;
+			break;
+		case 30:
+			mTex = R.drawable.kamino;
 			break;
 		}
 	}
