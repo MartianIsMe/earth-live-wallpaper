@@ -4,7 +4,8 @@
 	<string name="app_name">EarthRot</string>
 	<string name="description">rotación Globe (OpenGL VBO)</string>
 	<string name="p_speed">velocidad</string>
-	<string name="p_speedsum">Elija la velocidad de rotación de la Tierra</string>
+	<string name="p_speedsum">Elija la velocidad de rotación de la Tierra
+	</string>
 	<string name="p_clouds">Nubes</string>
 	<string name="p_cloudson">nubes se muestran</string>
 	<string name="p_cloudsoff">nubes son ocultos</string>
@@ -27,36 +28,58 @@
 	<string name="p_usebgon"> el fondo está habilitado </string>
 	<string name="p_usebgoff"> el fondo está desactivado </string>
 	<string name="p_ref"> actualiza </string>
-	<string name="p_refsum"> Seleccione la frecuencia de actualización del mapa </string>
+	<string name="p_refsum"> Seleccione la frecuencia de actualización del mapa
+	</string>
 	<string name="p_raxis"> eje natural de la Tierra </string>
-	<string name="p_raxison"> girar alrededor del eje de la Tierra físicas  </string>
+	<string name="p_raxison"> girar alrededor del eje de la Tierra físicas
+	</string>
 	<string name="p_raxisoff"> giran alrededor de un eje vertical </string>
-	
 	<string name="p_bgsdir">Deslizamiento invertido</string>
-	<string name="p_bgsdiron">diapositivas de fondo no sigue la dirección de la pantalla</string>
-	<string name="p_bgsdiroff">diapositivas de fondo en la dirección de la pantalla</string>
+	<string name="p_bgsdiron">diapositivas de fondo no sigue la dirección de la
+		pantalla</string>
+	<string name="p_bgsdiroff">diapositivas de fondo en la dirección de la
+		pantalla</string>
 	<string name="p_slidep">Deslizamiento del mundo</string>
 	<string name="p_slidepon">El mundo se mueve con la pantalla</string>
 	<string name="p_slidepoff">El mundo se fija a la pantalla</string>
 	<string name="p_syncrot">rotación resbaladizo</string>
 	<string name="p_syncroton">rotación de la tierra tras el derrumbe</string>
-	<string name="p_syncrotoff">rotación de la Tierra no sigue la diapositiva </string>
-	
+	<string name="p_syncrotoff">rotación de la Tierra no sigue la diapositiva
+	</string>
 	<string name="p_xpos">Posición horizontal </string>
 	<string name="p_xpossum">Mueve el mundo horizontal </string>
-	
 	<string name="p_ypos">Posición vertical </string>
 	<string name="p_ypossum">Mueve el mundo vertical</string>
-	
 	<string name="p_showmoon">Luna en órbita</string>
-	<string name="p_showmoonsum">observar la luna en órbita alrededor de la Tierra</string>
-	
-	<string name="p_randlistsum">Elección de los planetas utilizados en azar</string>
+	<string name="p_showmoonsum">observar la luna en órbita alrededor de la Tierra
+	</string>
+	<string name="p_randlistsum">Elección de los planetas utilizados en azar
+	</string>
 	<string name="p_randlist">Lista aleatoria</string>
-	
 	<string name="p_animbgsum">deslice el fondo poco a poco</string>
 	<string name="p_animbg">Fondo animado</string>
-	
+
+	<string name="p_ga">Aspecto del mundo </string>
+	<string name="p_gas">cambiar el aspecto y posición del mundo </string>
+	<string name="p_gb">Comportamiento del mundo </string>
+	<string name="p_gbs">Cambiar la forma de interactuar con el mundo
+	</string>
+	<string name="p_m">Planeta </string>
+	<string name="p_ms">Elija el planeta para mostrar </string>
+	<string name="p_b">Fondo de pantalla </string>
+	<string name="p_bs">Elegir el fondo de pantalla </string>
+	<string name="p_s">Starfield </string>
+	<string name="p_ss">Efecto "Starfield" </string>
+	<string name="p_f">Primer plano </string>
+	<string name="p_fs">Ejecutar el servicio en el primer plano (evita
+		algunos errores) </string>
+	<string name="p_ps"> Starfield </string>
+	<string name="p_pss">efecto Habilitar "Starfield" </string>
+	<string name="p_sspeed">Velocidad</string>
+	<string name="p_ssspeed">Elija la velocidad de las estrellas </string>
+	<string name="p_sdens">Número de estrellas </string>
+	<string name="p_ssdens">Elija el número de estrellas</string>
+
 	<string-array name="tex_id">
 		<item>Aleatorio</item>
 		<item>Tiempo real</item>

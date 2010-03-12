@@ -65,6 +65,7 @@ class Background implements Serializable {
 	private final int MODSTEPS = STEPS - 1;
 	private float elx=0f;
 	private float ely=0f;
+	public static int bgspeed=1;
 
 	public Background(Context context) {
 		mContext = context;
@@ -122,7 +123,7 @@ class Background implements Serializable {
 			
 			elx = (float) ellipse[elidx].x;
 			ely = (float) ellipse[elidx].y;
-			elidx = (elidx + 1) % MODSTEPS;
+			elidx = (elidx + bgspeed) % MODSTEPS;
 			//zlev=(float) (Math.cos(elx*0.01f)+Math.sin(ely*0.01f));
 			/*
 			 * zlev += Math.sin(zlev) * zspeed * zdir; if (zlev >= 2f){ zdir =

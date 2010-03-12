@@ -44,22 +44,35 @@
 	<string name="p_syncrot">Slide rotation</string>
 	<string name="p_syncroton">Globe is rotating synchronous with screen (better if rot. speed=0)</string>
 	<string name="p_syncrotoff">Globe isn\'t rotating synchronous with screen</string>
-	
 	<string name="p_xpos">Globe x position</string>
 	<string name="p_xpossum">move the globe horizontally on screen</string>
-	
 	<string name="p_ypos">Globe y position</string>
 	<string name="p_ypossum">move the globe vertically on screen</string>
-	
 	<string name="p_showmoon">Orbiting moon</string>
 	<string name="p_showmoonsum">Show the moon orbiting around earth</string>
-	
 	<string name="p_randlistsum">Choose the maps to use in random map mode</string>
 	<string name="p_randlist">Random List</string>
-	
 	<string name="p_animbgsum">Make the background slide slowly</string>
 	<string name="p_animbg">Animate background</string>
 	
+	<string name="p_ga">Globe aspect</string>
+	<string name="p_gas">Change globe aspect and position</string>
+	<string name="p_gb">Globe behavior</string>
+	<string name="p_gbs">Change how you interact with the globe</string>
+	<string name="p_m">Maps</string>
+	<string name="p_ms">Choose the planet to display</string>
+	<string name="p_b">Background</string>
+	<string name="p_bs">Choose the background</string>
+	<string name="p_s">Starfield</string>
+	<string name="p_ss">Add an animated starfield</string>
+	<string name="p_f">Foreground</string>
+	<string name="p_fs">Run the wallpaper in foreground (avoid some crashes)</string>
+	<string name="p_ps">Starfield</string>
+	<string name="p_pss">Display a starfield</string>
+	<string name="p_sspeed">Stars speed</string>
+	<string name="p_ssspeed">Set the stars max speed</string>
+	<string name="p_sdens">Stars density</string>
+	<string name="p_ssdens">Set the number of stars</string>
 	<declare-styleable name="Wallpaper">
 		<!--
 			Component name of an activity that allows the user to modify the
