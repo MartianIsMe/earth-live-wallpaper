@@ -70,7 +70,7 @@ public class SLWP extends GLWallpaperService implements
 	public ConnectivityManager cm;
 	public boolean needresume;
 	public boolean fstart;
-	private String[] randlist;
+	public static String[] randlist;
 	public int curtexidx = -99;
 
 	private static final Class[] mStartForegroundSignature = new Class[] {
@@ -93,7 +93,10 @@ public class SLWP extends GLWallpaperService implements
 		Init();
 	}
 
+	
+	
 	private void StartFG(){
+		
 		mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		try {
 			mStartForeground = getClass().getMethod("startForeground",
