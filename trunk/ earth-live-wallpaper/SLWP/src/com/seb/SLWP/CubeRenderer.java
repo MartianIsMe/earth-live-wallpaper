@@ -30,8 +30,11 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Looper;
+import android.util.Log;
 
 import com.seb.SLWP.GLWallpaperService.Renderer;
 
@@ -63,20 +66,34 @@ class CubeRenderer implements Renderer, Serializable {
 	private boolean inited = false;
 	private StarField mStarfield;
 	public static boolean useStarfield;
-	
+	private LabelMaker lm = new LabelMaker(true, 1024, 1024);
+	private Paint textPaint;
+	private int labelid;
+	private float mWidth;
+	private float mHeight;
+	private CharSequence[] v;
+
 	public CubeRenderer(Context context) {
 		mContext = context;
 		mBg = new Background(mContext);
-		mStarfield=new StarField(mContext);
+		mStarfield = new StarField(mContext);
 		// mSphere = new Sphere(mContext);
 		// mRings = new Rings(mContext);
 		// new InitTask().execute();
+		textPaint = new Paint();
+		textPaint.setColor(0xffffffff);
+		textPaint.setAntiAlias(true);
+		textPaint.setStrokeWidth(1);
+		textPaint.setTextSize(32f);
+		textPaint.setStrokeCap(Paint.Cap.ROUND);
+		textPaint.setStyle(Paint.Style.FILL);
+		
 	}
-	
-	public void setAnimbg(Boolean b){
-		Background.animbg=b;
+
+	public void setAnimbg(Boolean b) {
+		Background.animbg = b;
 	}
-	
+
 	public void setTex(int t) {
 		showrings = t == 15 ? true : false;
 		switch (t) {
@@ -145,13 +162,33 @@ class CubeRenderer implements Renderer, Serializable {
 			break;
 		}
 		curtex = t;
-		if(t!=0)Sphere.InitTex();
+		if(mGl!=null)initlabel(mGl);
+		if (t != 0)
+			Sphere.InitTex();
 	}
 
 	public void setBg(int t) {
 		mBg.InitTex(mGl, t);
 	}
 
+	private void initlabel(GL10 gl){
+		lm.initialize(gl);
+		lm.beginAdding(gl);
+		
+		v=mContext.getResources().getTextArray(R.array.tex_value);
+		int l=v.length;
+		int idx=0;
+		for(int i=0;i<l;i++){
+			if(Integer.parseInt((String) v[i])==curtex){
+				idx = i;
+				break;
+			}
+		}
+		labelid = /*lm.add(mGl, "planete : " + curtex, textPaint);*/
+		lm.add(gl, Resources.getSystem().getDrawable(android.R.drawable.btn_default_small), (String) mContext.getResources().getTextArray(R.array.tex_id)[idx], textPaint, (int) mWidth, 48);
+		lm.endAdding(gl);
+	}
+	
 	public void setRA(boolean ra) {
 		realaxis = ra ? 1f : 0f;
 	}
@@ -177,10 +214,10 @@ class CubeRenderer implements Renderer, Serializable {
 			mBg.draw(gl);
 			gl.glDepthMask(true);
 		}
-		
-		if(useStarfield)
+
+		if (useStarfield)
 			mStarfield.draw(gl);
-		
+
 		gl.glPushMatrix();
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
@@ -212,14 +249,24 @@ class CubeRenderer implements Renderer, Serializable {
 
 		if (deathstar2) {
 			gl.glEnable(GL10.GL_BLEND);
-			if(mDs!=null)mDs.draw(gl);
+			if (mDs != null)
+				mDs.draw(gl);
 			gl.glDisable(GL10.GL_BLEND);
 		} else if (mSphere != null)
 			mSphere.draw(gl, showmoon);
 
-		if (showrings&&mRings!=null)
+		if (showrings && mRings != null)
 			mRings.draw(gl);
 
+		try {
+
+			lm.beginDrawing(gl, mWidth, mHeight);
+			lm.draw(gl, 0, mHeight-lm.getHeight(labelid)-34, labelid);
+			lm.endDrawing(gl);
+
+		} catch (Exception e) {
+			Log.e("SLWP", e.getMessage());
+		}
 		gl.glPopMatrix();
 	}
 
@@ -248,7 +295,8 @@ class CubeRenderer implements Renderer, Serializable {
 		 * draw, but usually a new projection needs to be set when the viewport
 		 * is resized.
 		 */
-
+		mWidth = width;
+		mHeight = height;
 		mRatio = (float) width / height;
 		mBg.setDims(width, height);
 		// Background.vW=width;
@@ -257,25 +305,21 @@ class CubeRenderer implements Renderer, Serializable {
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
 		gl.glFrustumf(-mRatio, mRatio, -1f, 1f, 2f, 15f);
-		
+
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		/*gl.glViewport(0, 0, width, height);
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		gl.glLoadIdentity();
-		float xmin, xmax, ymin, ymax;
-		float aspect = (float) width / height;
-		float zNear = 0.1f;
-		float zFar = 100.0f;
+		/*
+		 * gl.glViewport(0, 0, width, height);
+		 * gl.glMatrixMode(GL10.GL_PROJECTION); gl.glLoadIdentity(); float xmin,
+		 * xmax, ymin, ymax; float aspect = (float) width / height; float zNear
+		 * = 0.1f; float zFar = 100.0f;
+		 * 
+		 * ymax = (float) (zNear * Math.tan(45.0f * Math.PI / 360.0)); ymin =
+		 * -ymax; xmin = ymin * aspect; xmax = ymax * aspect;
+		 * 
+		 * gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
+		 */
 
-		ymax = (float) (zNear * Math.tan(45.0f * Math.PI / 360.0));
-		ymin = -ymax;
-		xmin = ymin * aspect;
-		xmax = ymax * aspect;
-
-		gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);*/
-		
-		
 		if (mDs == null && deathstar2) {
 			mDs = new DeathStar(mContext);
 		}
@@ -289,8 +333,11 @@ class CubeRenderer implements Renderer, Serializable {
 				mRings = new Rings(mContext);
 			mRings.Init(gl);
 		}
-		if(mStarfield!=null)mStarfield.init(gl);
+		if (mStarfield != null)
+			mStarfield.init(gl);
 
+		initlabel(gl);
+		 
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -322,6 +369,11 @@ class CubeRenderer implements Renderer, Serializable {
 			mBg.Init(gl);
 		// mBg.setDims(480, 800);
 		// mBg.draw(gl);
+
+		lm.initialize(mGl);
+		lm.beginAdding(mGl);
+		labelid = lm.add(mGl, "planete : " + curtex, textPaint);
+		
 	}
 
 	public void shutdown(GL10 gl) {
