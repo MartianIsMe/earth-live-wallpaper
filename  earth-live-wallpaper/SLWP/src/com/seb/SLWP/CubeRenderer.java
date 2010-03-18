@@ -72,6 +72,11 @@ class CubeRenderer implements Renderer, Serializable {
 	private float mWidth;
 	private float mHeight;
 	private CharSequence[] v;
+	public boolean initing = false;
+	public float lypos = 0.25f;
+	private float labxpos;
+	private float labypos;
+	public boolean showText=false;
 
 	public CubeRenderer(Context context) {
 		mContext = context;
@@ -87,14 +92,20 @@ class CubeRenderer implements Renderer, Serializable {
 		textPaint.setTextSize(32f);
 		textPaint.setStrokeCap(Paint.Cap.ROUND);
 		textPaint.setStyle(Paint.Style.FILL);
-		
+
 	}
 
 	public void setAnimbg(Boolean b) {
 		Background.animbg = b;
 	}
 
+	public void setYpos(float yp) {
+		lypos = yp;
+		labypos = mHeight * yp;
+	}
+
 	public void setTex(int t) {
+		while(initing);
 		showrings = t == 15 ? true : false;
 		switch (t) {
 		case 0:
@@ -162,33 +173,39 @@ class CubeRenderer implements Renderer, Serializable {
 			break;
 		}
 		curtex = t;
-		if(mGl!=null)initlabel(mGl);
-		if (t != 0)
-			Sphere.InitTex();
+		// if(mGl!=null)initlabel(mGl);
+		// if (t != 0)
+		// Sphere.InitTex();
 	}
 
 	public void setBg(int t) {
 		mBg.InitTex(mGl, t);
 	}
 
-	private void initlabel(GL10 gl){
+	private void initlabel(GL10 gl) {
+
 		lm.initialize(gl);
 		lm.beginAdding(gl);
-		
-		v=mContext.getResources().getTextArray(R.array.tex_value);
-		int l=v.length;
-		int idx=0;
-		for(int i=0;i<l;i++){
-			if(Integer.parseInt((String) v[i])==curtex){
+
+		v = mContext.getResources().getTextArray(R.array.tex_value);
+		int l = v.length;
+		int idx = 0;
+		for (int i = 0; i < l; i++) {
+			if (Integer.parseInt((String) v[i]) == curtex) {
 				idx = i;
 				break;
 			}
 		}
-		labelid = /*lm.add(mGl, "planete : " + curtex, textPaint);*/
-		lm.add(gl, Resources.getSystem().getDrawable(android.R.drawable.btn_default_small), (String) mContext.getResources().getTextArray(R.array.tex_id)[idx], textPaint, (int) mWidth, 48);
+		labelid = lm.add(mGl, (String) mContext.getResources().getTextArray(
+				R.array.tex_id)[idx], textPaint);
+		// lm.add(gl,
+		// Resources.getSystem().getDrawable(android.R.drawable.alert_dark_frame),
+		// (String) mContext.getResources().getTextArray(R.array.tex_id)[idx],
+		// textPaint, (int) mWidth, 48);
 		lm.endAdding(gl);
+		labxpos = mWidth * 0.5f - lm.getWidth(labelid) * 0.5f;
 	}
-	
+
 	public void setRA(boolean ra) {
 		realaxis = ra ? 1f : 0f;
 	}
@@ -258,14 +275,11 @@ class CubeRenderer implements Renderer, Serializable {
 		if (showrings && mRings != null)
 			mRings.draw(gl);
 
-		try {
-
+		if (showText) {
 			lm.beginDrawing(gl, mWidth, mHeight);
-			lm.draw(gl, 0, mHeight-lm.getHeight(labelid)-34, labelid);
+			// lm.draw(gl, 0, mHeight-lm.getHeight(labelid)-34, labelid);
+			lm.draw(gl, labxpos, labypos, labelid);
 			lm.endDrawing(gl);
-
-		} catch (Exception e) {
-			Log.e("SLWP", e.getMessage());
 		}
 		gl.glPopMatrix();
 	}
@@ -285,7 +299,7 @@ class CubeRenderer implements Renderer, Serializable {
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
-
+		initing = true;
 		if (gl == null)
 			return;
 		gl.glViewport(0, 0, width, height);
@@ -337,7 +351,8 @@ class CubeRenderer implements Renderer, Serializable {
 			mStarfield.init(gl);
 
 		initlabel(gl);
-		 
+		setYpos(lypos);
+		initing = false;
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -370,10 +385,10 @@ class CubeRenderer implements Renderer, Serializable {
 		// mBg.setDims(480, 800);
 		// mBg.draw(gl);
 
-		lm.initialize(mGl);
-		lm.beginAdding(mGl);
-		labelid = lm.add(mGl, "planete : " + curtex, textPaint);
-		
+		// lm.initialize(mGl);
+		// lm.beginAdding(mGl);
+		// labelid = lm.add(mGl, "planete : " + curtex, textPaint);
+
 	}
 
 	public void shutdown(GL10 gl) {

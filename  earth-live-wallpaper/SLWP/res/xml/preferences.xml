@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:title="Main">
-	<PreferenceScreen android:orderingFromXml="true" android:summary="@string/p_gas" android:title="@string/p_ga">
+<PreferenceScreen android:title="Main"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceScreen android:orderingFromXml="true"
+		android:summary="@string/p_gas" android:title="@string/p_ga">
 		<com.seb.SLWP.SldDlgPref android:key="RotSpeed"
 			android:title="@string/p_speed" android:summary="@string/p_speedsum" />
-		
+
 		<com.seb.SLWP.SldDlgPref android:key="Zoomfactor"
 			android:title="@string/p_zoom" android:summary="@string/p_zoomsum" />
 		<com.seb.SLWP.SldDlgPref android:key="Xpos"
 			android:title="@string/p_xpos" android:summary="@string/p_xpossum" />
 		<com.seb.SLWP.SldDlgPref android:key="Ypos"
 			android:title="@string/p_ypos" android:summary="@string/p_ypossum" />
-		
+
 		<CheckBoxPreference android:summaryOn="@string/p_diron"
 			android:key="Direction" android:title="@string/p_dir"
 			android:summaryOff="@string/p_diroff" android:defaultValue="true" />
 		<CheckBoxPreference android:summaryOn="@string/p_raxison"
 			android:title="@string/p_raxis" android:summaryOff="@string/p_raxisoff"
 			android:key="Realaxis" android:defaultValue="false" />
-		
-		
-	</PreferenceScreen><PreferenceScreen android:orderingFromXml="true" android:summary="@string/p_gbs" android:title="@string/p_gb"><CheckBoxPreference android:defaultValue="false" android:title="@string/p_syncrot" android:summaryOn="@string/p_syncroton" android:key="Syncrot" android:summaryOff="@string/p_syncrotoff" /><CheckBoxPreference android:summaryOn="@string/p_slidepon" android:key="Slideplanet" android:summaryOff="@string/p_slidepoff" android:title="@string/p_slidep" android:defaultValue="false" /><CheckBoxPreference android:key="TouchRot" android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff" android:title="@string/p_touchrot" android:defaultValue="false" /><CheckBoxPreference android:summaryOn="@string/p_freespinon" android:key="Freespin" android:title="@string/p_freespin" android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot" /></PreferenceScreen>
-	<PreferenceScreen android:orderingFromXml="true" android:summary="@string/p_m" android:title="@string/p_m">
+
+
+	</PreferenceScreen>
+	<PreferenceScreen android:orderingFromXml="true"
+		android:summary="@string/p_gbs" android:title="@string/p_gb">
+		<CheckBoxPreference android:defaultValue="false"
+			android:title="@string/p_syncrot" android:summaryOn="@string/p_syncroton"
+			android:key="Syncrot" android:summaryOff="@string/p_syncrotoff" />
+		<CheckBoxPreference android:summaryOn="@string/p_slidepon"
+			android:key="Slideplanet" android:summaryOff="@string/p_slidepoff"
+			android:title="@string/p_slidep" android:defaultValue="false" />
+		<CheckBoxPreference android:key="TouchRot"
+			android:summaryOn="@string/p_touchroton" android:summaryOff="@string/p_touchrotoff"
+			android:title="@string/p_touchrot" android:defaultValue="false" />
+		<CheckBoxPreference android:summaryOn="@string/p_freespinon"
+			android:key="Freespin" android:title="@string/p_freespin"
+			android:summaryOff="@string/p_freespinoff" android:dependency="TouchRot" />
+	</PreferenceScreen>
+	<PreferenceScreen android:orderingFromXml="true"
+		android:summary="@string/p_m" android:title="@string/p_m">
 		<ListPreference android:entries="@array/tex_id"
 			android:entryValues="@array/tex_value" android:dialogTitle="@string/p_textures"
 			android:key="Tex" android:title="@string/p_textures"
@@ -38,9 +55,14 @@
 		<CheckBoxPreference android:key="Showmoon"
 			android:title="@string/p_showmoon" android:summary="@string/p_showmoonsum"
 			android:defaultValue="true" />
+		<CheckBoxPreference android:summary="Show the name of the planet"
+			android:key="Showtext" android:title="Shown name" android:defaultValue="false"></CheckBoxPreference>
+		<com.seb.SLWP.SldDlgPref android:key="Lypos"
+			android:title="Text position" android:summary="Choose the text vertical position" android:dependency="Showtext" />
 	</PreferenceScreen>
 	<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-		android:orderingFromXml="true" android:summary="@string/p_bs" android:title="@string/p_b">
+		android:orderingFromXml="true" android:summary="@string/p_bs"
+		android:title="@string/p_b">
 		<CheckBoxPreference android:key="Usebg"
 			android:summaryOn="@string/p_usebgon" android:summaryOff="@string/p_usebgoff"
 			android:title="@string/p_usebg" android:defaultValue="true" />
@@ -58,14 +80,20 @@
 			android:dependency="Usebg" android:defaultValue="false" />
 	</PreferenceScreen>
 	<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-		android:orderingFromXml="true" android:summary="@string/p_ss" android:title="@string/p_s">
+		android:orderingFromXml="true" android:summary="@string/p_ss"
+		android:title="@string/p_s">
 		<CheckBoxPreference android:key="Usestarfield"
-			android:defaultValue="false" android:summary="@string/p_pss" android:title="@string/p_ps"/>
+			android:defaultValue="false" android:summary="@string/p_pss"
+			android:title="@string/p_ps" />
 		<com.seb.SLWP.SldDlgPref android:key="Nbstars"
-			android:title="@string/p_sdens" android:dependency="Usestarfield" android:summary="@string/p_ssdens"/>
+			android:title="@string/p_sdens" android:dependency="Usestarfield"
+			android:summary="@string/p_ssdens" />
 		<com.seb.SLWP.SldDlgPref android:key="Starspeed"
-			android:dependency="Usestarfield" android:title="@string/p_sspeed" android:summary="@string/p_ssspeed"/>
-	
-</PreferenceScreen><CheckBoxPreference android:key="Runinforeground" android:summary="@string/p_fs" android:title="@string/p_f"></CheckBoxPreference>
+			android:dependency="Usestarfield" android:title="@string/p_sspeed"
+			android:summary="@string/p_ssspeed" />
+
+	</PreferenceScreen>
+	<CheckBoxPreference android:key="Runinforeground"
+		android:summary="@string/p_fs" android:title="@string/p_f"></CheckBoxPreference>
 
 </PreferenceScreen>

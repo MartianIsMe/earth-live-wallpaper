@@ -84,19 +84,16 @@ public class SLWP extends GLWallpaperService implements
 	private Object[] mStartForegroundArgs = new Object[2];
 	private Object[] mStopForegroundArgs = new Object[1];
 
-	
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		
+
 		Init();
 	}
 
-	
-	
-	private void StartFG(){
-		
+	private void StartFG() {
+
 		mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		try {
 			mStartForeground = getClass().getMethod("startForeground",
@@ -107,8 +104,8 @@ public class SLWP extends GLWallpaperService implements
 			mStartForeground = mStopForeground = null;
 		}
 		CharSequence text = "Running in foreground...";
-		Notification notification = new Notification(R.drawable.notificon, text,
-				System.currentTimeMillis());
+		Notification notification = new Notification(R.drawable.notificon,
+				text, System.currentTimeMillis());
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				new Intent(this, Prefs.class), 0);
 		notification.setLatestEventInfo(this, "Earth live wallpaper", text,
@@ -126,19 +123,19 @@ public class SLWP extends GLWallpaperService implements
 			Log.w("SLWP", "Unable to invoke startForeground", e);
 		}
 	}
-	
+
 	private void StopFG() {
 		mStopForegroundArgs[0] = Boolean.TRUE;
-        try {
-            mStopForeground.invoke(this, mStopForegroundArgs);
-        } catch (InvocationTargetException e) {
-            // Should not happen.
-            Log.w("SLWP", "Unable to invoke stopForeground", e);
-        } catch (IllegalAccessException e) {
-            // Should not happen.
-            Log.w("SLWP", "Unable to invoke stopForeground", e);
-        }
-		
+		try {
+			mStopForeground.invoke(this, mStopForegroundArgs);
+		} catch (InvocationTargetException e) {
+			// Should not happen.
+			Log.w("SLWP", "Unable to invoke stopForeground", e);
+		} catch (IllegalAccessException e) {
+			// Should not happen.
+			Log.w("SLWP", "Unable to invoke stopForeground", e);
+		}
+
 	}
 
 	@Override
@@ -157,7 +154,8 @@ public class SLWP extends GLWallpaperService implements
 			InitCache();
 			renderer = new CubeRenderer(mContext);
 
-			if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("Runinforeground", false)){
+			if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
+					"Runinforeground", false)) {
 				StartFG();
 			}
 			// renderer = new CubeRenderer(mContext);
@@ -170,6 +168,11 @@ public class SLWP extends GLWallpaperService implements
 					SLWP.this).getInt("Xpos", 100) / 100f) - 1f) * 2f;
 			renderer.ypos = ((PreferenceManager.getDefaultSharedPreferences(
 					SLWP.this).getInt("Ypos", 100) / 100f) - 1f) * 2f;
+
+			renderer.setYpos(PreferenceManager.getDefaultSharedPreferences(
+					SLWP.this).getInt("Lypos", 100) / 200f);
+			renderer.showText = PreferenceManager.getDefaultSharedPreferences(
+					this).getBoolean("Showtext", false);
 
 			// rot speed ?
 			CubeRenderer.rs = PreferenceManager.getDefaultSharedPreferences(
@@ -219,8 +222,8 @@ public class SLWP extends GLWallpaperService implements
 							"Usestarfield", false);
 			StarField.speedfactor = (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Starspeed", 100) / 100f);
-			
-			StarField.stardensity = 2*(PreferenceManager
+
+			StarField.stardensity = 2 * (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Nbstars", 100) / 100f);
 			// usebackground ??
 			Usebg = PreferenceManager.getDefaultSharedPreferences(this)
@@ -263,7 +266,7 @@ public class SLWP extends GLWallpaperService implements
 			while (Tex == 0
 					&& !Environment.getExternalStorageState().equalsIgnoreCase(
 							Environment.MEDIA_MOUNTED)) {
-				
+
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -421,19 +424,25 @@ public class SLWP extends GLWallpaperService implements
 		} else if (key.compareToIgnoreCase("Starspeed") == 0) {
 			StarField.speedfactor = (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Starspeed", 100) / 100f);
-		}
-		else if(key.compareToIgnoreCase("Runinforeground") == 0){
-			if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("Runinforeground", false)){
+		} else if (key.compareToIgnoreCase("Runinforeground") == 0) {
+			if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
+					"Runinforeground", false)) {
 				StartFG();
-			}
-			else{
+			} else {
 				StopFG();
 			}
-		}
-		else if(key.compareToIgnoreCase("Nbstars") == 0){
-			StarField.stardensity = 2f*(PreferenceManager
+		} else if (key.compareToIgnoreCase("Nbstars") == 0) {
+			StarField.stardensity = 2f * (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Nbstars", 100) / 100f);
 			StarField.InitStars();
+		}
+		else if(key.compareToIgnoreCase("Lypos") == 0){
+			renderer.setYpos(PreferenceManager.getDefaultSharedPreferences(
+					SLWP.this).getInt("Lypos", 100) / 200f);
+		}
+		else if(key.compareToIgnoreCase("Showtext") == 0){
+			renderer.showText = PreferenceManager.getDefaultSharedPreferences(
+					this).getBoolean("Showtext", false);
 		}
 	}
 
@@ -520,12 +529,43 @@ public class SLWP extends GLWallpaperService implements
 			// TODO Auto-generated method stub
 			super.onVisibilityChanged(visible);
 			SLWP.visible = visible;
-			if(visible){
+			if (visible) {
+
+			} else {
+
+			}
+		}
+
+		public void startDownload() {
+			DT = new DownloadTask();
+			DT.execute();
+		}
+
+		public void stopDownload() {
+			if (DT != null) {
+				DT.cancel(true);
+			}
+		}
+
+
+		@Override
+		public void onPause() {
+			if (DT != null) {
+				DT.cancel(true);
+				needresume = true;
+			}
+			super.onPause();
+		}
+
+		@Override
+		public void onResume() {
+			super.onResume();
+			if (Randomtex) {
+				Tex = randtex();
+				renderer.setTex(Tex);
+			}
+			try {
 				NOW = new Date().getTime();
-				if (Randomtex) {
-					Tex = randtex();
-					renderer.setTex(Tex);
-				}
 				if ((Tex == 0
 						&& (!Fcache.exists() || Fcache.length() < 35 * 1024 || Fcache
 								.lastModified() < NOW - Synctime) && !isPreview() /*
@@ -546,62 +586,9 @@ public class SLWP extends GLWallpaperService implements
 					}
 					fstart = false;
 				}
+			} catch (Exception e) {
+
 			}
-			else{
-				if (DT != null) {
-					DT.cancel(true);
-					needresume = true;
-				}
-			}
-		}
-
-		public void startDownload() {
-			// if (!loading && cm.getActiveNetworkInfo() != null
-			// && cm.getActiveNetworkInfo().isConnected()) {
-			DT = new DownloadTask();
-			DT.execute();
-			// } else {
-			// mContext.registerReceiver(new Blistener(), new IntentFilter(
-			// ConnectivityManager.CONNECTIVITY_ACTION));
-			// }
-		}
-
-		public void stopDownload() {
-			if (DT != null) {
-				DT.cancel(true);
-			}
-		}
-
-		/*
-		 * class DownloadThread extends Thread {
-		 * 
-		 * 
-		 * public DownloadThread() {
-		 * 
-		 * 
-		 * }
-		 * 
-		 * @Override public void interrupt() { // TODO Auto-generated method
-		 * stub super.interrupt(); this.stop(); }
-		 * 
-		 * @Override public void run() { // for (;;) {
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
-
-		@Override
-		public void onPause() {
-			// TODO Auto-generated method stub
-			super.onPause();
-			
-
-		}
-
-		@Override
-		public void onResume() {
-			super.onResume();
 			
 		}
 
@@ -614,21 +601,6 @@ public class SLWP extends GLWallpaperService implements
 				;
 			curtexidx = rval;
 			return Integer.parseInt(randlist[rval]);
-		}
-
-		class Blistener extends BroadcastReceiver {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				NetworkInfo ni = (NetworkInfo) this.getResultExtras(true).get(
-						ConnectivityManager.EXTRA_NETWORK_INFO);
-				if (ni != null) {
-					if (ni.isConnected()) {
-						startDownload();
-						mContext.unregisterReceiver(this);
-					}
-				}
-			}
-
 		}
 
 		class DownloadTask extends AsyncTask<Void, Void, Boolean> {
