@@ -64,7 +64,7 @@ class CubeRenderer implements Renderer, Serializable {
 	boolean showmoon = true;
 	public boolean deathstar2 = false;
 	private boolean inited = false;
-	private StarField mStarfield;
+	public StarField mStarfield;
 	public static boolean useStarfield;
 	private LabelMaker lm = new LabelMaker(true, 1024, 1024);
 	private Paint textPaint;
@@ -105,7 +105,7 @@ class CubeRenderer implements Renderer, Serializable {
 	}
 
 	public void setTex(int t) {
-		while(initing);
+		//while(initing);
 		showrings = t == 15 ? true : false;
 		switch (t) {
 		case 0:
@@ -312,6 +312,8 @@ class CubeRenderer implements Renderer, Serializable {
 		mWidth = width;
 		mHeight = height;
 		mRatio = (float) width / height;
+		if (usebg)
+			mBg.Init(gl);
 		mBg.setDims(width, height);
 		// Background.vW=width;
 		// Background.vH=height;
@@ -333,7 +335,8 @@ class CubeRenderer implements Renderer, Serializable {
 		 * 
 		 * gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
 		 */
-
+		setTex(SLWP.Tex);
+		
 		if (mDs == null && deathstar2) {
 			mDs = new DeathStar(mContext);
 		}
@@ -380,8 +383,7 @@ class CubeRenderer implements Renderer, Serializable {
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
 		// gl.glFrontFace(GL10.GL_CW);
-		if (usebg)
-			mBg.Init(gl);
+		
 		// mBg.setDims(480, 800);
 		// mBg.draw(gl);
 

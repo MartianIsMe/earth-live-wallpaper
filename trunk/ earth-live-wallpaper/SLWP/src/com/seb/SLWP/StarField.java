@@ -42,7 +42,7 @@ public class StarField {
 	private FloatBuffer bU;
 	private int mu = 0;
 	public static float speedfactor=1.0f;
-	public static float stardensity=1.0f;
+	public float stardensity=1.0f;
 
 	public StarField(Context context) {
 		mContext = context;
@@ -68,7 +68,7 @@ public class StarField {
 
 	}
 
-	public static void InitStars(){
+	public void InitStars(){
 
 		stars = new float[(int)(NBSTARS*stardensity) * 5];
 		for (int i = 0; i < NBSTARS*stardensity; i += 5) {
