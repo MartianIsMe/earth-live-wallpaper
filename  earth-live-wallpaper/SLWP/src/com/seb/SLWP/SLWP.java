@@ -223,8 +223,9 @@ public class SLWP extends GLWallpaperService implements
 			StarField.speedfactor = (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Starspeed", 100) / 100f);
 
-			StarField.stardensity = 2 * (PreferenceManager
+			renderer.mStarfield.stardensity = 2 * (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Nbstars", 100) / 100f);
+			renderer.mStarfield.InitStars();
 			// usebackground ??
 			Usebg = PreferenceManager.getDefaultSharedPreferences(this)
 					.getBoolean("Usebg", true);
@@ -432,9 +433,9 @@ public class SLWP extends GLWallpaperService implements
 				StopFG();
 			}
 		} else if (key.compareToIgnoreCase("Nbstars") == 0) {
-			StarField.stardensity = 2f * (PreferenceManager
+			renderer.mStarfield.stardensity = 2f * (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Nbstars", 100) / 100f);
-			StarField.InitStars();
+			renderer.mStarfield.InitStars();
 		}
 		else if(key.compareToIgnoreCase("Lypos") == 0){
 			renderer.setYpos(PreferenceManager.getDefaultSharedPreferences(
@@ -554,16 +555,16 @@ public class SLWP extends GLWallpaperService implements
 				DT.cancel(true);
 				needresume = true;
 			}
+			if (Randomtex) {
+				Tex = randtex();
+				//renderer.setTex(Tex);
+			}
 			super.onPause();
 		}
 
 		@Override
 		public void onResume() {
 			super.onResume();
-			if (Randomtex) {
-				Tex = randtex();
-				renderer.setTex(Tex);
-			}
 			try {
 				NOW = new Date().getTime();
 				if ((Tex == 0
