@@ -1,5 +1,5 @@
 #summary One-sentence summary of this page.
-#labels Featured
+#labels Featured,Phase-Deploy
 =Find tips and tricks on how to use the wallpaper here=
 
 ===Custom backgrounds===
