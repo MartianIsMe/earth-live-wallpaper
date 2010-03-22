@@ -73,6 +73,7 @@ class Sphere implements Serializable {
 		}
 		textures.add(R.drawable.moon);
 		textures.add(R.drawable.deathstar);
+		textures.add(R.drawable.lmap);
 		textures.loadTextures();
 	}
 
@@ -233,9 +234,51 @@ class Sphere implements Serializable {
 		else
 			if(httptexture!=null)httptexture.setTexture();
 		
+		
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
+		
+		//texcoord pour chaque texture (lightmap+color)
+		gl11.glClientActiveTexture(GL10.GL_TEXTURE0); // lightmap
+		gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);
-
+		gl11.glClientActiveTexture(GL10.GL_TEXTURE1); // color
+		gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);
+		
+		
+		gl11.glActiveTexture(GL10.GL_TEXTURE0);
+		gl11.glEnable(GL10.GL_TEXTURE_2D);
+		gl11.glActiveTexture(GL10.GL_TEXTURE1);
+		gl11.glEnable(GL10.GL_TEXTURE_2D);
+		gl11.glColor4f(0.25f, 0.25f, 0.25f, 0.25f);
+		gl11.glActiveTexture(GL10.GL_TEXTURE0);
+		textures.setTexture(R.drawable.lmap);
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL11.GL_COMBINE);
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_COMBINE_RGB, GL10.GL_ADD);
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_SRC0_RGB, GL10.GL_TEXTURE);
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_SRC1_RGB, GL11.GL_PREVIOUS);
+		gl11.glActiveTexture(GL10.GL_TEXTURE1);
+		if (mTex != 0)
+			textures.setTexture(mTex);
+		else
+			if(httptexture!=null)httptexture.setTexture();
+		/* Set the texture environment mode for this texture to combine */
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL11.GL_COMBINE);
+		/* Set the method we're going to combine the two textures by. */
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_COMBINE_RGB, GL10.GL_MODULATE);
+		/* Use the previous combine texture as source 0*/
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_SRC0_RGB, GL11.GL_PREVIOUS);
+		/* Use the current texture as source 1 */
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_SRC1_RGB, GL10.GL_TEXTURE);
+		/*
+		 Set what we will operate on, in this case we are going to use
+		 just the texture colours.
+		 */
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_OPERAND0_RGB, GL10.GL_SRC_COLOR);
+		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_OPERAND1_RGB, GL10.GL_SRC_COLOR);
+		
+		
+		
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mVertBufferIndex);
 		gl11.glVertexPointer(3, GL10.GL_FLOAT, 0, 0);
 

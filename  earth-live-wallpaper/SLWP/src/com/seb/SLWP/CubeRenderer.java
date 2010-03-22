@@ -23,11 +23,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+import javax.microedition.khronos.opengles.GL11;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -76,7 +78,13 @@ class CubeRenderer implements Renderer, Serializable {
 	public float lypos = 0.25f;
 	private float labxpos;
 	private float labypos;
-	public boolean showText=false;
+	public boolean showText = false;
+	private float ambientMaterial[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+	private float diffuseMaterial[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	private float light_position[] = { 0.0f, 0.0f, -4.0f, 1.0f };
+	private FloatBuffer ambientMaterialbfr;
+	private FloatBuffer diffuseMaterialbfr;
+	private FloatBuffer light_positionbfr;
 
 	public CubeRenderer(Context context) {
 		mContext = context;
@@ -105,7 +113,7 @@ class CubeRenderer implements Renderer, Serializable {
 	}
 
 	public void setTex(int t) {
-		//while(initing);
+		// while(initing);
 		showrings = t == 15 ? true : false;
 		switch (t) {
 		case 0:
@@ -269,8 +277,9 @@ class CubeRenderer implements Renderer, Serializable {
 			if (mDs != null)
 				mDs.draw(gl);
 			gl.glDisable(GL10.GL_BLEND);
-		} else if (mSphere != null)
+		} else if (mSphere != null){
 			mSphere.draw(gl, showmoon);
+		}
 
 		if (showrings && mRings != null)
 			mRings.draw(gl);
@@ -322,7 +331,7 @@ class CubeRenderer implements Renderer, Serializable {
 		gl.glLoadIdentity();
 		gl.glFrustumf(-mRatio, mRatio, -1f, 1f, 2f, 15f);
 
-		gl.glEnable(GL10.GL_TEXTURE_2D);
+		//gl.glEnable(GL10.GL_TEXTURE_2D);
 
 		/*
 		 * gl.glViewport(0, 0, width, height);
@@ -336,7 +345,7 @@ class CubeRenderer implements Renderer, Serializable {
 		 * gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
 		 */
 		setTex(SLWP.Tex);
-		
+
 		if (mDs == null && deathstar2) {
 			mDs = new DeathStar(mContext);
 		}
@@ -355,6 +364,7 @@ class CubeRenderer implements Renderer, Serializable {
 
 		initlabel(gl);
 		setYpos(lypos);
+
 		initing = false;
 	}
 
@@ -368,28 +378,36 @@ class CubeRenderer implements Renderer, Serializable {
 			return;
 		mGl = gl;
 
-		gl.glDisable(GL10.GL_DITHER);
-
+		
+		
 		/*
 		 * Some one-time OpenGL initialization can be made here probably based
 		 * on features of this particular context
 		 */
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST);
-
+		gl.glEnable(GL10.GL_DITHER);
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glShadeModel(GL10.GL_SMOOTH);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		// gl.glFrontFace(GL10.GL_CW);
 		
-		// mBg.setDims(480, 800);
-		// mBg.draw(gl);
-
-		// lm.initialize(mGl);
-		// lm.beginAdding(mGl);
-		// labelid = lm.add(mGl, "planete : " + curtex, textPaint);
+		// lighting
+		/*ambientMaterialbfr = FloatBuffer.wrap(ambientMaterial);
+		diffuseMaterialbfr = FloatBuffer.wrap(diffuseMaterial);
+		light_positionbfr = FloatBuffer.wrap(light_position);
+		gl.glEnable(GL10.GL_LIGHTING);
+		gl.glEnable(GL10.GL_LIGHT0);
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, ambientMaterialbfr);
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, diffuseMaterialbfr);
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, light_positionbfr);
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, ambientMaterialbfr);
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, diffuseMaterialbfr);*/
+		
+		
+		//((GL11)gl).glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_COMBINE_RGB, GL10.GL_MODULATE);
+		
 
 	}
 
