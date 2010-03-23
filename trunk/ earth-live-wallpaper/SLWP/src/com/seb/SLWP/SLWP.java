@@ -201,6 +201,11 @@ public class SLWP extends GLWallpaperService implements
 							.getDefaultSharedPreferences(this).getString(
 									"Randlist", "1"));
 
+			Sphere.useshading=PreferenceManager.getDefaultSharedPreferences(this)
+			.getBoolean("Useshading", false);
+			Sphere.shadowcolor=1.0f-(PreferenceManager
+					.getDefaultSharedPreferences(this).getInt("Darkness", 100) / 200f);
+			
 			// Direction
 			Direction = PreferenceManager.getDefaultSharedPreferences(this)
 					.getBoolean("Direction", true);
@@ -444,6 +449,14 @@ public class SLWP extends GLWallpaperService implements
 		else if(key.compareToIgnoreCase("Showtext") == 0){
 			renderer.showText = PreferenceManager.getDefaultSharedPreferences(
 					this).getBoolean("Showtext", false);
+		}
+		else if(key.compareToIgnoreCase("Useshading") == 0){
+			Sphere.useshading=PreferenceManager.getDefaultSharedPreferences(this)
+			.getBoolean("Useshading", false);
+		}
+		else if(key.compareToIgnoreCase("Darkness") == 0){
+			Sphere.shadowcolor=1.0f-(PreferenceManager
+					.getDefaultSharedPreferences(this).getInt("Darkness", 100) / 200f);
 		}
 	}
 

@@ -73,6 +73,16 @@
 	<string name="p_ssspeed">Set the stars max speed</string>
 	<string name="p_sdens">Stars density</string>
 	<string name="p_ssdens">Set the number of stars</string>
+	
+	<string name="p_usesh">Static lightmap</string>
+	<string name="p_susesh">Add a static lightmap to all planets to simulate night and day</string>
+	<string name="p_showtext">Show name</string>
+	<string name="p_sshowtext">Show the name of the planet</string>
+	<string name="p_lypos">Text position</string>
+	<string name="p_slypos">Choose the text vertical position</string>
+	<string name="p_darkness">Night darkness</string>
+	<string name="p_sdarkness">Set the static night intensity</string>
+	
 	<declare-styleable name="Wallpaper">
 		<!--
 			Component name of an activity that allows the user to modify the
