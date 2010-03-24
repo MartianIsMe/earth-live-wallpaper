@@ -212,10 +212,13 @@ class Rings implements Serializable {
 	public void draw(GL10 gl) {
 		if(gl==null)return;
 		if(textures==null&&httptexture==null) return;
+		gl.glPushMatrix();
 		gl.glDisable(GL10.GL_CULL_FACE);
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA,GL10.GL_ONE_MINUS_SRC_ALPHA);
+		
+		
 		textures.setTexture(mTex);
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
 		gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);
@@ -231,7 +234,7 @@ class Rings implements Serializable {
 				GL11.GL_UNSIGNED_SHORT, 0);
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glDisable(GL10.GL_BLEND);
-
+		gl.glPopMatrix();
 	}
 
 	public static void freeHardwareBuffers() {

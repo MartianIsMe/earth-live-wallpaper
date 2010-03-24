@@ -39,7 +39,7 @@
 	</PreferenceScreen>
 	<PreferenceScreen android:orderingFromXml="true"
 		android:summary="@string/p_m" android:title="@string/p_m">
-		<com.seb.SLWP.SldDlgPref android:key="Lypos" android:dependency="Showtext" android:title="@string/p_lypos" android:summary="@string/p_slypos"/><ListPreference android:entries="@array/tex_id"
+		<ListPreference android:entries="@array/tex_id"
 			android:entryValues="@array/tex_value" android:dialogTitle="@string/p_textures"
 			android:key="Tex" android:title="@string/p_textures"
 			android:negativeButtonText="Cancel" android:enabled="true"
@@ -55,7 +55,7 @@
 		<CheckBoxPreference android:key="Showmoon"
 			android:title="@string/p_showmoon" android:summary="@string/p_showmoonsum"
 			android:defaultValue="true" />
-		<CheckBoxPreference android:key="Showtext" android:defaultValue="false" android:summary="@string/p_sshowtext" android:title="@string/p_showtext"></CheckBoxPreference>
+		<CheckBoxPreference android:key="Showtext" android:defaultValue="false" android:summary="@string/p_sshowtext" android:title="@string/p_showtext"></CheckBoxPreference><com.seb.SLWP.SldDlgPref android:key="Lypos" android:dependency="Showtext" android:title="@string/p_lypos" android:summary="@string/p_slypos" />
 		
 	<CheckBoxPreference android:key="Useshading" android:summary="@string/p_susesh" android:title="@string/p_usesh"></CheckBoxPreference><com.seb.SLWP.SldDlgPref android:key="Darkness" android:dependency="Useshading" android:title="@string/p_darkness" android:summary="@string/p_sdarkness" />
 </PreferenceScreen>

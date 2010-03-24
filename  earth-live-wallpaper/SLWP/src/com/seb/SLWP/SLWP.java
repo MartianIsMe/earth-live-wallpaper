@@ -462,6 +462,9 @@ public class SLWP extends GLWallpaperService implements
 
 	@Override
 	public Engine onCreateEngine() {
+		if(mGle!=null){
+			mGle=null;
+		}
 		try {
 			mGle = new GlEngine();
 		} catch (Exception e) {
@@ -594,16 +597,26 @@ public class SLWP extends GLWallpaperService implements
 					needresume = false;
 					startDownload();
 				}
+			} catch (Exception e) {
+				
+			}
+			finally{
 				if (fstart) {
 					if (Tex == 0 && !isPreview()) {
 						GlEngine.this.queueEvent(Sphere.mUpdateTex);
 					}
 					fstart = false;
 				}
-			} catch (Exception e) {
-
 			}
 			
+		}
+
+		@Override
+		public void onSurfaceChanged(SurfaceHolder holder, int format,
+				int width, int height) {
+			// TODO Auto-generated method stub
+			super.onSurfaceChanged(holder, format, width, height);
+			fstart=true;
 		}
 
 		private int randtex() {
@@ -616,6 +629,8 @@ public class SLWP extends GLWallpaperService implements
 			curtexidx = rval;
 			return Integer.parseInt(randlist[rval]);
 		}
+
+		
 
 		class DownloadTask extends AsyncTask<Void, Void, Boolean> {
 			private HttpURLConnection conn;
