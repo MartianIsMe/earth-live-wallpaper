@@ -405,14 +405,20 @@ class EglHelper {
 	 * @return false if the context has been lost.
 	 */
 	public boolean swap() {
-		mEgl.eglSwapBuffers(mEglDisplay, mEglSurface);
-
+		try{
+			mEgl.eglSwapBuffers(mEglDisplay, mEglSurface);
+		}
+		catch(Exception e){
+			//Log.e("SLWP","ERROR SWAPPING SURFACE");
+			return false;
+		}
 		/*
 		 * Always check for EGL_CONTEXT_LOST, which means the context and all
 		 * associated data were lost (For instance because the device went to
 		 * sleep). We need to sleep until we get a new surface.
 		 */
 		return mEgl.eglGetError() != EGL11.EGL_CONTEXT_LOST;
+	
 	}
 
 	public void destroySurface() {

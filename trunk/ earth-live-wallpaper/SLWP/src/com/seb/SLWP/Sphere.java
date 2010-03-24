@@ -43,8 +43,8 @@ class Sphere implements Serializable {
 	private float moonangle = 0f;
 	private int IdxCnt;
 	private float langle = 0f;
-	public static boolean useshading=false;
-	public static float shadowcolor=0.50f;
+	public static boolean useshading = false;
+	public static float shadowcolor = 0.50f;
 	// public static final Handler mHandler = new Handler();
 	// Create runnable for posting
 	public static final Runnable mUpdateTex = new Runnable() {
@@ -231,18 +231,19 @@ class Sphere implements Serializable {
 			return;
 		gl.glPushMatrix();
 		gl.glEnable(GL10.GL_TEXTURE_2D);
-		
+
 		if (mTex != 0)
 			textures.setTexture(mTex);
 		else if (httptexture != null)
 			httptexture.setTexture();
 
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
-		if (useshading && mTex!=0) {
+		if (useshading && mTex != 0) {
 			// texcoord pour chaque texture (lightmap+color)
 			gl11.glClientActiveTexture(GL10.GL_TEXTURE0); // lightmap
 			gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 			gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);
+			
 			gl11.glClientActiveTexture(GL10.GL_TEXTURE1); // color
 			gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 			gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);
@@ -251,9 +252,9 @@ class Sphere implements Serializable {
 			gl11.glEnable(GL10.GL_TEXTURE_2D);
 			gl11.glActiveTexture(GL10.GL_TEXTURE1);
 			gl11.glEnable(GL10.GL_TEXTURE_2D);
-			
+
 			gl11.glColor4f(shadowcolor, shadowcolor, shadowcolor, shadowcolor);
-			
+
 			gl11.glActiveTexture(GL10.GL_TEXTURE0);
 			textures.setTexture(R.drawable.lmap);
 			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
@@ -264,10 +265,10 @@ class Sphere implements Serializable {
 					GL10.GL_TEXTURE);
 			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_SRC1_RGB,
 					GL11.GL_PREVIOUS);
-			
+
 			gl11.glActiveTexture(GL10.GL_TEXTURE1);
 			textures.setTexture(mTex);
-	
+
 			/* Set the texture environment mode for this texture to combine */
 			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
 					GL11.GL_COMBINE);
@@ -316,19 +317,28 @@ class Sphere implements Serializable {
 			gl11.glDrawElements(GL11.GL_TRIANGLES, IdxCnt,
 					GL11.GL_UNSIGNED_SHORT, 0);
 		}
-		
-		
-		gl.glDisable(GL10.GL_BLEND);
-		gl.glDepthFunc(GL10.GL_LESS);
-		gl11.glActiveTexture(GL10.GL_TEXTURE0);
-		gl11.glDisable(GL10.GL_TEXTURE_2D);
-		gl11.glActiveTexture(GL10.GL_TEXTURE1);
-		gl11.glDisable(GL10.GL_TEXTURE_2D);
-		
-		gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_OPERAND0_RGB,     GL10.GL_SRC_ALPHA);
-		//gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_OPERAND1_RGB,     GL10.GL_SRC_ALPHA);
+
+		if (useshading && mTex != 0) {
+			
+			
+			
+			
+			gl11.glActiveTexture(GL10.GL_TEXTURE0);
+			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,GL10.GL_MODULATE);
+			gl11.glDisable(GL10.GL_BLEND);
+			gl11.glDisable(GL10.GL_TEXTURE_2D);
+			
+			gl11.glActiveTexture(GL10.GL_TEXTURE1);
+			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,GL10.GL_MODULATE);
+			gl11.glDisable(GL10.GL_BLEND);
+			gl11.glDisable(GL10.GL_TEXTURE_2D);
+			
+			
+			// gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_OPERAND1_RGB,
+			// GL10.GL_SRC_ALPHA);
+		}
 		gl.glPopMatrix();
-		//gl11.glDisable(GL10.GL_TEXTURE_2D);
+		// gl11.glDisable(GL10.GL_TEXTURE_2D);
 	}
 
 	public static void freeHardwareBuffers() {

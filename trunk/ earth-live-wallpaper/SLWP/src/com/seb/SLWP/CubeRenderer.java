@@ -272,6 +272,9 @@ class CubeRenderer implements Renderer, Serializable {
 
 		gl.glRotatef(mAngleZ += ((0.6f * rs) % 360) * direction, 0, 0, 1);
 
+		
+		
+		
 		if (deathstar2) {
 			gl.glEnable(GL10.GL_BLEND);
 			if (mDs != null)
@@ -280,9 +283,10 @@ class CubeRenderer implements Renderer, Serializable {
 		} else if (mSphere != null){
 			mSphere.draw(gl, showmoon);
 		}
-
 		if (showrings && mRings != null)
 			mRings.draw(gl);
+		
+		
 
 		if (showText) {
 			lm.beginDrawing(gl, mWidth, mHeight);
@@ -305,6 +309,8 @@ class CubeRenderer implements Renderer, Serializable {
 
 	public void SurfaceDestroyed() {
 		Sphere.freeHardwareBuffers();
+		Rings.freeHardwareBuffers();
+		
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -312,7 +318,7 @@ class CubeRenderer implements Renderer, Serializable {
 		if (gl == null)
 			return;
 		gl.glViewport(0, 0, width, height);
-
+		gl.glEnable(GL10.GL_DEPTH_TEST);
 		/*
 		 * Set our projection matrix. This doesn't have to be done each time we
 		 * draw, but usually a new projection needs to be set when the viewport
