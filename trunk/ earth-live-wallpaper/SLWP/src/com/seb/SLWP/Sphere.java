@@ -322,7 +322,7 @@ class Sphere implements Serializable {
 			
 			
 			
-			
+			gl11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			gl11.glActiveTexture(GL10.GL_TEXTURE0);
 			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,GL10.GL_MODULATE);
 			gl11.glDisable(GL10.GL_BLEND);
