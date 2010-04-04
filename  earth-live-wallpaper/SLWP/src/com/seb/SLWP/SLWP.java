@@ -152,7 +152,8 @@ public class SLWP extends GLWallpaperService implements
 			cm = (ConnectivityManager) mContext
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
 			InitCache();
-			renderer = new CubeRenderer(mContext);
+			
+			if(renderer==null)renderer = new CubeRenderer(mContext);
 
 			if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
 					"Runinforeground", false)) {
