@@ -266,7 +266,25 @@ class DefaultWindowSurfaceFactory implements EGLWindowSurfaceFactory {
 
 	public EGLSurface createWindowSurface(EGL10 egl, EGLDisplay display,
 			EGLConfig config, Object nativeWindow) {
-		return egl.eglCreateWindowSurface(display, config, nativeWindow, null);
+		EGLSurface retval=null;
+		try{
+			retval=egl.eglCreateWindowSurface(display, config, nativeWindow, null);
+		}
+		catch(Exception e){
+			
+		}
+		if(retval!=null)
+			return retval;
+		else{
+			try{
+				Thread.sleep(10);
+			}
+			catch(Exception e){
+				
+			}
+			return createWindowSurface(egl, display, config, nativeWindow);
+		}
+			
 	}
 
 	public void destroySurface(EGL10 egl, EGLDisplay display, EGLSurface surface) {

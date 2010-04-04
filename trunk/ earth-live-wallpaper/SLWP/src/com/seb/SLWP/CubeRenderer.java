@@ -317,6 +317,7 @@ class CubeRenderer implements Renderer, Serializable {
 		initing = true;
 		if (gl == null)
 			return;
+		mGl=gl;
 		gl.glViewport(0, 0, width, height);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		/*
