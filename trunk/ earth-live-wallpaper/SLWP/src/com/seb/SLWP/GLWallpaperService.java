@@ -266,25 +266,24 @@ class DefaultWindowSurfaceFactory implements EGLWindowSurfaceFactory {
 
 	public EGLSurface createWindowSurface(EGL10 egl, EGLDisplay display,
 			EGLConfig config, Object nativeWindow) {
-		EGLSurface retval=null;
-		try{
-			retval=egl.eglCreateWindowSurface(display, config, nativeWindow, null);
+		EGLSurface retval = null;
+		try {
+			retval = egl.eglCreateWindowSurface(display, config, nativeWindow,
+					null);
+		} catch (Exception e) {
+
 		}
-		catch(Exception e){
-			
-		}
-		if(retval!=null)
+		if (retval != null)
 			return retval;
-		else{
-			try{
+		else {
+			try {
 				Thread.sleep(10);
-			}
-			catch(Exception e){
-				
+			} catch (Exception e) {
+
 			}
 			return createWindowSurface(egl, display, config, nativeWindow);
 		}
-			
+
 	}
 
 	public void destroySurface(EGL10 egl, EGLDisplay display, EGLSurface surface) {
@@ -332,31 +331,33 @@ class EglHelper {
 	 * @param configSpec
 	 */
 	public void start() {
-		/*
-		 * Get an EGL instance
-		 */
-		mEgl = (EGL10) EGLContext.getEGL();
+		if (mEglContext == null || mEgl==null || mEglDisplay==null || mEglConfig==null ) {
+			/*
+			 * Get an EGL instance
+			 */
+			mEgl = (EGL10) EGLContext.getEGL();
 
-		/*
-		 * Get to the default display.
-		 */
-		mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
+			/*
+			 * Get to the default display.
+			 */
+			mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
 
-		/*
-		 * We can now initialize EGL for that display
-		 */
-		int[] version = new int[2];
-		mEgl.eglInitialize(mEglDisplay, version);
-		mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
+			/*
+			 * We can now initialize EGL for that display
+			 */
+			int[] version = new int[2];
+			mEgl.eglInitialize(mEglDisplay, version);
+			mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
 
-		/*
-		 * Create an OpenGL ES context. This must be done only once, an OpenGL
-		 * context is a somewhat heavy object.
-		 */
-		mEglContext = mEGLContextFactory.createContext(mEgl, mEglDisplay,
-				mEglConfig);
-		if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
-			throw new RuntimeException("createContext failed");
+			/*
+			 * Create an OpenGL ES context. This must be done only once, an
+			 * OpenGL context is a somewhat heavy object.
+			 */
+			mEglContext = mEGLContextFactory.createContext(mEgl, mEglDisplay,
+					mEglConfig);
+			if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
+				throw new RuntimeException("createContext failed");
+			}
 		}
 
 		mEglSurface = null;
@@ -423,11 +424,10 @@ class EglHelper {
 	 * @return false if the context has been lost.
 	 */
 	public boolean swap() {
-		try{
+		try {
 			mEgl.eglSwapBuffers(mEglDisplay, mEglSurface);
-		}
-		catch(Exception e){
-			//Log.e("SLWP","ERROR SWAPPING SURFACE");
+		} catch (Exception e) {
+			// Log.e("SLWP","ERROR SWAPPING SURFACE");
 			return false;
 		}
 		/*
@@ -436,7 +436,7 @@ class EglHelper {
 		 * sleep). We need to sleep until we get a new surface.
 		 */
 		return mEgl.eglGetError() != EGL11.EGL_CONTEXT_LOST;
-	
+
 	}
 
 	public void destroySurface() {
