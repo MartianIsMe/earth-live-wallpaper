@@ -85,6 +85,8 @@ class CubeRenderer implements Renderer, Serializable {
 	private FloatBuffer ambientMaterialbfr;
 	private FloatBuffer diffuseMaterialbfr;
 	private FloatBuffer light_positionbfr;
+	private GL10 old_gl;
+	private int old_width;
 
 	public CubeRenderer(Context context) {
 		mContext = context;
@@ -272,21 +274,16 @@ class CubeRenderer implements Renderer, Serializable {
 
 		gl.glRotatef(mAngleZ += ((0.6f * rs) % 360) * direction, 0, 0, 1);
 
-		
-		
-		
 		if (deathstar2) {
 			gl.glEnable(GL10.GL_BLEND);
 			if (mDs != null)
 				mDs.draw(gl);
 			gl.glDisable(GL10.GL_BLEND);
-		} else if (mSphere != null){
+		} else if (mSphere != null) {
 			mSphere.draw(gl, showmoon);
 		}
 		if (showrings && mRings != null)
 			mRings.draw(gl);
-		
-		
 
 		if (showText) {
 			lm.beginDrawing(gl, mWidth, mHeight);
@@ -310,68 +307,71 @@ class CubeRenderer implements Renderer, Serializable {
 	public void SurfaceDestroyed() {
 		Sphere.freeHardwareBuffers();
 		Rings.freeHardwareBuffers();
-		
+
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
-		initing = true;
 		if (gl == null)
 			return;
-		mGl=gl;
-		gl.glViewport(0, 0, width, height);
-		gl.glEnable(GL10.GL_DEPTH_TEST);
-		/*
-		 * Set our projection matrix. This doesn't have to be done each time we
-		 * draw, but usually a new projection needs to be set when the viewport
-		 * is resized.
-		 */
-		mWidth = width;
-		mHeight = height;
-		mRatio = (float) width / height;
-		if (usebg)
-			mBg.Init(gl);
-		mBg.setDims(width, height);
-		// Background.vW=width;
-		// Background.vH=height;
+		initing = true;
+		if (old_width!=width||gl != old_gl) {
+			/*
+			 * Set our projection matrix. This doesn't have to be done each time
+			 * we draw, but usually a new projection needs to be set when the
+			 * viewport is resized.
+			 */
+			mWidth = width;
+			mHeight = height;
+			mRatio = (float) width / height;
+			mGl = gl;
+			gl.glViewport(0, 0, width, height);
+			gl.glEnable(GL10.GL_DEPTH_TEST);
+			if (usebg)
+				mBg.Init(gl);
+			mBg.setDims(width, height);
+			// Background.vW=width;
+			// Background.vH=height;
 
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		gl.glLoadIdentity();
-		gl.glFrustumf(-mRatio, mRatio, -1f, 1f, 2f, 15f);
+			gl.glMatrixMode(GL10.GL_PROJECTION);
+			gl.glLoadIdentity();
+			gl.glFrustumf(-mRatio, mRatio, -1f, 1f, 2f, 15f);
 
-		//gl.glEnable(GL10.GL_TEXTURE_2D);
+			// gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		/*
-		 * gl.glViewport(0, 0, width, height);
-		 * gl.glMatrixMode(GL10.GL_PROJECTION); gl.glLoadIdentity(); float xmin,
-		 * xmax, ymin, ymax; float aspect = (float) width / height; float zNear
-		 * = 0.1f; float zFar = 100.0f;
-		 * 
-		 * ymax = (float) (zNear * Math.tan(45.0f * Math.PI / 360.0)); ymin =
-		 * -ymax; xmin = ymin * aspect; xmax = ymax * aspect;
-		 * 
-		 * gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
-		 */
-		setTex(SLWP.Tex);
+			/*
+			 * gl.glViewport(0, 0, width, height);
+			 * gl.glMatrixMode(GL10.GL_PROJECTION); gl.glLoadIdentity(); float
+			 * xmin, xmax, ymin, ymax; float aspect = (float) width / height;
+			 * float zNear = 0.1f; float zFar = 100.0f;
+			 * 
+			 * ymax = (float) (zNear * Math.tan(45.0f * Math.PI / 360.0)); ymin
+			 * = -ymax; xmin = ymin * aspect; xmax = ymax * aspect;
+			 * 
+			 * gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
+			 */
+			setTex(SLWP.Tex);
 
-		if (mDs == null && deathstar2) {
-			mDs = new DeathStar(mContext);
+			if (mDs == null && deathstar2) {
+				mDs = new DeathStar(mContext);
+			}
+			if (deathstar2)
+				mDs.Init(gl);
+			else {
+				if (mSphere == null)
+					mSphere = new Sphere(mContext);
+				mSphere.Init(gl);
+				if (mRings == null)
+					mRings = new Rings(mContext);
+				mRings.Init(gl);
+			}
+			if (mStarfield != null)
+				mStarfield.init(gl);
+
+			initlabel(gl);
+			setYpos(lypos);
 		}
-		if (deathstar2)
-			mDs.Init(gl);
-		else {
-			if (mSphere == null)
-				mSphere = new Sphere(mContext);
-			mSphere.Init(gl);
-			if (mRings == null)
-				mRings = new Rings(mContext);
-			mRings.Init(gl);
-		}
-		if (mStarfield != null)
-			mStarfield.init(gl);
-
-		initlabel(gl);
-		setYpos(lypos);
-
+		old_gl = gl;
+		old_width=width;
 		initing = false;
 	}
 
@@ -385,8 +385,6 @@ class CubeRenderer implements Renderer, Serializable {
 			return;
 		mGl = gl;
 
-		
-		
 		/*
 		 * Some one-time OpenGL initialization can be made here probably based
 		 * on features of this particular context
@@ -399,22 +397,22 @@ class CubeRenderer implements Renderer, Serializable {
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		
 		// lighting
-		/*ambientMaterialbfr = FloatBuffer.wrap(ambientMaterial);
-		diffuseMaterialbfr = FloatBuffer.wrap(diffuseMaterial);
-		light_positionbfr = FloatBuffer.wrap(light_position);
-		gl.glEnable(GL10.GL_LIGHTING);
-		gl.glEnable(GL10.GL_LIGHT0);
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, ambientMaterialbfr);
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, diffuseMaterialbfr);
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, light_positionbfr);
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, ambientMaterialbfr);
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, diffuseMaterialbfr);*/
-		
-		
-		//((GL11)gl).glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_COMBINE_RGB, GL10.GL_MODULATE);
-		
+		/*
+		 * ambientMaterialbfr = FloatBuffer.wrap(ambientMaterial);
+		 * diffuseMaterialbfr = FloatBuffer.wrap(diffuseMaterial);
+		 * light_positionbfr = FloatBuffer.wrap(light_position);
+		 * gl.glEnable(GL10.GL_LIGHTING); gl.glEnable(GL10.GL_LIGHT0);
+		 * gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, ambientMaterialbfr);
+		 * gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, diffuseMaterialbfr);
+		 * gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, light_positionbfr);
+		 * gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT,
+		 * ambientMaterialbfr); gl.glMaterialfv(GL10.GL_FRONT_AND_BACK,
+		 * GL10.GL_DIFFUSE, diffuseMaterialbfr);
+		 */
+
+		// ((GL11)gl).glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_COMBINE_RGB,
+		// GL10.GL_MODULATE);
 
 	}
 
