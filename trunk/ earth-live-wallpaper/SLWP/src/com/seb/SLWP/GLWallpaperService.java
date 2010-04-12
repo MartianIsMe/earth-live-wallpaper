@@ -266,24 +266,22 @@ class DefaultWindowSurfaceFactory implements EGLWindowSurfaceFactory {
 
 	public EGLSurface createWindowSurface(EGL10 egl, EGLDisplay display,
 			EGLConfig config, Object nativeWindow) {
-		EGLSurface retval = null;
-		try {
-			retval = egl.eglCreateWindowSurface(display, config, nativeWindow,
-					null);
-		} catch (Exception e) {
-
-		}
-		if (retval != null)
-			return retval;
-		else {
+		EGLSurface eglSurface = null;
+		while (eglSurface == null) {
 			try {
-				Thread.sleep(10);
-			} catch (Exception e) {
-
+				eglSurface = egl.eglCreateWindowSurface(display, config,
+						nativeWindow, null);
+			} catch (Throwable t) {
+			} finally {
+				if (eglSurface == null) {
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException t) {
+					}
+				}
 			}
-			return createWindowSurface(egl, display, config, nativeWindow);
 		}
-
+		return eglSurface;
 	}
 
 	public void destroySurface(EGL10 egl, EGLDisplay display, EGLSurface surface) {
@@ -331,36 +329,97 @@ class EglHelper {
 	 * @param configSpec
 	 */
 	public void start() {
-		if (mEglContext == null || mEgl==null || mEglDisplay==null || mEglConfig==null ) {
-			/*
-			 * Get an EGL instance
-			 */
-			mEgl = (EGL10) EGLContext.getEGL();
+		if (android.os.Build.MODEL.equalsIgnoreCase("Nexus One")) {
+			if (mEglContext == null || mEgl == null || mEglDisplay == null
+					|| mEglConfig == null) {
+				/*
+				 * Get an EGL instance
+				 */
+				mEgl = (EGL10) EGLContext.getEGL();
 
-			/*
-			 * Get to the default display.
-			 */
-			mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
+				/*
+				 * Get to the default display.
+				 */
+				if (mEglDisplay != null) {
+					mEgl.eglTerminate(mEglDisplay);
+					mEglDisplay = null;
+				}
+				mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
 
-			/*
-			 * We can now initialize EGL for that display
-			 */
-			int[] version = new int[2];
-			mEgl.eglInitialize(mEglDisplay, version);
-			mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
+				/*
+				 * We can now initialize EGL for that display
+				 */
+				int[] version = new int[2];
+				mEgl.eglInitialize(mEglDisplay, version);
+				mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
 
-			/*
-			 * Create an OpenGL ES context. This must be done only once, an
-			 * OpenGL context is a somewhat heavy object.
-			 */
-			mEglContext = mEGLContextFactory.createContext(mEgl, mEglDisplay,
-					mEglConfig);
-			if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
-				throw new RuntimeException("createContext failed");
+				/*
+				 * Create an OpenGL ES context. This must be done only once, an
+				 * OpenGL context is a somewhat heavy object.
+				 */
+				if (mEglContext != null) {
+					mEGLContextFactory.destroyContext(mEgl, mEglDisplay,
+							mEglContext);
+					mEglContext = null;
+				}
+				mEglContext = mEGLContextFactory.createContext(mEgl,
+						mEglDisplay, mEglConfig);
+				if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
+					throw new RuntimeException("createContext failed");
+				}
 			}
-		}
 
-		mEglSurface = null;
+			mEglSurface = null;
+		} else {
+			// Log.d("EglHelper" + instanceId, "start()");
+			if (mEgl == null) {
+				// Log.d("EglHelper" + instanceId, "getting new EGL");
+				/*
+				 * Get an EGL instance
+				 */
+				mEgl = (EGL10) EGLContext.getEGL();
+			} else {
+				// Log.d("EglHelper" + instanceId, "reusing EGL");
+			}
+
+			if (mEglDisplay == null) {
+				// Log.d("EglHelper" + instanceId, "getting new display");
+				/*
+				 * Get to the default display.
+				 */
+				mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
+			} else {
+				// Log.d("EglHelper" + instanceId, "reusing display");
+			}
+
+			if (mEglConfig == null) {
+				// Log.d("EglHelper" + instanceId, "getting new config");
+				/*
+				 * We can now initialize EGL for that display
+				 */
+				int[] version = new int[2];
+				mEgl.eglInitialize(mEglDisplay, version);
+				mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
+			} else {
+				// Log.d("EglHelper" + instanceId, "reusing config");
+			}
+
+			if (mEglContext == null) {
+				// Log.d("EglHelper" + instanceId, "creating new context");
+				/*
+				 * Create an OpenGL ES context. This must be done only once, an
+				 * OpenGL context is a somewhat heavy object.
+				 */
+				mEglContext = mEGLContextFactory.createContext(mEgl,
+						mEglDisplay, mEglConfig);
+				if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
+					throw new RuntimeException("createContext failed");
+				}
+			} else {
+				// Log.d("EglHelper" + instanceId, "reusing context");
+			}
+			mEglSurface = null;
+		}
 	}
 
 	/*
