@@ -573,16 +573,16 @@ public class SLWP extends GLWallpaperService implements
 				DT.cancel(true);
 				needresume = true;
 			}
-			if (Randomtex) {
-				Tex = randtex();
-				//renderer.setTex(Tex);
-			}
+			
 			super.onPause();
 		}
 
 		@Override
 		public void onResume() {
-			super.onResume();
+			if (Randomtex) {
+				Tex = randtex();
+				//renderer.setTex(Tex);
+			}
 			try {
 				NOW = new Date().getTime();
 				if ((Tex == 0
@@ -610,7 +610,7 @@ public class SLWP extends GLWallpaperService implements
 					fstart = false;
 				}
 			}
-			
+			super.onResume();
 		}
 
 		@Override
