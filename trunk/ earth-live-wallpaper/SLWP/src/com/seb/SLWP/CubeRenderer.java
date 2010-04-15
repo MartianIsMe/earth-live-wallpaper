@@ -311,10 +311,9 @@ class CubeRenderer implements Renderer, Serializable {
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
-		if (gl == null)
-			return;
-		initing = true;
-		if (old_width!=width||gl != old_gl) {
+		if (gl != null) {
+			initing = true;
+
 			/*
 			 * Set our projection matrix. This doesn't have to be done each time
 			 * we draw, but usually a new projection needs to be set when the
@@ -349,30 +348,33 @@ class CubeRenderer implements Renderer, Serializable {
 			 * 
 			 * gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
 			 */
-			setTex(SLWP.Tex);
+			if (old_width != width || gl != old_gl) {
+				setTex(SLWP.Tex);
 
-			if (mDs == null && deathstar2) {
-				mDs = new DeathStar(mContext);
-			}
-			if (deathstar2)
-				mDs.Init(gl);
-			else {
-				if (mSphere == null)
-					mSphere = new Sphere(mContext);
-				mSphere.Init(gl);
-				if (mRings == null)
-					mRings = new Rings(mContext);
-				mRings.Init(gl);
-			}
-			if (mStarfield != null)
-				mStarfield.init(gl);
+				if (mDs == null && deathstar2) {
+					mDs = new DeathStar(mContext);
+				}
+				if (deathstar2)
+					mDs.Init(gl);
+				else {
+					if (mSphere == null)
+						mSphere = new Sphere(mContext);
+					mSphere.Init(gl);
+					if (mRings == null)
+						mRings = new Rings(mContext);
+					mRings.Init(gl);
+				}
+				if (mStarfield != null)
+					mStarfield.init(gl);
 
-			initlabel(gl);
-			setYpos(lypos);
+				initlabel(gl);
+				setYpos(lypos);
+
+			}
+			old_gl = gl;
+			old_width = width;
+			initing = false;
 		}
-		old_gl = gl;
-		old_width=width;
-		initing = false;
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {

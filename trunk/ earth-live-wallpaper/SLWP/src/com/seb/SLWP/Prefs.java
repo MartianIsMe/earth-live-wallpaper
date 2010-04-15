@@ -52,7 +52,7 @@ public class Prefs extends PreferenceActivity implements
 		}
 		tex.setOnPreferenceChangeListener(this);
 		bg.setOnPreferenceChangeListener(this);
-		Button bt = (Button) findViewById(R.id.Bt_donate);
+		/*Button bt = (Button) findViewById(R.id.Bt_donate);
 		bt.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -61,7 +61,7 @@ public class Prefs extends PreferenceActivity implements
 						Uri
 								.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H8G8WDKKXXYRA&lc=US&item_name=Seb%20Boyart&item_number=SLWP&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted")));
 			}
-		});
+		});*/
 		
 		
 	}
@@ -88,7 +88,6 @@ public class Prefs extends PreferenceActivity implements
 			}
 			else{
 				currImageURI=null;
-				
 			}
 		}
 		return true;
