@@ -6,23 +6,26 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
@@ -83,6 +86,7 @@ public class SLWP extends GLWallpaperService implements
 	private Method mStopForeground;
 	private Object[] mStartForegroundArgs = new Object[2];
 	private Object[] mStopForegroundArgs = new Object[1];
+	private File mapcache;
 
 	@Override
 	public void onCreate() {
@@ -152,9 +156,9 @@ public class SLWP extends GLWallpaperService implements
 			cm = (ConnectivityManager) mContext
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
 			InitCache();
-			
-			
-			if(renderer==null)renderer = new CubeRenderer(mContext);
+
+			if (renderer == null)
+				renderer = new CubeRenderer(mContext);
 
 			if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
 					"Runinforeground", false)) {
@@ -203,11 +207,11 @@ public class SLWP extends GLWallpaperService implements
 							.getDefaultSharedPreferences(this).getString(
 									"Randlist", "1"));
 
-			Sphere.useshading=PreferenceManager.getDefaultSharedPreferences(this)
-			.getBoolean("Useshading", false);
-			Sphere.shadowcolor=1.0f-(PreferenceManager
+			Sphere.useshading = PreferenceManager.getDefaultSharedPreferences(
+					this).getBoolean("Useshading", false);
+			Sphere.shadowcolor = 1.0f - (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Darkness", 100) / 200f);
-			
+
 			// Direction
 			Direction = PreferenceManager.getDefaultSharedPreferences(this)
 					.getBoolean("Direction", true);
@@ -318,6 +322,79 @@ public class SLWP extends GLWallpaperService implements
 				Fcache.delete();
 			// else
 			// Fcache.setLastModified(new Date().getTime());
+		}
+		mapcache = new File(cache + "/maps");
+		if (!mapcache.exists()) {
+			mapcache.mkdir();
+			maps2sd();
+		}
+	}
+
+	private void maps2sd() {
+
+		HashMap<String, Bitmap> allBitmaps = new HashMap<String, Bitmap>();
+		Resources res = this.getResources();
+		try {
+			Field[] fields = dClass.getDeclaredFields();
+			for (Field f : fields) {
+				String fName = f.getName();
+				Object fp = f.get(dClass);
+				if (fp instanceof Integer) {
+					if (!fName.equalsIgnoreCase("dstartwo")
+							&& !fName.equalsIgnoreCase("lmap")
+							&& !fName.equalsIgnoreCase("loading")
+							&& !fName.equalsIgnoreCase("notificon")
+							&& !fName.equalsIgnoreCase("satring")
+							&& !fName.equalsIgnoreCase("starfield")
+							&& !fName.equalsIgnoreCase("icon")
+							&& !fName.equalsIgnoreCase("thumb")
+							&& !fName.equalsIgnoreCase("bg1")
+							&& !fName.equalsIgnoreCase("bg2")
+							&& !fName.equalsIgnoreCase("bg3")
+
+					)
+						map2sd(((Integer) fp).intValue(), fName,"jpg");
+					else
+						continue;
+				}
+			}
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void map2sd(int rid, String rname,String ext) {
+		InputStream is = this.getResources().openRawResource(rid);
+		File out = new File(mapcache + "/" + rname + "."+ext);
+		try {
+			out.createNewFile();
+			DataOutputStream os = new DataOutputStream(
+					new BufferedOutputStream(new FileOutputStream(out), 1024));
+			byte buf[] = new byte[1024];
+			int len;
+			while ((len = is.read(buf)) > 0)
+				os.write(buf, 0, len);
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	static Class dClass;
+	static {
+		try {
+			dClass = Class.forName("com.seb.SLWP.R$drawable");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -443,29 +520,25 @@ public class SLWP extends GLWallpaperService implements
 			renderer.mStarfield.stardensity = 2f * (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Nbstars", 100) / 100f);
 			renderer.mStarfield.InitStars();
-		}
-		else if(key.compareToIgnoreCase("Lypos") == 0){
+		} else if (key.compareToIgnoreCase("Lypos") == 0) {
 			renderer.setYpos(PreferenceManager.getDefaultSharedPreferences(
 					SLWP.this).getInt("Lypos", 100) / 200f);
-		}
-		else if(key.compareToIgnoreCase("Showtext") == 0){
+		} else if (key.compareToIgnoreCase("Showtext") == 0) {
 			renderer.showText = PreferenceManager.getDefaultSharedPreferences(
 					this).getBoolean("Showtext", false);
-		}
-		else if(key.compareToIgnoreCase("Useshading") == 0){
-			Sphere.useshading=PreferenceManager.getDefaultSharedPreferences(this)
-			.getBoolean("Useshading", false);
-		}
-		else if(key.compareToIgnoreCase("Darkness") == 0){
-			Sphere.shadowcolor=1.0f-(PreferenceManager
+		} else if (key.compareToIgnoreCase("Useshading") == 0) {
+			Sphere.useshading = PreferenceManager.getDefaultSharedPreferences(
+					this).getBoolean("Useshading", false);
+		} else if (key.compareToIgnoreCase("Darkness") == 0) {
+			Sphere.shadowcolor = 1.0f - (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Darkness", 100) / 200f);
 		}
 	}
 
 	@Override
 	public Engine onCreateEngine() {
-		if(mGle!=null){
-			mGle=null;
+		if (mGle != null) {
+			mGle = null;
 		}
 		try {
 			mGle = new GlEngine();
@@ -566,14 +639,13 @@ public class SLWP extends GLWallpaperService implements
 			}
 		}
 
-
 		@Override
 		public void onPause() {
 			if (DT != null) {
 				DT.cancel(true);
 				needresume = true;
 			}
-			
+
 			super.onPause();
 		}
 
@@ -581,7 +653,7 @@ public class SLWP extends GLWallpaperService implements
 		public void onResume() {
 			if (Randomtex) {
 				Tex = randtex();
-				//renderer.setTex(Tex);
+				// renderer.setTex(Tex);
 			}
 			try {
 				NOW = new Date().getTime();
@@ -600,9 +672,8 @@ public class SLWP extends GLWallpaperService implements
 					startDownload();
 				}
 			} catch (Exception e) {
-				
-			}
-			finally{
+
+			} finally {
 				if (fstart) {
 					if (Tex == 0 && !isPreview()) {
 						GlEngine.this.queueEvent(Sphere.mUpdateTex);
@@ -618,7 +689,7 @@ public class SLWP extends GLWallpaperService implements
 				int width, int height) {
 			// TODO Auto-generated method stub
 			super.onSurfaceChanged(holder, format, width, height);
-			fstart=true;
+			fstart = true;
 		}
 
 		private int randtex() {
@@ -631,8 +702,6 @@ public class SLWP extends GLWallpaperService implements
 			curtexidx = rval;
 			return Integer.parseInt(randlist[rval]);
 		}
-
-		
 
 		class DownloadTask extends AsyncTask<Void, Void, Boolean> {
 			private HttpURLConnection conn;

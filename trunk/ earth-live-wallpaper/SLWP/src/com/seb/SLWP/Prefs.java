@@ -2,8 +2,8 @@ package com.seb.SLWP;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
-import com.seb.SLWP.ListPreferenceMultiSelect;
+import java.io.FilenameFilter;
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,13 +12,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.MediaStore;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.Toast;
 
 public class Prefs extends PreferenceActivity implements
@@ -27,6 +25,7 @@ public class Prefs extends PreferenceActivity implements
 	private Preference tex;
 	private Preference bg;
 	private ListPreferenceMultiSelect randlist;
+	private ListPreference ml;
 	public static Uri currImageURI;
 
 	@Override
@@ -52,6 +51,7 @@ public class Prefs extends PreferenceActivity implements
 		}
 		tex.setOnPreferenceChangeListener(this);
 		bg.setOnPreferenceChangeListener(this);
+		initMapList();
 		/*Button bt = (Button) findViewById(R.id.Bt_donate);
 		bt.setOnClickListener(new OnClickListener() {
 			@Override
@@ -66,6 +66,21 @@ public class Prefs extends PreferenceActivity implements
 		
 	}
 
+	
+	
+	private void initMapList(){
+		ml = (ListPreference) this.getPreferenceManager().findPreference("Tex");
+		File m=new File(SLWP.cache+"/maps");
+		FilenameFilter filter = new FilenameFilter() {
+		    public boolean accept(File dir, String name) {
+		        return name.endsWith(".jpg");
+		    }
+		};
+		
+		String fnames[]=m.list(filter);
+		//ml.setEntries(fnames);
+	}
+	
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
 		if (preference.getKey().compareToIgnoreCase("Tex")==0) {
