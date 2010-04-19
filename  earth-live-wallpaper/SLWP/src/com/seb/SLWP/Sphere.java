@@ -66,9 +66,7 @@ class Sphere implements Serializable {
 		setTexture(SLWP.Tex);
 		textures = new GLTextures(gl11, mContext);
 		if (mTex != 0) {
-
 			textures.add(mTex);
-
 		} else {
 			httptexture = new HttpTexture(gl11);
 			httptexture.loadTexture();
@@ -373,13 +371,13 @@ class Sphere implements Serializable {
 			// mTex = R.drawable.land_ocean_ice_cloud_2048;
 			break;
 		case 1:
-			mTex = R.drawable.land_ocean_ice_cloud_2048;
+			mTex = R.drawable.earth_clouds;
 			break;
 		case 2:
 			mTex = R.drawable.earth_land;
 			break;
 		case 3:
-			mTex = R.drawable.earthlights;
+			mTex = R.drawable.earth_lights;
 			break;
 		case 4:
 			mTex = R.drawable.moon;
