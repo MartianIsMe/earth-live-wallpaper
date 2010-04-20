@@ -38,13 +38,16 @@ import android.util.Log;
 class Sphere implements Serializable {
 
 	private static final long serialVersionUID = -5579981347245166159L;
-	private static int mTex;
+	private static String mTex;
 	private static int intTex;
 	private float moonangle = 0f;
 	private int IdxCnt;
 	private float langle = 0f;
 	public static boolean useshading = false;
 	public static float shadowcolor = 0.50f;
+	private static FileTexture filetexture;
+	private static FileTexture moon;
+	private static FileTexture deathstar;
 	// public static final Handler mHandler = new Handler();
 	// Create runnable for posting
 	public static final Runnable mUpdateTex = new Runnable() {
@@ -65,14 +68,16 @@ class Sphere implements Serializable {
 			return;
 		setTexture(SLWP.Tex);
 		textures = new GLTextures(gl11, mContext);
-		if (mTex != 0) {
-			textures.add(mTex);
+		if (!mTex.equalsIgnoreCase("0")) {
+			//textures.add(mTex);
+			filetexture=new FileTexture(gl11, mTex);
+			filetexture.loadTexture();
 		} else {
 			httptexture = new HttpTexture(gl11);
 			httptexture.loadTexture();
 		}
-		textures.add(R.drawable.moon);
-		textures.add(R.drawable.deathstar);
+		moon=new FileTexture(gl11, "moon");
+		deathstar=new FileTexture(gl11, "deathstar");
 		textures.add(R.drawable.lmap);
 		textures.loadTextures();
 	}
@@ -230,13 +235,14 @@ class Sphere implements Serializable {
 		gl.glPushMatrix();
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		if (mTex != 0)
-			textures.setTexture(mTex);
+		if (!mTex.equalsIgnoreCase("0"))
+			//textures.setTexture(mTex);
+			filetexture.setTexture();
 		else if (httptexture != null)
 			httptexture.setTexture();
 
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
-		if (useshading && mTex != 0) {
+		if (useshading && !mTex.equalsIgnoreCase("0")) {
 			// texcoord pour chaque texture (lightmap+color)
 			gl11.glClientActiveTexture(GL10.GL_TEXTURE0); // lightmap
 			gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
@@ -265,8 +271,8 @@ class Sphere implements Serializable {
 					GL11.GL_PREVIOUS);
 
 			gl11.glActiveTexture(GL10.GL_TEXTURE1);
-			textures.setTexture(mTex);
-
+			//textures.setTexture(mTex);
+			filetexture.setTexture();
 			/* Set the texture environment mode for this texture to combine */
 			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
 					GL11.GL_COMBINE);
@@ -304,9 +310,9 @@ class Sphere implements Serializable {
 		if (showmoon && (intTex < 4 || intTex == 13 || intTex == 29)) {
 
 			if (intTex < 4)
-				textures.setTexture(R.drawable.moon);
+				moon.setTexture();
 			else
-				textures.setTexture(R.drawable.deathstar);
+				deathstar.setTexture();
 			gl11.glRotatef(langle -= 0.2f, 0f, 0f, 1f);
 			gl11.glTranslatef(3.2f, 0f, 0f);
 			gl11.glScalef(0.26f, 0.26f, 0.26f);
@@ -316,7 +322,7 @@ class Sphere implements Serializable {
 					GL11.GL_UNSIGNED_SHORT, 0);
 		}
 
-		if (useshading && mTex != 0) {
+		if (useshading && !mTex.equalsIgnoreCase("0")) {
 			
 			
 			
@@ -364,6 +370,103 @@ class Sphere implements Serializable {
 	}
 
 	public static void setTexture(int t) {
+		intTex = t;
+		switch (t) {
+		case 0:
+			mTex = "0";
+			// mTex = R.drawable.land_ocean_ice_cloud_2048;
+			break;
+		case 1:
+			mTex = "earth_clouds";
+			break;
+		case 2:
+			mTex = "earth_land";
+			break;
+		case 3:
+			mTex = "earth_lights";
+			break;
+		case 4:
+			mTex = "moon";
+			break;
+		case 5:
+			mTex = "mars";
+			break;
+		case 6:
+			mTex = "mercury";
+			break;
+		case 7:
+			mTex = "venus";
+			break;
+		case 8:
+			mTex = "jupiter";
+			break;
+		case 9:
+			mTex = "uranus";
+			break;
+		case 10:
+			mTex = "europa";
+			break;
+		case 11:
+			mTex = "ganymede";
+			break;
+		case 12:
+			mTex = "phoebe";
+			break;
+		case 13:
+			mTex = "endor";
+			break;
+		case 14:
+			mTex = "tatooine";
+			break;
+		case 15:
+			mTex = "saturn";
+			break;
+		case 16:
+			mTex = "naboo";
+			break;
+		case 17:
+			mTex = "hoth";
+			break;
+		case 18:
+			mTex = "geonosis";
+			break;
+		case 19:
+			mTex = "neptune";
+			break;
+		case 20:
+			mTex = "io";
+			break;
+		case 21:
+			mTex = "deathstar";
+			break;
+		case 23:
+			mTex = "mustafar";
+			break;
+		case 24:
+			mTex = "titan";
+			break;
+		case 25:
+			mTex = "callisto";
+			break;
+		case 26:
+			mTex = "sun";
+			break;
+		case 27:
+			mTex = "coruscant";
+			break;
+		case 28:
+			mTex = "utapau";
+			break;
+		case 29:
+			mTex = "yavin4";
+			break;
+		case 30:
+			mTex = "kamino";
+			break;
+		}
+	}
+	
+	/*public static void setTexture(int t) {
 		intTex = t;
 		switch (t) {
 		case 0:
@@ -458,7 +561,7 @@ class Sphere implements Serializable {
 			mTex = R.drawable.kamino;
 			break;
 		}
-	}
+	}*/
 
 	private class Fp {
 		public long Vi;
