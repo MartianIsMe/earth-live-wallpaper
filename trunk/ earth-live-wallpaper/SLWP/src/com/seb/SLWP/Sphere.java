@@ -68,16 +68,25 @@ class Sphere implements Serializable {
 			return;
 		setTexture(SLWP.Tex);
 		textures = new GLTextures(gl11, mContext);
+
 		if (!mTex.equalsIgnoreCase("0")) {
-			//textures.add(mTex);
-			filetexture=new FileTexture(gl11, mTex);
+			// textures.add(mTex);
+			filetexture = new FileTexture(gl11, mTex);
 			filetexture.loadTexture();
 		} else {
 			httptexture = new HttpTexture(gl11);
 			httptexture.loadTexture();
 		}
-		moon=new FileTexture(gl11, "moon");
-		deathstar=new FileTexture(gl11, "deathstar");
+		if (intTex < 4 || intTex == 13 || intTex == 29) {
+			if (intTex < 4) {
+				moon = new FileTexture(gl11, "moon");
+				moon.loadTexture();
+
+			} else {
+				deathstar = new FileTexture(gl11, "deathstar");
+				deathstar.loadTexture();
+			}
+		}
 		textures.add(R.drawable.lmap);
 		textures.loadTextures();
 	}
@@ -236,7 +245,7 @@ class Sphere implements Serializable {
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
 		if (!mTex.equalsIgnoreCase("0"))
-			//textures.setTexture(mTex);
+			// textures.setTexture(mTex);
 			filetexture.setTexture();
 		else if (httptexture != null)
 			httptexture.setTexture();
@@ -247,7 +256,7 @@ class Sphere implements Serializable {
 			gl11.glClientActiveTexture(GL10.GL_TEXTURE0); // lightmap
 			gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 			gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);
-			
+
 			gl11.glClientActiveTexture(GL10.GL_TEXTURE1); // color
 			gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 			gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);
@@ -271,7 +280,7 @@ class Sphere implements Serializable {
 					GL11.GL_PREVIOUS);
 
 			gl11.glActiveTexture(GL10.GL_TEXTURE1);
-			//textures.setTexture(mTex);
+			// textures.setTexture(mTex);
 			filetexture.setTexture();
 			/* Set the texture environment mode for this texture to combine */
 			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
@@ -323,21 +332,20 @@ class Sphere implements Serializable {
 		}
 
 		if (useshading && !mTex.equalsIgnoreCase("0")) {
-			
-			
-			
+
 			gl11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			gl11.glActiveTexture(GL10.GL_TEXTURE0);
-			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,GL10.GL_MODULATE);
+			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
+					GL10.GL_MODULATE);
 			gl11.glDisable(GL10.GL_BLEND);
 			gl11.glDisable(GL10.GL_TEXTURE_2D);
-			
+
 			gl11.glActiveTexture(GL10.GL_TEXTURE1);
-			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,GL10.GL_MODULATE);
+			gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
+					GL10.GL_MODULATE);
 			gl11.glDisable(GL10.GL_BLEND);
 			gl11.glDisable(GL10.GL_TEXTURE_2D);
-			
-			
+
 			// gl11.glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_OPERAND1_RGB,
 			// GL10.GL_SRC_ALPHA);
 		}
@@ -465,103 +473,30 @@ class Sphere implements Serializable {
 			break;
 		}
 	}
-	
-	/*public static void setTexture(int t) {
-		intTex = t;
-		switch (t) {
-		case 0:
-			mTex = 0;
-			// mTex = R.drawable.land_ocean_ice_cloud_2048;
-			break;
-		case 1:
-			mTex = R.drawable.earth_clouds;
-			break;
-		case 2:
-			mTex = R.drawable.earth_land;
-			break;
-		case 3:
-			mTex = R.drawable.earth_lights;
-			break;
-		case 4:
-			mTex = R.drawable.moon;
-			break;
-		case 5:
-			mTex = R.drawable.mars;
-			break;
-		case 6:
-			mTex = R.drawable.mercury;
-			break;
-		case 7:
-			mTex = R.drawable.venus;
-			break;
-		case 8:
-			mTex = R.drawable.jupiter;
-			break;
-		case 9:
-			mTex = R.drawable.uranus;
-			break;
-		case 10:
-			mTex = R.drawable.europa;
-			break;
-		case 11:
-			mTex = R.drawable.ganymede;
-			break;
-		case 12:
-			mTex = R.drawable.phoebe;
-			break;
-		case 13:
-			mTex = R.drawable.endor;
-			break;
-		case 14:
-			mTex = R.drawable.tatooine;
-			break;
-		case 15:
-			mTex = R.drawable.saturn;
-			break;
-		case 16:
-			mTex = R.drawable.naboo;
-			break;
-		case 17:
-			mTex = R.drawable.hoth;
-			break;
-		case 18:
-			mTex = R.drawable.geonosis;
-			break;
-		case 19:
-			mTex = R.drawable.neptune;
-			break;
-		case 20:
-			mTex = R.drawable.io;
-			break;
-		case 21:
-			mTex = R.drawable.deathstar;
-			break;
-		case 23:
-			mTex = R.drawable.mustafar;
-			break;
-		case 24:
-			mTex = R.drawable.titan;
-			break;
-		case 25:
-			mTex = R.drawable.callisto;
-			break;
-		case 26:
-			mTex = R.drawable.sun;
-			break;
-		case 27:
-			mTex = R.drawable.coruscant;
-			break;
-		case 28:
-			mTex = R.drawable.utapau;
-			break;
-		case 29:
-			mTex = R.drawable.yavin4;
-			break;
-		case 30:
-			mTex = R.drawable.kamino;
-			break;
-		}
-	}*/
+
+	/*
+	 * public static void setTexture(int t) { intTex = t; switch (t) { case 0:
+	 * mTex = 0; // mTex = R.drawable.land_ocean_ice_cloud_2048; break; case 1:
+	 * mTex = R.drawable.earth_clouds; break; case 2: mTex =
+	 * R.drawable.earth_land; break; case 3: mTex = R.drawable.earth_lights;
+	 * break; case 4: mTex = R.drawable.moon; break; case 5: mTex =
+	 * R.drawable.mars; break; case 6: mTex = R.drawable.mercury; break; case 7:
+	 * mTex = R.drawable.venus; break; case 8: mTex = R.drawable.jupiter; break;
+	 * case 9: mTex = R.drawable.uranus; break; case 10: mTex =
+	 * R.drawable.europa; break; case 11: mTex = R.drawable.ganymede; break;
+	 * case 12: mTex = R.drawable.phoebe; break; case 13: mTex =
+	 * R.drawable.endor; break; case 14: mTex = R.drawable.tatooine; break; case
+	 * 15: mTex = R.drawable.saturn; break; case 16: mTex = R.drawable.naboo;
+	 * break; case 17: mTex = R.drawable.hoth; break; case 18: mTex =
+	 * R.drawable.geonosis; break; case 19: mTex = R.drawable.neptune; break;
+	 * case 20: mTex = R.drawable.io; break; case 21: mTex =
+	 * R.drawable.deathstar; break; case 23: mTex = R.drawable.mustafar; break;
+	 * case 24: mTex = R.drawable.titan; break; case 25: mTex =
+	 * R.drawable.callisto; break; case 26: mTex = R.drawable.sun; break; case
+	 * 27: mTex = R.drawable.coruscant; break; case 28: mTex =
+	 * R.drawable.utapau; break; case 29: mTex = R.drawable.yavin4; break; case
+	 * 30: mTex = R.drawable.kamino; break; } }
+	 */
 
 	private class Fp {
 		public long Vi;

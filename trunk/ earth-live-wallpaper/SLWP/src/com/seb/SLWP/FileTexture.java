@@ -24,7 +24,7 @@ public class FileTexture {
 	private int[] textures = new int[1];
 	private int[] mCropWorkspace;
 	private static BitmapFactory.Options sBitmapOptions = new BitmapFactory.Options();
-	private static final String baseurl="http://earth-live-wallpaper.googlecode.com/svn/trunk/%20earth-live-wallpaper/SLWP/res/drawable/";
+	private static final String baseurl="http://earth-live-wallpaper.googlecode.com/svn/trunk/%20earth-live-wallpaper/SLWP/maps/";
 	private Bitmap bitmap;
 	private String fname;
 
@@ -131,7 +131,7 @@ public class FileTexture {
 	}
 
 	public void setTexture() {
-		if(gl==null)return;
+		//if(gl==null)return;
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, this.textures[0]);
 	}
 }
