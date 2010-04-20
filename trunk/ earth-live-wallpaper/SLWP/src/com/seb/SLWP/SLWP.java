@@ -86,7 +86,7 @@ public class SLWP extends GLWallpaperService implements
 	private Method mStopForeground;
 	private Object[] mStartForegroundArgs = new Object[2];
 	private Object[] mStopForegroundArgs = new Object[1];
-	private File mapcache;
+	public static File mapcache;
 
 	@Override
 	public void onCreate() {
