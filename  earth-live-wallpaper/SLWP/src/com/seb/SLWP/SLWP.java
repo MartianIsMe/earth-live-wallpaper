@@ -150,11 +150,23 @@ public class SLWP extends GLWallpaperService implements
 		return START_STICKY;
 	}
 
+	static public boolean hasStorage() {
+		String state = Environment.getExternalStorageState();
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			return true;
+		}
+		return false;
+	}
+
 	private void Init() {
 		try {
 			mContext = this;
 			cm = (ConnectivityManager) mContext
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			
+			while(!hasStorage()){
+				Thread.sleep(100);
+			}
 			InitCache();
 
 			if (renderer == null)
@@ -353,7 +365,7 @@ public class SLWP extends GLWallpaperService implements
 							&& !fName.equalsIgnoreCase("bg3")
 
 					)
-						map2sd(((Integer) fp).intValue(), fName,"jpg");
+						map2sd(((Integer) fp).intValue(), fName, "jpg");
 					else
 						continue;
 				}
@@ -367,9 +379,9 @@ public class SLWP extends GLWallpaperService implements
 		}
 	}
 
-	private void map2sd(int rid, String rname,String ext) {
+	private void map2sd(int rid, String rname, String ext) {
 		InputStream is = this.getResources().openRawResource(rid);
-		File out = new File(mapcache + "/" + rname + "."+ext);
+		File out = new File(mapcache + "/" + rname + "." + ext);
 		try {
 			out.createNewFile();
 			DataOutputStream os = new DataOutputStream(

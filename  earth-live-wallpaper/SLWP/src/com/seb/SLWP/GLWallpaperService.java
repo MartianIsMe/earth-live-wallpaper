@@ -328,88 +328,57 @@ class EglHelper {
 	 * @param configSpec
 	 */
 	public void start() {
-		if (android.os.Build.MODEL.equalsIgnoreCase("---Nexus One")) {
-			if (mEglContext == null || mEgl == null || mEglDisplay == null
-					|| mEglConfig == null) {
-				
-				mEgl = (EGL10) EGLContext.getEGL();
 
-				
-				if (mEglDisplay != null) {
-					mEgl.eglTerminate(mEglDisplay);
-					mEglDisplay = null;
-				}
-				mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-
-				
-				int[] version = new int[2];
-				mEgl.eglInitialize(mEglDisplay, version);
-				mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
-
-				
-				if (mEglContext != null) {
-					mEGLContextFactory.destroyContext(mEgl, mEglDisplay,
-							mEglContext);
-					mEglContext = null;
-				}
-				mEglContext = mEGLContextFactory.createContext(mEgl,
-						mEglDisplay, mEglConfig);
-				if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
-					throw new RuntimeException("createContext failed");
-				}
-			}
-
-			mEglSurface = null;
+		// Log.d("EglHelper" + instanceId, "start()");
+		if (mEgl == null) {
+			// Log.d("EglHelper" + instanceId, "getting new EGL");
+			/*
+			 * Get an EGL instance
+			 */
+			mEgl = (EGL10) EGLContext.getEGL();
 		} else {
-			// Log.d("EglHelper" + instanceId, "start()");
-			if (mEgl == null) {
-				// Log.d("EglHelper" + instanceId, "getting new EGL");
-				/*
-				 * Get an EGL instance
-				 */
-				mEgl = (EGL10) EGLContext.getEGL();
-			} else {
-				// Log.d("EglHelper" + instanceId, "reusing EGL");
-			}
-
-			if (mEglDisplay == null) {
-				// Log.d("EglHelper" + instanceId, "getting new display");
-				/*
-				 * Get to the default display.
-				 */
-				mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-			} else {
-				// Log.d("EglHelper" + instanceId, "reusing display");
-			}
-
-			//if (mEglConfig == null) {
-				// Log.d("EglHelper" + instanceId, "getting new config");
-				/*
-				 * We can now initialize EGL for that display
-				 */
-				int[] version = new int[2];
-				mEgl.eglInitialize(mEglDisplay, version);
-				mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
-			//} else {
-				// Log.d("EglHelper" + instanceId, "reusing config");
-			//}
-
-			if (mEglContext == null) {
-				// Log.d("EglHelper" + instanceId, "creating new context");
-				/*
-				 * Create an OpenGL ES context. This must be done only once, an
-				 * OpenGL context is a somewhat heavy object.
-				 */
-				mEglContext = mEGLContextFactory.createContext(mEgl,
-						mEglDisplay, mEglConfig);
-				if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
-					throw new RuntimeException("createContext failed");
-				}
-			} else {
-				// Log.d("EglHelper" + instanceId, "reusing context");
-			}
-			mEglSurface = null;
+			// Log.d("EglHelper" + instanceId, "reusing EGL");
 		}
+
+		if (mEglDisplay == null) {
+			// Log.d("EglHelper" + instanceId, "getting new display");
+			/*
+			 * Get to the default display.
+			 */
+			mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
+		} else {
+			// Log.d("EglHelper" + instanceId, "reusing display");
+		}
+
+		if (mEglConfig == null
+				|| android.os.Build.MODEL.equalsIgnoreCase("Nexus One")) {
+			// Log.d("EglHelper" + instanceId, "getting new config");
+			/*
+			 * We can now initialize EGL for that display
+			 */
+			int[] version = new int[2];
+			mEgl.eglInitialize(mEglDisplay, version);
+			mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
+			// } else {
+			// Log.d("EglHelper" + instanceId, "reusing config");
+		}
+
+		if (mEglContext == null) {
+			// Log.d("EglHelper" + instanceId, "creating new context");
+			/*
+			 * Create an OpenGL ES context. This must be done only once, an
+			 * OpenGL context is a somewhat heavy object.
+			 */
+			mEglContext = mEGLContextFactory.createContext(mEgl, mEglDisplay,
+					mEglConfig);
+			if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
+				throw new RuntimeException("createContext failed");
+			}
+		} else {
+			// Log.d("EglHelper" + instanceId, "reusing context");
+		}
+		mEglSurface = null;
+
 	}
 
 	/*
@@ -473,18 +442,18 @@ class EglHelper {
 	 * @return false if the context has been lost.
 	 */
 	public boolean swap() {
-		try {
+		//try {
 			mEgl.eglSwapBuffers(mEglDisplay, mEglSurface);
-		} catch (Exception e) {
-		//	Log.e("SLWP","ERROR SWAPPING SURFACE");
-			return true;
-		}
+		//} catch (Exception e) {
+			// Log.e("SLWP","ERROR SWAPPING SURFACE");
+			//return true;
+		//}
 		/*
 		 * Always check for EGL_CONTEXT_LOST, which means the context and all
 		 * associated data were lost (For instance because the device went to
 		 * sleep). We need to sleep until we get a new surface.
 		 */
-			
+
 		return mEgl.eglGetError() != EGL11.EGL_CONTEXT_LOST;
 
 	}
