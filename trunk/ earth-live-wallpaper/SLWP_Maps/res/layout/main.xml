@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:id="@+id/RelativeLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"><Button android:layout_above="@+id/ProgressBar01" android:id="@+id/Button01" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Install Maps" android:layout_centerHorizontal="true"></Button><ProgressBar style="@android:style/Widget.ProgressBar.Horizontal" android:id="@+id/ProgressBar01" android:layout_height="wrap_content" android:layout_centerInParent="true" android:layout_width="fill_parent" android:layout_marginLeft="20dp" android:layout_marginRight="20dp"></ProgressBar>
+
+<Button android:layout_below="@+id/ProgressBar01" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Button02" android:text="Remove installer (maps stay on sd)" android:layout_centerHorizontal="true" android:visibility="invisible"></Button>
+</RelativeLayout>
