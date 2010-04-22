@@ -338,14 +338,11 @@ public class SLWP extends GLWallpaperService implements
 		mapcache = new File(cache + "/maps");
 		if (!mapcache.exists()) {
 			mapcache.mkdir();
-			maps2sd();
+			//maps2sd();
 		}
 	}
 
 	private void maps2sd() {
-
-		HashMap<String, Bitmap> allBitmaps = new HashMap<String, Bitmap>();
-		Resources res = this.getResources();
 		try {
 			Field[] fields = dClass.getDeclaredFields();
 			for (Field f : fields) {
@@ -366,6 +363,8 @@ public class SLWP extends GLWallpaperService implements
 
 					)
 						map2sd(((Integer) fp).intValue(), fName, "jpg");
+					else if(fName.equalsIgnoreCase("dstartwo"))
+						map2sd(((Integer) fp).intValue(), fName, "png");
 					else
 						continue;
 				}
@@ -382,6 +381,7 @@ public class SLWP extends GLWallpaperService implements
 	private void map2sd(int rid, String rname, String ext) {
 		InputStream is = this.getResources().openRawResource(rid);
 		File out = new File(mapcache + "/" + rname + "." + ext);
+		if(out.exists()&&out.length()>1024) return;
 		try {
 			out.createNewFile();
 			DataOutputStream os = new DataOutputStream(

@@ -348,7 +348,7 @@ class CubeRenderer implements Renderer, Serializable {
 			 * 
 			 * gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
 			 */
-			if (old_width != width || gl != old_gl) {
+			//if (!android.os.Build.MODEL.equalsIgnoreCase("Nexus One")||old_width != width || gl != old_gl) {
 				setTex(SLWP.Tex);
 
 				if (mDs == null && deathstar2) {
@@ -370,9 +370,9 @@ class CubeRenderer implements Renderer, Serializable {
 				initlabel(gl);
 				setYpos(lypos);
 
-			}
-			old_gl = gl;
-			old_width = width;
+			//}
+		//	old_gl = gl;
+		//	old_width = width;
 			initing = false;
 		}
 	}

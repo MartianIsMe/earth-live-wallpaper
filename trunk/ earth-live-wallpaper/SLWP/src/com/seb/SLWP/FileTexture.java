@@ -42,9 +42,12 @@ public class FileTexture {
 		HttpURLConnection conn;
 		InputStream is = null;
 		URL myFileUrl = null;
-		File out=new File(SLWP.mapcache+"/"+fname+".jpg");
+		String ext="jpg";
+		if(fname.equalsIgnoreCase("dstartwo")) ext="png";
+		else ext="jpg";
+		File out=new File(SLWP.mapcache+"/"+fname+"."+ext);
 		try {
-			myFileUrl = new URL(baseurl+"/"+fname+".jpg");
+			myFileUrl = new URL(baseurl+"/"+fname+"."+ext);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +77,10 @@ public class FileTexture {
 	}
 	
 	public void loadTexture() {
-		File f=new File(SLWP.mapcache+"/"+fname+".jpg");
+		String ext="jpg";
+		if(fname.equalsIgnoreCase("dstartwo")) ext="png";
+		else ext="jpg";
+		File f=new File(SLWP.mapcache+"/"+fname+"."+ext);
 		if (f.exists()) {
 			bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
 			if (bitmap != null)
