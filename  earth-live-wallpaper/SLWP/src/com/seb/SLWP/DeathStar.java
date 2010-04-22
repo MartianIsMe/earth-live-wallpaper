@@ -45,6 +45,7 @@ class DeathStar implements Serializable {
 			InitTex();
 		}
 	};*/
+	private FileTexture filetexture;
 
 	public DeathStar(Context context) {
 		mContext = context;
@@ -56,9 +57,11 @@ class DeathStar implements Serializable {
 	public void InitTex() {
 		if (gl11 == null)
 			return;
-		textures = new GLTextures(gl11, mContext);
-		textures.add(R.drawable.dstartwo);
-		textures.loadTextures();
+		//textures = new GLTextures(gl11, mContext);
+		//textures.add(R.drawable.dstartwo);
+		//textures.loadTextures();
+		filetexture = new FileTexture(gl11, "dstartwo");
+		filetexture.loadTexture();
 	}
 
 	public void Init(GL10 gl) {
@@ -219,7 +222,8 @@ class DeathStar implements Serializable {
 		gl.glEnable ( GL10.GL_ALPHA_TEST ) ;
 
 		//gl.glEnable(GL10.GL_TEXTURE_2D);
-		textures.setTexture(R.drawable.dstartwo);
+		//textures.setTexture(R.drawable.dstartwo);
+		filetexture.setTexture();
 
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
 		gl11.glTexCoordPointer(2, GL10.GL_FLOAT, 0, 0);

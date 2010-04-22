@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Help</title>
+</head>
+<body style="color: #FFFFFF; padding-bottom: 4px; margin-top: 0px; margin-bottom: 0px; margin-right: 0px; margin-left: 0px; padding-top: 4px; padding-left: 4px; padding-right: 4px; background-color: #000000">
+<h4 style="background-color: #7F7F7F; color: #FFCC00">New version :
+</h4>
+<ul>
+<li style="font-weight: lighter">
+maps are now stored on the sdcard.<br/>
+each map will be downloaded from the network on first use.<br/> <b style="color: #FFCC00">!!! YOU NEED TO HAVE DATA CONNECTIVITY AT THIS TIME !!!</b><br/>
+you can also download all the maps one-shot in the map pack (on the market).<br/>
+<b>Loading map can take time and is not done in the background, you may feel it froze, it didn't ;) Specially for the DeathStar2, the map is huge and the model too, expect a long time for it to show the first time !!</b><br/>
+</li>
+<li>
+I still have trouble fixing the freezes for the droids, please send me more logcats, i dont have a droid to debug, sorry for that.<br/>
+Opengl init code was reverted to previous version to fix issues with the N1 (due to patches to fix the droids :( )<br/>
+I've published the code on <a href="http://code.google.com/p/earth-live-wallpaper/" style="color: #ffcc00">http://code.google.com/p/earth-live-wallpaper/</a>, feel free to help !!!
+</li>
+<li>
+Added a "search map pack" button that show you all my apps on the market, including the map pack.
+</li>
+</ul>
+<h4 style="background-color: #7F7F7F; color: #FFCC00">Tips & Tricks :
+</h4>
+<ul>
+<li><b style="color: #FFCC00">Custom backgrounds:</b><br/>
+On non Nexus one devices, try to use pure power of 2 images for the backgorunds: eg 1024x512 or 256x256 or anything else where both dimensions are power of 2
+</li>
+<li>
+<b style="color: #FFCC00">Custom rotation axis:</b><br/>
+activate touch rotation and free rotation, be sure to have natural axis disabled, rotate the planet to the axis you want, then go back in settings and deactivate free rotation. If natural axis is not selected, the axis should stay fixed untill next reboot.
+</li>
+<li>
+<b style="color: #FFCC00">Foreground service:</b><br/>
+Setting the service to run in foreground help fixing issues and provide a direct access to settings through the notification bar.
+</li>
+</ul>
+</html>

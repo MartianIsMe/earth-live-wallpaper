@@ -3,9 +3,18 @@ package com.seb.SLWP;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
-import java.util.HashMap;
 
+
+
+
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,8 +24,15 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class Prefs extends PreferenceActivity implements
@@ -26,6 +42,10 @@ public class Prefs extends PreferenceActivity implements
 	private Preference bg;
 	private ListPreferenceMultiSelect randlist;
 	private ListPreference ml;
+	private int VersionRun=0;
+	private int versionCode=0;
+	private View dlgLayout;
+	private WebView wv;
 	public static Uri currImageURI;
 
 	@Override
@@ -52,22 +72,66 @@ public class Prefs extends PreferenceActivity implements
 		tex.setOnPreferenceChangeListener(this);
 		bg.setOnPreferenceChangeListener(this);
 		initMapList();
-		/*Button bt = (Button) findViewById(R.id.Bt_donate);
+		Button bt = (Button) findViewById(R.id.bt_donate);
 		bt.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(
 						Intent.ACTION_VIEW,
 						Uri
-								.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=H8G8WDKKXXYRA&lc=US&item_name=Seb%20Boyart&item_number=SLWP&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted")));
+								.parse("market://search?q=pub:unixseb")));
 			}
-		});*/
+		});
+		Button bth = (Button) findViewById(R.id.bt_help);
+		bth.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sHelp();
+			}
+		});
+		// read current version information about this package
+		PackageManager manager = getPackageManager();
+		PackageInfo info = null;
+		try {
+			info = manager.getPackageInfo("com.seb.SLWP", 0);
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//this.packageName = info.packageName;
+		this.versionCode = info.versionCode;
+		//this.versionName = info.versionName;
 		
+		if (PreferenceManager.getDefaultSharedPreferences(this).getInt("VersionRun", -1) != versionCode) {
+			SharedPreferences.Editor editor = PreferenceManager
+					.getDefaultSharedPreferences(this).edit();
+			editor.putInt("VersionRun", this.versionCode);
+			editor.commit();
+			sHelp();
 		
 	}
 
-	
-	
+	}
+
+	private void sHelp() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		LayoutInflater inflater = getLayoutInflater();
+		dlgLayout = inflater.inflate(R.layout.helpscreen, null);
+		wv = (WebView) dlgLayout.findViewById(R.id.webview01);
+		wv.setWebChromeClient(new WebChromeClient());
+		wv.loadUrl("file:///android_asset/help.html");
+		builder.setMessage("Parametres ?").setCancelable(false)
+				.setView(dlgLayout).setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int id) {
+								return;
+							}
+						}).setNegativeButton(null, null).setTitle(
+						"Aide").show();
+
+	}
+
 	private void initMapList(){
 		ml = (ListPreference) this.getPreferenceManager().findPreference("Tex");
 		File m=new File(SLWP.cache+"/maps");
