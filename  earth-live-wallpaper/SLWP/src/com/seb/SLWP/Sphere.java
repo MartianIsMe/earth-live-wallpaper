@@ -471,9 +471,76 @@ class Sphere implements Serializable {
 		case 30:
 			mTex = "kamino";
 			break;
+		case 31:
+			mTex = "endor_clouds";
+			break;
+		case 32:
+			mTex = "dagobah";
+			break;
+		case 33:
+			mTex = "naboo_clouds";
+			break;
+		case 34:
+			mTex = "bespin";
+			break;
+		case 35:
+			mTex = "yavin";
+			break;
+		case 36:
+			mTex = "cardassia";
+			break;
+		case 37:
+			mTex = "ferenginar";
+			break;
+		case 38:
+			mTex = "qonos";
+			break;
+		case 39:
+			mTex = "romulus";
+			break;
+		case 40:
+			mTex = "remus";
+			break;
+		case 41:
+			mTex = "vulcan";
+			break;
+		case 42:
+			mTex = "borg";
+			break;
+		case 43:
+			mTex = "futuramaearth";
+			break;
+		case 44:
+			mTex = "moon1";
+			break;
+		case 45:
+			mTex = "mars1";
+			break;
+		case 46:
+			mTex = "neptune1";
+			break;
+		case 47:
+			mTex = "globetrotter";
+			break;
+		case 48:
+			mTex = "eternium";
+			break;
+		case 49:
+			mTex = "omicronpersei8";
+			break;
+		case 50:
+			mTex = "trisol";
+			break;
+		case 51:
+			mTex = "krypton";
+			break;
+		case 52:
+			mTex = "oberon";
+			break;
+		
 		}
 	}
-
+	
 	/*
 	 * public static void setTexture(int t) { intTex = t; switch (t) { case 0:
 	 * mTex = 0; // mTex = R.drawable.land_ocean_ice_cloud_2048; break; case 1:

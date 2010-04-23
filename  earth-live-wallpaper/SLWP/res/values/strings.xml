@@ -119,8 +119,10 @@
 		<item>Ganymede</item>
 		<item>Phoebe</item>
 		<item>Endor</item>
+		<item>Endor+clouds</item>
 		<item>Tatooine</item>
 		<item>Naboo</item>
+		<item>Naboo+clouds</item>
 		<item>Hoth</item>
 		<item>Geonosis</item>
 		<item>Mustafar</item>
@@ -128,8 +130,27 @@
 		<item>Utapau</item>
 		<item>Yavin4</item>
 		<item>Kamino</item>
+		<item>Dagobah</item>
+		<item>Bespin</item>
+		<item>Yavin</item>
 		<item>DeathStar 1</item>
 		<item>DeathStar 2</item>
+		<item>Cardassia Prime</item>
+		<item>Ferenginar</item>
+		<item>Qo\'nos</item>
+		<item>Romulus</item>
+		<item>Remus</item>
+		<item>Vulcan</item>
+		<item>Borg Sphere</item>
+		<item>Futurama Earth</item> 
+		<item>Futurama Moon</item> 
+		<item>Futurama Mars</item> 
+		<item>Futurama Neptune</item> 
+		<item>Globetrotter Home World</item> 
+		<item>Eternium</item> 
+		<item>Omicron Persei 8</item> 
+		<item>Trisol</item> 
+		<item>Krypton</item>
 	</string-array>
 
 	<string-array name="tex_value">
@@ -154,8 +175,10 @@
 		<item>11</item>
 		<item>12</item>
 		<item>13</item>
+		<item>31</item>
 		<item>14</item>
 		<item>16</item>
+		<item>33</item>
 		<item>17</item>
 		<item>18</item>
 		<item>23</item>
@@ -163,8 +186,27 @@
 		<item>28</item>
 		<item>29</item>
 		<item>30</item>
+		<item>32</item>
+		<item>34</item>
+		<item>35</item>
 		<item>21</item>
 		<item>22</item>
+		<item>36</item>
+		<item>37</item>
+		<item>38</item>
+		<item>39</item>
+		<item>40</item>
+		<item>41</item>
+		<item>42</item>
+		<item>43</item>
+		<item>44</item>
+		<item>45</item>
+		<item>46</item>
+		<item>47</item>
+		<item>48</item>
+		<item>49</item>
+		<item>50</item>
+		<item>51</item>
 	</string-array>
 	<string-array name="bg_id">
 		<item>From gallery</item>
