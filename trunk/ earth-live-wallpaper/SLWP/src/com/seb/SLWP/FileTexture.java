@@ -35,7 +35,6 @@ public class FileTexture {
 		this.fname=fname;
 		mCropWorkspace = new int[4];
 		sBitmapOptions.inPreferredConfig = Bitmap.Config.RGB_565;
-
 	}
 
 	private void showloading(){
@@ -44,18 +43,20 @@ public class FileTexture {
 		URL myFileUrl = null;
 		String ext="jpg";
 		if(fname.equalsIgnoreCase("dstartwo")) ext="png";
-		else ext="jpg";
 		File out=new File(SLWP.mapcache+"/"+fname+"."+ext);
 		try {
 			myFileUrl = new URL(baseurl+"/"+fname+"."+ext);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		Log.i("SLWP", "Loading texture "+baseurl+"/"+fname+".jpg");
+		Log.i("SLWP", "Loading texture "+baseurl+"/"+fname+"."+ext);
+		if(out.exists())out.delete();
 		try {
 			out.createNewFile();
 			conn = (HttpURLConnection) myFileUrl.openConnection();
 			conn.setDoInput(true);
+			conn.setConnectTimeout(1000*10);
+			conn.setReadTimeout(1000*10);
 			conn.connect();
 			is = conn.getInputStream();
 
@@ -79,9 +80,8 @@ public class FileTexture {
 	public void loadTexture() {
 		String ext="jpg";
 		if(fname.equalsIgnoreCase("dstartwo")) ext="png";
-		else ext="jpg";
 		File f=new File(SLWP.mapcache+"/"+fname+"."+ext);
-		if (f.exists()) {
+		if (f.exists()&&f.length()>100) {
 			bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
 			if (bitmap != null)
 				createTexture();

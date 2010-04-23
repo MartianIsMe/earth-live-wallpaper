@@ -93,8 +93,10 @@
 		<item>Ganymede</item>
 		<item>Phoebe</item>
 		<item>Endor</item>
+		<item>Endor+clouds</item>
 		<item>Tatooine</item>
 		<item>Naboo</item>
+		<item>Naboo+clouds</item>
 		<item>Hoth</item>
 		<item>Geonosis</item>
 		<item>Mustafar</item>
@@ -102,8 +104,27 @@
 		<item>Utapau</item>
 		<item>Yavin4</item>
 		<item>Kamino</item>
+		<item>Dagobah</item>
+		<item>Bespin</item>
+		<item>Yavin</item>
 		<item>DeathStar 1</item>
 		<item>DeathStar 2</item>
+		<item>Cardassia Prime</item>
+		<item>Ferenginar</item>
+		<item>Qo\'nos</item>
+		<item>Romulus</item>
+		<item>Remus</item>
+		<item>Vulcan</item>
+		<item>Borg Sphere</item>
+		<item>Futurama Earth</item> 
+		<item>Futurama Moon</item> 
+		<item>Futurama Mars</item> 
+		<item>Futurama Neptune</item> 
+		<item>Globetrotter Home World</item> 
+		<item>Eternium</item> 
+		<item>Omicron Persei 8</item> 
+		<item>Trisol</item>
+		<item>Krypton</item>
 	</string-array>
 	<string-array name="refresh_id">
 		<item>Systématique (deconseillé)</item>
