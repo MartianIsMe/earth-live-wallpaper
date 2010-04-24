@@ -325,8 +325,7 @@ class Sphere implements Serializable {
 			gl11.glRotatef(langle -= 0.2f, 0f, 0f, 1f);
 			gl11.glTranslatef(3.2f, 0f, 0f);
 			gl11.glScalef(0.26f, 0.26f, 0.26f);
-			gl11.glRotatef(180f, 0f, 1f, 0f);
-
+			gl11.glRotatef(90f, 0f, 0f, 1f);
 			gl11.glDrawElements(GL11.GL_TRIANGLES, IdxCnt,
 					GL11.GL_UNSIGNED_SHORT, 0);
 		}
