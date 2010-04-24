@@ -85,8 +85,8 @@ class CubeRenderer implements Renderer, Serializable {
 	private FloatBuffer ambientMaterialbfr;
 	private FloatBuffer diffuseMaterialbfr;
 	private FloatBuffer light_positionbfr;
-	private GL10 old_gl;
-	private int old_width;
+	private GL10 old_gl=null;
+	private int old_width=-1;
 
 	public CubeRenderer(Context context) {
 		mContext = context;

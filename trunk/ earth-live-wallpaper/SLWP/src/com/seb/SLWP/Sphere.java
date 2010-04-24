@@ -251,7 +251,7 @@ class Sphere implements Serializable {
 			httptexture.setTexture();
 
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
-		if (useshading && !mTex.equalsIgnoreCase("0")) {
+		if (useshading && !mTex.equalsIgnoreCase("0")&& !mTex.equalsIgnoreCase("26")) {
 			// texcoord pour chaque texture (lightmap+color)
 			gl11.glClientActiveTexture(GL10.GL_TEXTURE0); // lightmap
 			gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
@@ -331,7 +331,7 @@ class Sphere implements Serializable {
 					GL11.GL_UNSIGNED_SHORT, 0);
 		}
 
-		if (useshading && !mTex.equalsIgnoreCase("0")) {
+		if (useshading && !mTex.equalsIgnoreCase("0")&& !mTex.equalsIgnoreCase("26")) {
 
 			gl11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			gl11.glActiveTexture(GL10.GL_TEXTURE0);
