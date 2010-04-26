@@ -25,6 +25,10 @@ public class GLTextures {
 		sBitmapOptions.inPreferredConfig = Bitmap.Config.RGB_565;
 	}
 
+	public void freeTexs(){
+		gl.glDeleteTextures(textures.length, textures,0);
+	}
+	
 	public void loadTextures() {
 		if(gl==null)return;
 		int[] tmp_tex = new int[textureFiles.length];

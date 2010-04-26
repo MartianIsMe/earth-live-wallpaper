@@ -305,8 +305,8 @@ class CubeRenderer implements Renderer, Serializable {
 	}
 
 	public void SurfaceDestroyed() {
-		Sphere.freeHardwareBuffers();
-		Rings.freeHardwareBuffers();
+		mSphere.freeHardwareBuffers();
+		mRings.freeHardwareBuffers();
 
 	}
 
@@ -325,9 +325,6 @@ class CubeRenderer implements Renderer, Serializable {
 			mGl = gl;
 			gl.glViewport(0, 0, width, height);
 			gl.glEnable(GL10.GL_DEPTH_TEST);
-			if (usebg)
-				mBg.Init(gl);
-			mBg.setDims(width, height);
 			// Background.vW=width;
 			// Background.vH=height;
 
@@ -349,30 +346,49 @@ class CubeRenderer implements Renderer, Serializable {
 			 * gl.glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
 			 */
 			//if (!android.os.Build.MODEL.equalsIgnoreCase("Nexus One")||old_width != width || gl != old_gl) {
+			
+			//if(old_gl!=gl){
 				setTex(SLWP.Tex);
-
-				if (mDs == null && deathstar2) {
-					mDs = new DeathStar(mContext);
+				if (usebg){
+					mBg.Init(gl);
+					mBg.setDims(width, height);
+				}
+				if (mDs == null) {
+					if(deathstar2)mDs = new DeathStar(mContext);
+				}
+				else{
+					mDs.freeHardwareBuffers();
 				}
 				if (deathstar2)
 					mDs.Init(gl);
 				else {
 					if (mSphere == null)
 						mSphere = new Sphere(mContext);
+					else
+						mSphere.freeHardwareBuffers();
 					mSphere.Init(gl);
 					if (mRings == null)
 						mRings = new Rings(mContext);
+					else
+						mRings.freeHardwareBuffers();
 					mRings.Init(gl);
 				}
-				if (mStarfield != null)
+				if (mStarfield.inited&&useStarfield) {
+					mStarfield.freeHardwareBuffers();	
+				}
+				if(useStarfield)
 					mStarfield.init(gl);
-
-				initlabel(gl);
-				setYpos(lypos);
-
+					
+				
+				if(showText){
+					if(lm!=null)lm.shutdown(gl);
+					initlabel(gl);
+					setYpos(lypos);
+					labxpos = mWidth * 0.5f - lm.getWidth(labelid) * 0.5f;
+				}
+				old_gl=gl;
 			//}
-		//	old_gl = gl;
-		//	old_width = width;
+			
 			initing = false;
 		}
 	}
@@ -415,13 +431,14 @@ class CubeRenderer implements Renderer, Serializable {
 
 		// ((GL11)gl).glTexEnvi(GL10.GL_TEXTURE_ENV, GL11.GL_COMBINE_RGB,
 		// GL10.GL_MODULATE);
-
+		
 	}
 
 	public void shutdown(GL10 gl) {
 		if (gl == null)
 			return;
-		Sphere.freeHardwareBuffers();
+		mSphere.freeHardwareBuffers();
+		mRings.freeHardwareBuffers();
 	}
 
 	public void resetAngles() {

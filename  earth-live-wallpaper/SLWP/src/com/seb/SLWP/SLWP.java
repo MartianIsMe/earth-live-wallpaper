@@ -665,7 +665,6 @@ public class SLWP extends GLWallpaperService implements
 		public void onResume() {
 			if (Randomtex) {
 				Tex = randtex();
-				// renderer.setTex(Tex);
 			}
 			try {
 				NOW = new Date().getTime();

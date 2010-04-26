@@ -37,6 +37,10 @@ public class FileTexture {
 		sBitmapOptions.inPreferredConfig = Bitmap.Config.RGB_565;
 	}
 
+	public void freeTex(){
+		gl.glDeleteTextures(1, textures, 0);
+	}
+	
 	private void showloading(){
 		HttpURLConnection conn;
 		InputStream is = null;
