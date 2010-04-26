@@ -58,6 +58,7 @@ class Rings implements Serializable {
 	public static void InitTex() {
 		if(gl11==null)return;
 		mTex = R.drawable.satring;
+		if(textures!=null)textures.freeTexs();
 		textures = new GLTextures(gl11, mContext);
 		textures.add(mTex);
 		textures.loadTextures();
@@ -237,7 +238,7 @@ class Rings implements Serializable {
 		gl.glPopMatrix();
 	}
 
-	public static void freeHardwareBuffers() {
+	public void freeHardwareBuffers() {
 
 		int[] buffer = new int[1];
 		buffer[0] = mVertBufferIndex;
@@ -257,7 +258,7 @@ class Rings implements Serializable {
 		mTexBufferIndex = 0;
 		mNormBufferIndex = 0;
 
-		Log.i("VboCube", "hardware buffer freed");
+		Log.d("SLWP", "Rings hardware buffer freed");
 
 	}
 

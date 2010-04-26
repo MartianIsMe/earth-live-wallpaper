@@ -60,6 +60,7 @@ class DeathStar implements Serializable {
 		//textures = new GLTextures(gl11, mContext);
 		//textures.add(R.drawable.dstartwo);
 		//textures.loadTextures();
+		if(filetexture!=null)filetexture.freeTex();
 		filetexture = new FileTexture(gl11, "dstartwo");
 		filetexture.loadTexture();
 	}
@@ -241,7 +242,29 @@ class DeathStar implements Serializable {
 		gl.glDisable(GL10.GL_BLEND);
 	}
 
-	
+	public void freeHardwareBuffers() {
+
+		int[] buffer = new int[1];
+		buffer[0] = mVertBufferIndex;
+		gl11.glDeleteBuffers(1, buffer, 0);
+
+		buffer[0] = mTexBufferIndex;
+		gl11.glDeleteBuffers(1, buffer, 0);
+
+		buffer[0] = mNormBufferIndex;
+		gl11.glDeleteBuffers(1, buffer, 0);
+
+		buffer[0] = mIndexBufferIndex;
+		gl11.glDeleteBuffers(1, buffer, 0);
+
+		mVertBufferIndex = 0;
+		mIndexBufferIndex = 0;
+		mTexBufferIndex = 0;
+		mNormBufferIndex = 0;
+
+		Log.d("SLWP", "ds2 hardware buffer freed");
+
+	}
 
 	private class Fp {
 		public long Vi;

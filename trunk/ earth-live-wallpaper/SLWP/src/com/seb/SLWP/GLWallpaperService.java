@@ -12,9 +12,9 @@ import javax.microedition.khronos.egl.EGLSurface;
 import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.hardware.SensorEventListener;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import com.seb.SLWP.BaseConfigChooser.ComponentSizeChooser;
@@ -63,6 +63,7 @@ public class GLWallpaperService extends WallpaperService {
 		public void onDestroy() {
 			super.onDestroy();
 			// Log.d(TAG, "GLEngine.onDestroy()");
+			mGLThread.requestExitAndWait();
 		}
 
 		@Override
@@ -263,8 +264,11 @@ interface EGLWindowSurfaceFactory {
 }
 
 class DefaultWindowSurfaceFactory implements EGLWindowSurfaceFactory {
+
 	public EGLSurface createWindowSurface(EGL10 egl, EGLDisplay display,
 			EGLConfig config, Object nativeWindow) {
+		// this is a bit of a hack to work around Droid init problems - if you
+		// don't have this, it'll get hung up on orientation changes
 		EGLSurface eglSurface = null;
 		while (eglSurface == null) {
 			try {
@@ -274,7 +278,7 @@ class DefaultWindowSurfaceFactory implements EGLWindowSurfaceFactory {
 			} finally {
 				if (eglSurface == null) {
 					try {
-						Thread.sleep(40);
+						Thread.sleep(10);
 					} catch (InterruptedException t) {
 					}
 				}
@@ -328,60 +332,56 @@ class EglHelper {
 	 * @param configSpec
 	 */
 	public void start() {
-
-		if (android.os.Build.MODEL.equalsIgnoreCase("Nexus One")) {
-			if (mEglContext == null || mEgl == null || mEglDisplay == null
-					|| mEglConfig == null) {
-
-				mEgl = (EGL10) EGLContext.getEGL();
-
-				if (mEglDisplay != null) {
-					mEgl.eglTerminate(mEglDisplay);
-					mEglDisplay = null;
-				}
-				mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-
-				int[] version = new int[2];
-				mEgl.eglInitialize(mEglDisplay, version);
-				mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
-
-				if (mEglContext != null) {
-					mEGLContextFactory.destroyContext(mEgl, mEglDisplay,
-							mEglContext);
-					mEglContext = null;
-				}
-				mEglContext = mEGLContextFactory.createContext(mEgl,
-						mEglDisplay, mEglConfig);
-				if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
-					throw new RuntimeException("createContext failed");
-				}
-			}
-			mEglSurface = null;
+		String instanceId = "";
+		Log.d("EglHelper" + instanceId, "start()");
+		if (mEgl == null) {
+			Log.d("EglHelper" + instanceId, "getting new EGL");
+			/*
+			 * Get an EGL instance
+			 */
+			mEgl = (EGL10) EGLContext.getEGL();
 		} else {
-			
-			if (mEgl == null) 
-				mEgl = (EGL10) EGLContext.getEGL();
-			
-			if (mEglDisplay == null) 
-				mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-			
-
-			if (mEglConfig == null) {
-				int[] version = new int[2];
-				mEgl.eglInitialize(mEglDisplay, version);
-				mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
-				
-			}
-
-			if (mEglContext == null) {
-				mEglContext = mEGLContextFactory.createContext(mEgl,
-						mEglDisplay, mEglConfig);
-				if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
-					throw new RuntimeException("createContext failed");
-				}
-			} 
-			mEglSurface = null;
+			Log.d("EglHelper" + instanceId, "reusing EGL");
 		}
+
+		if (mEglDisplay == null) {
+			Log.d("EglHelper" + instanceId, "getting new display");
+			/*
+			 * Get to the default display.
+			 */
+			mEglDisplay = mEgl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
+		} else {
+			Log.d("EglHelper" + instanceId, "reusing display");
+		}
+
+		if (mEglConfig == null) {
+			Log.d("EglHelper" + instanceId, "getting new config");
+			/*
+			 * We can now initialize EGL for that display
+			 */
+			int[] version = new int[2];
+			mEgl.eglInitialize(mEglDisplay, version);
+			mEglConfig = mEGLConfigChooser.chooseConfig(mEgl, mEglDisplay);
+		} else {
+			Log.d("EglHelper" + instanceId, "reusing config");
+		}
+
+		if (mEglContext == null) {
+			Log.d("EglHelper" + instanceId, "creating new context");
+			/*
+			 * Create an OpenGL ES context. This must be done only once, an
+			 * OpenGL context is a somewhat heavy object.
+			 */
+			mEglContext = mEGLContextFactory.createContext(mEgl, mEglDisplay,
+					mEglConfig);
+			if (mEglContext == null || mEglContext == EGL10.EGL_NO_CONTEXT) {
+				throw new RuntimeException("createContext failed");
+			}
+		} else {
+			Log.d("EglHelper" + instanceId, "reusing context");
+		}
+
+		mEglSurface = null;
 	}
 
 	/*
@@ -419,8 +419,7 @@ class EglHelper {
 		 */
 		if (!mEgl.eglMakeCurrent(mEglDisplay, mEglSurface, mEglSurface,
 				mEglContext)) {
-			// throw new RuntimeException("eglMakeCurrent failed.");
-			return null;
+			throw new RuntimeException("eglMakeCurrent failed.");
 		}
 
 		GL gl = mEglContext.getGL();
@@ -445,20 +444,14 @@ class EglHelper {
 	 * @return false if the context has been lost.
 	 */
 	public boolean swap() {
-		try {
-			mEgl.eglSwapBuffers(mEglDisplay, mEglSurface);
-		} catch (Exception e) {
-			// Log.e("SLWP","ERROR SWAPPING SURFACE");
-			// return true;
-		}
+		mEgl.eglSwapBuffers(mEglDisplay, mEglSurface);
+
 		/*
 		 * Always check for EGL_CONTEXT_LOST, which means the context and all
 		 * associated data were lost (For instance because the device went to
 		 * sleep). We need to sleep until we get a new surface.
 		 */
-
 		return mEgl.eglGetError() != EGL11.EGL_CONTEXT_LOST;
-
 	}
 
 	public void destroySurface() {
@@ -514,7 +507,7 @@ class GLThread extends Thread {
 	// End of member variables protected by the sGLThreadManager monitor.
 
 	private GLWallpaperService.Renderer mRenderer;
-	private ArrayList<Runnable> mEventQueue = new ArrayList<Runnable>();
+	private ArrayList mEventQueue = new ArrayList();
 	private EglHelper mEglHelper;
 
 	GLThread(GLWallpaperService.Renderer renderer, EGLConfigChooser chooser,
@@ -531,7 +524,6 @@ class GLThread extends Thread {
 		this.mEGLContextFactory = contextFactory;
 		this.mEGLWindowSurfaceFactory = surfaceFactory;
 		this.mGLWrapper = wrapper;
-
 	}
 
 	@Override
@@ -558,7 +550,6 @@ class GLThread extends Thread {
 		if (mHaveEgl) {
 			mHaveEgl = false;
 			mEglHelper.destroySurface();
-			mEglHelper.finish();
 			sGLThreadManager.releaseEglSurface(this);
 		}
 	}
@@ -693,7 +684,6 @@ class GLThread extends Thread {
 					 */
 					mEglHelper.swap();
 				}
-
 			}
 		} finally {
 			/*
@@ -701,6 +691,7 @@ class GLThread extends Thread {
 			 */
 			synchronized (sGLThreadManager) {
 				stopEglLocked();
+				mEglHelper.finish();
 			}
 		}
 	}
@@ -821,7 +812,7 @@ class GLThread extends Thread {
 	private Runnable getEvent() {
 		synchronized (this) {
 			if (mEventQueue.size() > 0) {
-				return mEventQueue.remove(0);
+				return (Runnable) mEventQueue.remove(0);
 			}
 
 		}

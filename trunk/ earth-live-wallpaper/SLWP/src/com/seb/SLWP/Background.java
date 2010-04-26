@@ -80,12 +80,14 @@ class Background implements Serializable {
 		this.gl = gl;
 		curtex = t;
 		if (t != -1) {
+			if(textures!=null)textures.freeTexs();
 			textures = new GLTextures(gl, mContext);
 			setTexture(t);
 			textures.add(mTex);
 			textures.loadTextures();
 			bmpRatio = 1f;
 		} else {
+			if(texf[0]!=0)gl.glDeleteTextures(1, texf, 0);
 			createTexture();
 		}
 

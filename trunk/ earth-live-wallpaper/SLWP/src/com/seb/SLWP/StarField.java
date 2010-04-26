@@ -9,6 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL11;
 
 import android.content.Context;
+import android.util.Log;
 
 public class StarField {
 
@@ -43,7 +44,8 @@ public class StarField {
 	private int mu = 0;
 	public static float speedfactor=1.0f;
 	public float stardensity=1.0f;
-
+	private GL11 gl11;
+	public boolean inited=false;
 	public StarField(Context context) {
 		mContext = context;
 		InitStars();
@@ -86,7 +88,8 @@ public class StarField {
 	}
 	
 	public void init(GL10 gl) {
-		GL11 gl11 = (GL11) gl;
+		gl11 = (GL11) gl;
+		if(tex!=null) tex.freeTexs();
 		tex = new GLTextures(gl, mContext);
 		tex.add(R.drawable.starfield);
 		tex.loadTextures();
@@ -119,10 +122,11 @@ public class StarField {
 		 */
 
 		// }
+		inited=true;
 	}
 
 	public void draw(GL10 gl) {
-		GL11 gl11 = (GL11) gl;
+		
 		// gl.glEnableClientState(GL11.GL_COLOR_ARRAY);
 
 		gl.glDisable(GL10.GL_CULL_FACE);
@@ -188,5 +192,26 @@ public class StarField {
 		gl.glDisable(GL10.GL_ALPHA_TEST);
 		// gl.glDisableClientState(GL11.GL_COLOR_ARRAY);
 	}
+	public void freeHardwareBuffers() {
 
+		int[] buffer = new int[1];
+		buffer[0] = mc;
+		gl11.glDeleteBuffers(1, buffer, 0);
+
+		buffer[0] = mv;
+		gl11.glDeleteBuffers(1, buffer, 0);
+
+		buffer[0] = mu;
+		gl11.glDeleteBuffers(1, buffer, 0);
+
+		
+
+		mc = 0;
+		mv = 0;
+		mu = 0;
+		
+
+		Log.d("SLWP", "Starfield hardware buffer freed");
+
+	}
 }

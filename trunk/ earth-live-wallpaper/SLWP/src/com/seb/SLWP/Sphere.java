@@ -67,10 +67,12 @@ class Sphere implements Serializable {
 		if (gl11 == null || SLWP.Tex == 22)
 			return;
 		setTexture(SLWP.Tex);
-		textures = new GLTextures(gl11, mContext);
+		
+		
 
 		if (!mTex.equalsIgnoreCase("0")) {
 			// textures.add(mTex);
+			if(filetexture!=null) filetexture.freeTex();
 			filetexture = new FileTexture(gl11, mTex);
 			filetexture.loadTexture();
 		} else {
@@ -79,14 +81,18 @@ class Sphere implements Serializable {
 		}
 		if (intTex < 4 || intTex == 13 || intTex == 29) {
 			if (intTex < 4) {
+				if(moon!=null) moon.freeTex();
 				moon = new FileTexture(gl11, "moon");
 				moon.loadTexture();
 
 			} else {
+				if(deathstar!=null) deathstar.freeTex();
 				deathstar = new FileTexture(gl11, "deathstar");
 				deathstar.loadTexture();
 			}
 		}
+		if(textures!=null)textures.freeTexs();
+		textures = new GLTextures(gl11, mContext);
 		textures.add(R.drawable.lmap);
 		textures.loadTextures();
 	}
@@ -352,7 +358,7 @@ class Sphere implements Serializable {
 		// gl11.glDisable(GL10.GL_TEXTURE_2D);
 	}
 
-	public static void freeHardwareBuffers() {
+	public void freeHardwareBuffers() {
 
 		int[] buffer = new int[1];
 		buffer[0] = mVertBufferIndex;
@@ -372,7 +378,7 @@ class Sphere implements Serializable {
 		mTexBufferIndex = 0;
 		mNormBufferIndex = 0;
 
-		Log.e("VboCube", "hardware buffer freed");
+		Log.d("SLWP", "sphere hardware buffer freed");
 
 	}
 
