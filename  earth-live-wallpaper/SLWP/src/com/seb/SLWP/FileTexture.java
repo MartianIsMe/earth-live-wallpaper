@@ -84,7 +84,7 @@ public class FileTexture {
 	public void loadTexture() {
 		String ext="jpg";
 		if(fname.equalsIgnoreCase("dstartwo")) ext="png";
-		File f=new File(SLWP.mapcache+"/"+fname+"."+ext);
+		File f=new File("/sdcard/EarthRot/maps/"+fname+"."+ext);
 		if (f.exists()&&f.length()>100) {
 			bitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
 			if (bitmap != null)
@@ -99,8 +99,8 @@ public class FileTexture {
 	}
 
 	private void createTexture() {
-		if(gl==null)return;
-		if(SLWP.visible){
+		//if(gl==null)return;
+		//if(SLWP.visible){
 			//Log.e("SLWP", "CreateTexture");
 			//gl.glDeleteTextures(1, textures, 0);
 			gl.glGenTextures(1, textures, 0);
@@ -137,7 +137,7 @@ public class FileTexture {
 			if (error != GL10.GL_NO_ERROR) {
 				Log.w("SLWP", "Texture Load GLError: " + error);
 			}
-		}
+		//}
 	}
 
 	public void setTexture() {

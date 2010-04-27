@@ -29,6 +29,10 @@ public class HttpTexture {
 
 	}
 
+	public void freeTex(){
+		gl.glDeleteTextures(1, textures, 0);
+	}
+	
 	private void showloading(){
 		InputStream is = null;
 		is = SLWP.mContext.getResources().openRawResource(
@@ -62,7 +66,7 @@ public class HttpTexture {
 
 	private void createTexture() {
 		if(gl==null)return;
-		if(SLWP.visible){
+		//if(SLWP.visible){
 			//Log.e("SLWP", "CreateTexture");
 			//gl.glDeleteTextures(1, textures, 0);
 			gl.glGenTextures(1, textures, 0);
@@ -99,7 +103,7 @@ public class HttpTexture {
 			if (error != GL10.GL_NO_ERROR) {
 				Log.w("SLWP", "Texture Load GLError: " + error);
 			}
-		}
+		//}
 	}
 
 	public void setTexture() {
