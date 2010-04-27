@@ -67,12 +67,11 @@ class Sphere implements Serializable {
 		if (gl11 == null || SLWP.Tex == 22)
 			return;
 		setTexture(SLWP.Tex);
-		
-		
 
 		if (!mTex.equalsIgnoreCase("0")) {
 			// textures.add(mTex);
-			if(filetexture!=null) filetexture.freeTex();
+			if (filetexture != null)
+				filetexture.freeTex();
 			filetexture = new FileTexture(gl11, mTex);
 			filetexture.loadTexture();
 		} else {
@@ -81,17 +80,20 @@ class Sphere implements Serializable {
 		}
 		if (intTex < 4 || intTex == 13 || intTex == 29) {
 			if (intTex < 4) {
-				if(moon!=null) moon.freeTex();
+				if (moon != null)
+					moon.freeTex();
 				moon = new FileTexture(gl11, "moon");
 				moon.loadTexture();
 
 			} else {
-				if(deathstar!=null) deathstar.freeTex();
+				if (deathstar != null)
+					deathstar.freeTex();
 				deathstar = new FileTexture(gl11, "deathstar");
 				deathstar.loadTexture();
 			}
 		}
-		if(textures!=null)textures.freeTexs();
+		if (textures != null)
+			textures.freeTexs();
 		textures = new GLTextures(gl11, mContext);
 		textures.add(R.drawable.lmap);
 		textures.loadTextures();
@@ -257,7 +259,8 @@ class Sphere implements Serializable {
 			httptexture.setTexture();
 
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mTexBufferIndex);
-		if (useshading && !mTex.equalsIgnoreCase("0")&& !mTex.equalsIgnoreCase("26")) {
+		if (useshading && !mTex.equalsIgnoreCase("0")
+				&& !mTex.equalsIgnoreCase("sun")) {
 			// texcoord pour chaque texture (lightmap+color)
 			gl11.glClientActiveTexture(GL10.GL_TEXTURE0); // lightmap
 			gl11.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
@@ -336,7 +339,8 @@ class Sphere implements Serializable {
 					GL11.GL_UNSIGNED_SHORT, 0);
 		}
 
-		if (useshading && !mTex.equalsIgnoreCase("0")&& !mTex.equalsIgnoreCase("26")) {
+		if (useshading && !mTex.equalsIgnoreCase("0")
+				&& !mTex.equalsIgnoreCase("sun")) {
 
 			gl11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			gl11.glActiveTexture(GL10.GL_TEXTURE0);
@@ -542,10 +546,43 @@ class Sphere implements Serializable {
 		case 52:
 			mTex = "oberon";
 			break;
-		
+		case 53:
+			mTex = "decapod";
+			break;
+		case 54:
+			mTex = "cybertron";
+			break;
+		case 55:
+			mTex = "erios";
+			break;
+		case 56:
+			mTex = "hades";
+			break;
+		case 57:
+			mTex = "hell";
+			break;
+		case 58:
+			mTex = "newton";
+			break;
+		case 59:
+			mTex = "pandora";
+			break;
+		case 60:
+			mTex = "phele";
+			break;
+		case 61:
+			mTex = "polyphemus";
+			break;
+		case 62:
+			mTex = "seneka";
+			break;
+		case 63:
+			mTex = "vergilius";
+			break;
+
 		}
 	}
-	
+
 	/*
 	 * public static void setTexture(int t) { intTex = t; switch (t) { case 0:
 	 * mTex = 0; // mTex = R.drawable.land_ocean_ice_cloud_2048; break; case 1:
