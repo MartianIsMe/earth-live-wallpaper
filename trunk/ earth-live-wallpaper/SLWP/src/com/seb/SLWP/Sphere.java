@@ -75,6 +75,8 @@ class Sphere implements Serializable {
 			filetexture = new FileTexture(gl11, mTex);
 			filetexture.loadTexture();
 		} else {
+			if (httptexture != null)
+				httptexture.freeTex();
 			httptexture = new HttpTexture(gl11);
 			httptexture.loadTexture();
 		}
