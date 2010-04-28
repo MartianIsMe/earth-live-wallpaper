@@ -4,11 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 
-
-
-
-
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +24,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,11 +40,12 @@ public class Prefs extends PreferenceActivity implements
 	private Preference bg;
 	private ListPreferenceMultiSelect randlist;
 	private ListPreference ml;
-	private int VersionRun=0;
-	private int versionCode=0;
+	private int VersionRun = 0;
+	private int versionCode = 0;
 	private View dlgLayout;
 	private WebView wv;
 	public static Uri currImageURI;
+	private String iconUri = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +55,16 @@ public class Prefs extends PreferenceActivity implements
 		st = this.getPreferenceManager().findPreference("Synctime");
 		tex = this.getPreferenceManager().findPreference("Tex");
 		bg = this.getPreferenceManager().findPreference("Bg");
-		randlist=(ListPreferenceMultiSelect) findPreference("Randlist");
-		
+		randlist = (ListPreferenceMultiSelect) findPreference("Randlist");
+
 		if (SLWP.Tex != 0)
 			st.setEnabled(false);
 		else
 			st.setEnabled(true);
-		
-		if (SLWP.Randomtex){
+
+		if (SLWP.Randomtex) {
 			randlist.setEnabled(true);
-		}
-		else{
+		} else {
 			randlist.setEnabled(false);
 		}
 		tex.setOnPreferenceChangeListener(this);
@@ -76,10 +74,8 @@ public class Prefs extends PreferenceActivity implements
 		bt.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(
-						Intent.ACTION_VIEW,
-						Uri
-								.parse("market://search?q=pub:unixseb")));
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri
+						.parse("market://search?q=pub:unixseb")));
 			}
 		});
 		Button bth = (Button) findViewById(R.id.bt_help);
@@ -98,18 +94,19 @@ public class Prefs extends PreferenceActivity implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//this.packageName = info.packageName;
+		// this.packageName = info.packageName;
 		this.versionCode = info.versionCode;
-		//this.versionName = info.versionName;
-		
-		if (PreferenceManager.getDefaultSharedPreferences(this).getInt("VersionRun", -1) != versionCode) {
+		// this.versionName = info.versionName;
+
+		if (PreferenceManager.getDefaultSharedPreferences(this).getInt(
+				"VersionRun", -1) != versionCode) {
 			SharedPreferences.Editor editor = PreferenceManager
 					.getDefaultSharedPreferences(this).edit();
 			editor.putInt("VersionRun", this.versionCode);
 			editor.commit();
 			sHelp();
-		
-	}
+
+		}
 
 	}
 
@@ -120,108 +117,161 @@ public class Prefs extends PreferenceActivity implements
 		wv = (WebView) dlgLayout.findViewById(R.id.webview01);
 		wv.setWebChromeClient(new WebChromeClient());
 		wv.loadUrl("file:///android_asset/help.html");
-		builder.setMessage("Parametres ?").setCancelable(false)
-				.setView(dlgLayout).setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int id) {
-								return;
-							}
-						}).setNegativeButton(null, null).setTitle(
-						"Aide").show();
+		builder.setMessage("Parametres ?").setCancelable(false).setView(
+				dlgLayout).setPositiveButton("Ok",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						return;
+					}
+				}).setNegativeButton(null, null).setTitle("Aide").show();
 
 	}
 
-	private void initMapList(){
+	private void initMapList() {
 		ml = (ListPreference) this.getPreferenceManager().findPreference("Tex");
-		File m=new File(SLWP.cache+"/maps");
+		File m = new File(SLWP.cache + "/maps");
 		FilenameFilter filter = new FilenameFilter() {
-		    public boolean accept(File dir, String name) {
-		        return name.endsWith(".jpg");
-		    }
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".jpg");
+			}
 		};
-		
-		String fnames[]=m.list(filter);
-		//ml.setEntries(fnames);
+
+		String fnames[] = m.list(filter);
+		// ml.setEntries(fnames);
 	}
-	
+
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
-		if (preference.getKey().compareToIgnoreCase("Tex")==0) {
+		if (preference.getKey().compareToIgnoreCase("Tex") == 0) {
 			if (Integer.parseInt((String) newValue) == 0)
 				st.setEnabled(true);
 			else
 				st.setEnabled(false);
-			
-			if (Integer.parseInt((String) newValue) == SLWP.RNDMAP){
+
+			if (Integer.parseInt((String) newValue) == SLWP.RNDMAP) {
 				randlist.setEnabled(true);
-			}
-			else{
+			} else {
 				randlist.setEnabled(false);
 			}
-			
-		}
-		else if (preference.getKey().compareToIgnoreCase("Bg")==0) {
-			if (Integer.parseInt((String) newValue) == -1){
+
+		} else if (preference.getKey().compareToIgnoreCase("Bg") == 0) {
+			if (Integer.parseInt((String) newValue) == -1) {
 				showGallery();
-			}
-			else{
-				currImageURI=null;
+			} else {
+				currImageURI = null;
 			}
 		}
 		return true;
-		
+
 	}
-	
-	private void showGallery(){
+
+	private void showGallery() {
 		// To open up a gallery browser
 		Intent intent = new Intent();
 		intent.setType("image/*");
 		intent.setAction(Intent.ACTION_GET_CONTENT);
-		startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
+		startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+				1);
 	}
+
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) { 
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			if (requestCode == 1) {
-				// currImageURI is the global variable I'm using to hold the content:// URI of the image
-				currImageURI = data.getData();
-				SLWP.bgfile=getRealPathFromURI(currImageURI);
+			switch (requestCode) {
+			// currImageURI is the global variable I'm using to hold the
+			// content:// URI of the image
+			case 1:
+				Intent i = new Intent("com.android.camera.action.CROP");
+				i.setData(data.getData());
+				// currImageURI = data.getData();
+
 				
-					Bitmap bitmap;
-					File Ftmp=new File(SLWP.cache.getAbsolutePath()+"/curbg.png");
-					bitmap=BitmapFactory.decodeFile(SLWP.bgfile);
-					if(bitmap==null){
-						Toast.makeText(this, "Image Error", Toast.LENGTH_LONG);
-						return;
-					}
-					float bmpRatio=(float)bitmap.getWidth()/(float)bitmap.getHeight();
+				i.putExtra("noFaceDetection", true);
+				i.putExtra("outputX", 1024);
+				i.putExtra("outputY", 512);
+				i.putExtra("aspectX", 2);
+				i.putExtra("aspectY", 1);
+				i.putExtra("scale", true);
+				i.putExtra("outputFormat", "PNG");
+				/*
+				 * ContentValues values = new ContentValues();
+				 * 
+				 * values .put(android.provider.MediaStore.Images.Media.TITLE,
+				 * "bg.jpg");
+				 * 
+				 * 
+				 * values.put(android.provider.MediaStore.Images.Media.BUCKET_ID,
+				 * "EarthRot_Background");
+				 * 
+				 * values .put(
+				 * android.provider.MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+				 * "Earth Live Wallpaper background");
+				 * 
+				 * 
+				 * values.put(android.provider.MediaStore.Images.Media.IS_PRIVATE
+				 * , 1); iconUri = getContentResolver() .insert(
+				 * android.provider
+				 * .MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+				 * values).toString();
+				 */
+				i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(SLWP.cache.getAbsolutePath()
+						+ "/curbg.png")));
+				//i.putExtra("return-data", true);
+
+				// try {
+				startActivityForResult(i, 2);
+				// } catch (Exception e) {
+				// Log.d("SLWP", "Croping ERROR" + e.getMessage() + e);
+				// }
+				break;
+			case 2:
+				/*
+				// currImageURI = data.getData();
+				SLWP.bgfile = "/sdcard/EarthRot/tmpbg.png";
+				// Log.d("SLWP", "URI=" + iconUri);
+				Bitmap bitmap;
+				File Ftmp = new File(SLWP.cache.getAbsolutePath()
+						+ "/curbg.png");
+				bitmap = BitmapFactory.decodeFile(SLWP.bgfile);
+				//bitmap = (Bitmap) data.getParcelableExtra("data");
+				if (bitmap == null) {
+					Log.e("SLWP", "Image Error");
+					return;
+				}
+				float bmpRatio = (float) bitmap.getWidth()
+						/ (float) bitmap.getHeight();
 				try {
-					if(Ftmp.exists())Ftmp.delete();
+					if (Ftmp.exists())
+						Ftmp.delete();
 					Ftmp.createNewFile();
 					FileOutputStream os = new FileOutputStream(Ftmp);
-					
-					bitmap = Bitmap.createScaledBitmap(bitmap, (int) (512 * bmpRatio),512,
-							true);
-					
+
+					// bitmap = Bitmap.createScaledBitmap(bitmap,
+					// (int) (512 * bmpRatio), 512, true);
+
 					bitmap.compress(CompressFormat.PNG, 100, os);
 					os.close();
 				} catch (Exception e) {
-					Toast.makeText(this, "Image Error", Toast.LENGTH_SHORT);
-				}
+					Log.e("SLWP", "Image Error");
+				}*/
+				break;
 			}
 		}
+		// }
 	}
-	// And to convert the image URI to the direct file system path of the image file
+
+	// And to convert the image URI to the direct file system path of the image
+	// file
 	public String getRealPathFromURI(Uri contentUri) {
 		// can post image
-		String [] proj={MediaStore.Images.Media.DATA};
-		Cursor cursor = managedQuery( contentUri,
-				proj, // Which columns to return
-				null,       // WHERE clause; which rows to return (all rows)
-				null,       // WHERE clause selection arguments (none)
+		String[] proj = { MediaStore.Images.Media.DATA };
+		Cursor cursor = managedQuery(contentUri, proj, // Which columns to
+				// return
+				null, // WHERE clause; which rows to return (all rows)
+				null, // WHERE clause selection arguments (none)
 				null); // Order-by clause (ascending by name)
-		int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		int column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 		cursor.moveToFirst();
 		return cursor.getString(column_index);
 	}
