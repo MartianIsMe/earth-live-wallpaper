@@ -82,7 +82,10 @@
 	<string name="p_slypos">Choose the text vertical position</string>
 	<string name="p_darkness">Night darkness</string>
 	<string name="p_sdarkness">Set the static night intensity</string>
-	
+	<string name="p_usecrop">Crop custom background</string>
+	<string name="p_susecrop">Activate if custom background don\'t show. it force a correct aspect ratio.</string>
+	<string name="p_cropaspect">Crop aspect ratio</string>
+	<string name="p_scropaspect">Choose the crop aspect ratio to compute final texture size</string>
 	<declare-styleable name="Wallpaper">
 		<!--
 			Component name of an activity that allows the user to modify the
@@ -262,5 +265,15 @@
 		<item>180</item>
 		<item>360</item>
 	</string-array>
+	
+	<string-array name="cropaspect_id">
+		<item>1/1 (512x512)</item>
+		<item>2/1 (1024x512)</item>
+	</string-array>
+	<string-array name="cropaspect_value">
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+	
 </resources>
 

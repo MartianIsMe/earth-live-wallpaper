@@ -70,14 +70,16 @@
 			android:summary="@string/p_bgsum" android:key="Bg"
 			android:dialogTitle="@string/p_bg" android:dependency="Usebg"
 			android:defaultValue="2" android:entryValues="@array/bg_value" />
-		<CheckBoxPreference android:summaryOn="@string/p_bgsdiron"
+		<CheckBoxPreference android:key="Usecropper" android:defaultValue="false" android:title="@string/p_usecrop" android:summary="@string/p_susecrop"></CheckBoxPreference><ListPreference android:key="Cropaspect" android:entries="@array/cropaspect_id" android:entryValues="@array/cropaspect_value" android:defaultValue="1" android:dependency="Usecropper" android:title="@string/p_cropaspect" android:summary="@string/p_scropaspect"></ListPreference><CheckBoxPreference android:summaryOn="@string/p_bgsdiron"
 			android:key="Bgslidedir" android:summaryOff="@string/p_bgsdiroff"
 			android:title="@string/p_bgsdir" android:dependency="Usebg"
 			android:defaultValue="false" />
 		<CheckBoxPreference android:title="@string/p_animbg"
 			android:summary="@string/p_animbgsum" android:key="Animbg"
 			android:dependency="Usebg" android:defaultValue="false" />
-	</PreferenceScreen>
+	
+
+</PreferenceScreen>
 	<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orderingFromXml="true" android:summary="@string/p_ss"
 		android:title="@string/p_s">
