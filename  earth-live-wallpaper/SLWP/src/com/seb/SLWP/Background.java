@@ -122,7 +122,7 @@ class Background implements Serializable {
 			gl.glBindTexture(GL10.GL_TEXTURE_2D, texf[0]);
 
 		if (animbg) {
-			
+			zlev=1.2f;
 			elx = (float) ellipse[elidx].x;
 			ely = (float) ellipse[elidx].y;
 			elidx = (elidx + bgspeed) % MODSTEPS;
@@ -137,6 +137,9 @@ class Background implements Serializable {
 			 * zlev) - vH); break; default: //center xoffset = ((scrw * zlev) -
 			 * vH) / 2; yoffset = (vH * zlev - vH) / 2; }
 			 */
+		}
+		else{
+			zlev=1.0f;
 		}
 		xoffset = (((scrw * zlev) - vH) / 2)+elx;
 		yoffset = ((vH * zlev - vH) / 2)+ely;

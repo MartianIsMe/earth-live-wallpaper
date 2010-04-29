@@ -170,8 +170,12 @@ public class Prefs extends PreferenceActivity implements
 		Intent intent = new Intent();
 		intent.setType("image/*");
 		intent.setAction(Intent.ACTION_GET_CONTENT);
-		startActivityForResult(Intent.createChooser(intent, "Select Picture"),
-				1);
+		if (SLWP.useCropper)
+			startActivityForResult(Intent.createChooser(intent,
+					"Select Picture"), 1);
+		else
+			startActivityForResult(Intent.createChooser(intent,
+					"Select Picture"), 2);
 	}
 
 	@Override
@@ -185,19 +189,19 @@ public class Prefs extends PreferenceActivity implements
 				i.setData(data.getData());
 				// currImageURI = data.getData();
 
-				
 				i.putExtra("noFaceDetection", true);
-				i.putExtra("outputX", 1024);
-				i.putExtra("outputY", 512);
-				i.putExtra("aspectX", 2);
+				//i.putExtra("outputX", 1024);
+				//i.putExtra("outputY", 512);
+				i.putExtra("aspectX", SLWP.Cropaspect);
 				i.putExtra("aspectY", 1);
-				i.putExtra("scale", true);
+				i.putExtra("scale", false);
 				i.putExtra("outputFormat", "PNG");
 				/*
 				 * ContentValues values = new ContentValues();
 				 * 
 				 * values .put(android.provider.MediaStore.Images.Media.TITLE,
 				 * "bg.jpg");
+				 * 
 				 * 
 				 * 
 				 * values.put(android.provider.MediaStore.Images.Media.BUCKET_ID,
@@ -208,34 +212,46 @@ public class Prefs extends PreferenceActivity implements
 				 * "Earth Live Wallpaper background");
 				 * 
 				 * 
+				 * 
 				 * values.put(android.provider.MediaStore.Images.Media.IS_PRIVATE
 				 * , 1); iconUri = getContentResolver() .insert(
 				 * android.provider
 				 * .MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
 				 * values).toString();
 				 */
-				i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(SLWP.cache.getAbsolutePath()
-						+ "/curbg.png")));
+				i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(
+						SLWP.cache.getAbsolutePath() + "/curbg.png")));
 				//i.putExtra("return-data", true);
 
 				// try {
+				
 				startActivityForResult(i, 2);
+				//startActivity(i);
 				// } catch (Exception e) {
 				// Log.d("SLWP", "Croping ERROR" + e.getMessage() + e);
 				// }
 				break;
 			case 2:
-				/*
-				// currImageURI = data.getData();
-				SLWP.bgfile = "/sdcard/EarthRot/tmpbg.png";
-				// Log.d("SLWP", "URI=" + iconUri);
-				Bitmap bitmap;
+				// currImageURI is the global variable I'm using to hold the
+				// content:// URI of the image
 				File Ftmp = new File(SLWP.cache.getAbsolutePath()
 						+ "/curbg.png");
+				
+				if(!SLWP.useCropper){
+				currImageURI = data.getData();
+				SLWP.bgfile = getRealPathFromURI(currImageURI);
+				}
+				else{
+					SLWP.bgfile=Ftmp.getAbsolutePath();
+				}
+				Bitmap bitmap = null;
+				/*final Bundle extras = data.getExtras();
+	            if (extras != null) {
+	                bitmap = extras.getParcelable("data");
+	            }*/
 				bitmap = BitmapFactory.decodeFile(SLWP.bgfile);
-				//bitmap = (Bitmap) data.getParcelableExtra("data");
 				if (bitmap == null) {
-					Log.e("SLWP", "Image Error");
+					Toast.makeText(this, "Image Error", Toast.LENGTH_LONG);
 					return;
 				}
 				float bmpRatio = (float) bitmap.getWidth()
@@ -246,14 +262,14 @@ public class Prefs extends PreferenceActivity implements
 					Ftmp.createNewFile();
 					FileOutputStream os = new FileOutputStream(Ftmp);
 
-					// bitmap = Bitmap.createScaledBitmap(bitmap,
-					// (int) (512 * bmpRatio), 512, true);
+					bitmap = Bitmap.createScaledBitmap(bitmap,
+							(int) (512 * bmpRatio), 512, true);
 
 					bitmap.compress(CompressFormat.PNG, 100, os);
 					os.close();
 				} catch (Exception e) {
-					Log.e("SLWP", "Image Error");
-				}*/
+					Toast.makeText(this, "Image Error", Toast.LENGTH_SHORT);
+				}
 				break;
 			}
 		}

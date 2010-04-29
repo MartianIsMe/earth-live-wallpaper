@@ -64,6 +64,8 @@ public class SLWP extends GLWallpaperService implements
 	public static boolean Randomtex = true;
 	public static boolean visible = false;
 	public static File Fcache;
+	public static boolean useCropper = true;
+	public static int Cropaspect;
 	public static boolean loading = false;
 	public static DownloadTask DT = null;
 	public static final Handler mHandler = new Handler();
@@ -163,8 +165,8 @@ public class SLWP extends GLWallpaperService implements
 			mContext = this;
 			cm = (ConnectivityManager) mContext
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			
-			while(!hasStorage()){
+
+			while (!hasStorage()) {
 				Thread.sleep(100);
 			}
 			InitCache();
@@ -261,6 +263,13 @@ public class SLWP extends GLWallpaperService implements
 			renderer.showmoon = PreferenceManager.getDefaultSharedPreferences(
 					this).getBoolean("Showmoon", true);
 
+			useCropper = PreferenceManager.getDefaultSharedPreferences(this)
+					.getBoolean("Usecropper", false);
+
+			Cropaspect = Integer.parseInt(PreferenceManager
+					.getDefaultSharedPreferences(SLWP.this).getString(
+							"Cropaspect", "1"));
+
 			Synctime = Long.parseLong(PreferenceManager
 					.getDefaultSharedPreferences(SLWP.this).getString(
 							"Synctime", "60")) * 1000 * 60;
@@ -338,7 +347,7 @@ public class SLWP extends GLWallpaperService implements
 		mapcache = new File(cache + "/maps");
 		if (!mapcache.exists()) {
 			mapcache.mkdir();
-			//maps2sd();
+			// maps2sd();
 		}
 	}
 
@@ -363,7 +372,7 @@ public class SLWP extends GLWallpaperService implements
 
 					)
 						map2sd(((Integer) fp).intValue(), fName, "jpg");
-					else if(fName.equalsIgnoreCase("dstartwo"))
+					else if (fName.equalsIgnoreCase("dstartwo"))
 						map2sd(((Integer) fp).intValue(), fName, "png");
 					else
 						continue;
@@ -381,7 +390,8 @@ public class SLWP extends GLWallpaperService implements
 	private void map2sd(int rid, String rname, String ext) {
 		InputStream is = this.getResources().openRawResource(rid);
 		File out = new File(mapcache + "/" + rname + "." + ext);
-		if(out.exists()&&out.length()>1024) return;
+		if (out.exists() && out.length() > 1024)
+			return;
 		try {
 			out.createNewFile();
 			DataOutputStream os = new DataOutputStream(
@@ -544,6 +554,14 @@ public class SLWP extends GLWallpaperService implements
 		} else if (key.compareToIgnoreCase("Darkness") == 0) {
 			Sphere.shadowcolor = 1.0f - (PreferenceManager
 					.getDefaultSharedPreferences(this).getInt("Darkness", 100) / 200f);
+		} else if (key.compareToIgnoreCase("Usecropper") == 0) {
+			useCropper = PreferenceManager.getDefaultSharedPreferences(this)
+					.getBoolean("Usecropper", false);
+
+		} else if (key.compareToIgnoreCase("Cropaspect") == 0) {
+			Cropaspect = Integer.parseInt(PreferenceManager
+					.getDefaultSharedPreferences(SLWP.this).getString(
+							"Cropaspect", "1"));
 		}
 	}
 
