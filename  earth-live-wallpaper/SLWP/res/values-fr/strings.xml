@@ -71,6 +71,21 @@
 	<string name="p_sdens">Densité d\'étoiles</string>
 	<string name="p_ssdens">Choisissez le nombre d\'étoiles</string>
 	
+	<string name="p_usesh">Ombre statique</string>
+	<string name="p_susesh">Ajoute une ombre jour/nuit aux planetes</string>
+	<string name="p_showtext">Affichage du nom</string>
+	<string name="p_sshowtext">Affiche le nom des planetes</string>
+	<string name="p_lypos">Position du nom</string>
+	<string name="p_slypos">Choisissez la position verticale du nom</string>
+	<string name="p_darkness">Intensité de l\'ombre</string>
+	<string name="p_sdarkness">Choisissez l\'intensité de l\'ombre</string>
+	<string name="p_usecrop">Recadrage des fonds</string>
+	<string name="p_susecrop">Activez cette option pour forcer un aspect ratio correct aux textures de fond</string>
+	<string name="p_cropaspect">Aspect du recadrage</string>
+	<string name="p_scropaspect">Choisissez l\'aspect du recadrage</string>
+	<string name="p_randrate">Taux de raffraichissement aléatoire</string>
+	<string name="p_srandrate">Choisissez la fréquence de changement des cartes aléatoires</string>
+	
 	<string-array name="tex_id">
 		<item>Aléatoire</item>
 		<item>Conditions réelles</item>

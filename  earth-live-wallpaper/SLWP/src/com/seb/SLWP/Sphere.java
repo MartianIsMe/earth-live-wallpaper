@@ -80,7 +80,7 @@ class Sphere implements Serializable {
 			httptexture = new HttpTexture(gl11);
 			httptexture.loadTexture();
 		}
-		if (intTex < 4 || intTex == 13 || intTex == 29|| intTex == 35|| intTex == 61) {
+		if (intTex < 4 || intTex == 13 || intTex == 29|| intTex == 35|| intTex == 43|| intTex == 61) {
 			if (moon != null)
 				moon.freeTex();
 
@@ -97,6 +97,9 @@ class Sphere implements Serializable {
 				break;
 			case 35:
 				moon = new FileTexture(gl11, "yavin4");
+				break;
+			case 43:
+				moon = new FileTexture(gl11, "moon1");
 				break;
 			case 61:
 				moon = new FileTexture(gl11, "pandora");
@@ -338,7 +341,7 @@ class Sphere implements Serializable {
 		gl11.glDrawElements(GL11.GL_TRIANGLES, IdxCnt, GL11.GL_UNSIGNED_SHORT,
 				0);
 
-		if (showmoon && (intTex < 4 || intTex == 13 || intTex == 29|| intTex == 35|| intTex == 61)) {
+		if (showmoon && (intTex < 4 || intTex == 13 || intTex == 29|| intTex == 35|| intTex == 43|| intTex == 61)) {
 				moon.setTexture();
 			
 			gl11.glRotatef(langle -= 0.2f, 0f, 0f, 1f);
