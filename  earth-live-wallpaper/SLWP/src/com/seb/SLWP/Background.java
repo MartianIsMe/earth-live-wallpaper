@@ -148,7 +148,7 @@ class Background implements Serializable {
 			((GL11Ext) gl).glDrawTexfOES(xpos - xoffset , -yoffset, 0f, scrw
 					* zlev, vH * zlev);
 		else {
-			((GL11Ext) gl).glDrawTexfOES(0f, 0f, 0f, vW, vW);
+			((GL11Ext) gl).glDrawTexfOES(0f, 0f, 0f, vW, vH);
 		}
 		
 	}
@@ -252,7 +252,7 @@ class Background implements Serializable {
 			if (bitmap == null)
 				return;
 		}
-
+		bitmap.setDensity(Bitmap.DENSITY_NONE);
 		bmpW = bitmap.getWidth();
 		bmpH = bitmap.getHeight();
 		bmpRatio = (float) bmpW / (float) bmpH;

@@ -52,6 +52,10 @@
 			android:key="Randlist" android:summary="@string/p_randlistsum"
 			android:title="@string/p_randlist" android:entries="@array/tex_id"
 			android:entryValues="@array/tex_value" />
+		<ListPreference
+			android:key="Randrate" android:summary="@string/p_srandrate"
+			android:title="@string/p_randrate" android:entries="@array/randrate_id"
+			android:entryValues="@array/randrate_value" android:defaultValue="0"/>
 		<CheckBoxPreference android:key="Showmoon"
 			android:title="@string/p_showmoon" android:summary="@string/p_showmoonsum"
 			android:defaultValue="true" />

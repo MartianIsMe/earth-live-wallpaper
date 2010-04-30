@@ -80,19 +80,30 @@ class Sphere implements Serializable {
 			httptexture = new HttpTexture(gl11);
 			httptexture.loadTexture();
 		}
-		if (intTex < 4 || intTex == 13 || intTex == 29) {
-			if (intTex < 4) {
-				if (moon != null)
-					moon.freeTex();
-				moon = new FileTexture(gl11, "moon");
-				moon.loadTexture();
+		if (intTex < 4 || intTex == 13 || intTex == 29|| intTex == 35|| intTex == 61) {
+			if (moon != null)
+				moon.freeTex();
 
-			} else {
-				if (deathstar != null)
-					deathstar.freeTex();
-				deathstar = new FileTexture(gl11, "deathstar");
-				deathstar.loadTexture();
+			switch (intTex) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+				moon = new FileTexture(gl11, "moon");
+				break;
+			case 13:
+			case 29:
+				moon = new FileTexture(gl11, "deathstar");
+				break;
+			case 35:
+				moon = new FileTexture(gl11, "yavin4");
+				break;
+			case 61:
+				moon = new FileTexture(gl11, "pandora");
+				break;
+
 			}
+			moon.loadTexture();
 		}
 		if (textures != null)
 			textures.freeTexs();
@@ -327,12 +338,9 @@ class Sphere implements Serializable {
 		gl11.glDrawElements(GL11.GL_TRIANGLES, IdxCnt, GL11.GL_UNSIGNED_SHORT,
 				0);
 
-		if (showmoon && (intTex < 4 || intTex == 13 || intTex == 29)) {
-
-			if (intTex < 4)
+		if (showmoon && (intTex < 4 || intTex == 13 || intTex == 29|| intTex == 35|| intTex == 61)) {
 				moon.setTexture();
-			else
-				deathstar.setTexture();
+			
 			gl11.glRotatef(langle -= 0.2f, 0f, 0f, 1f);
 			gl11.glTranslatef(3.2f, 0f, 0f);
 			gl11.glScalef(0.26f, 0.26f, 0.26f);
