@@ -46,6 +46,7 @@ public class Prefs extends PreferenceActivity implements
 	private WebView wv;
 	public static Uri currImageURI;
 	private String iconUri = null;
+	private ListPreference randrate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class Prefs extends PreferenceActivity implements
 		tex = this.getPreferenceManager().findPreference("Tex");
 		bg = this.getPreferenceManager().findPreference("Bg");
 		randlist = (ListPreferenceMultiSelect) findPreference("Randlist");
+		randrate = (ListPreference) findPreference("Randrate");
 
 		if (SLWP.Tex != 0)
 			st.setEnabled(false);
@@ -64,8 +66,10 @@ public class Prefs extends PreferenceActivity implements
 
 		if (SLWP.Randomtex) {
 			randlist.setEnabled(true);
+			randrate.setEnabled(true);
 		} else {
 			randlist.setEnabled(false);
+			randrate.setEnabled(false);
 		}
 		tex.setOnPreferenceChangeListener(this);
 		bg.setOnPreferenceChangeListener(this);
@@ -150,8 +154,10 @@ public class Prefs extends PreferenceActivity implements
 
 			if (Integer.parseInt((String) newValue) == SLWP.RNDMAP) {
 				randlist.setEnabled(true);
+				randrate.setEnabled(true);
 			} else {
 				randlist.setEnabled(false);
+				randrate.setEnabled(false);
 			}
 
 		} else if (preference.getKey().compareToIgnoreCase("Bg") == 0) {
@@ -192,8 +198,22 @@ public class Prefs extends PreferenceActivity implements
 				i.putExtra("noFaceDetection", true);
 				//i.putExtra("outputX", 1024);
 				//i.putExtra("outputY", 512);
-				i.putExtra("aspectX", SLWP.Cropaspect);
-				i.putExtra("aspectY", 1);
+				
+				switch(SLWP.Cropaspect){
+				case 1:
+					i.putExtra("aspectX", 1);
+					i.putExtra("aspectY", 1);
+					break;
+				case 2:
+					i.putExtra("aspectX", 2);
+					i.putExtra("aspectY", 1);
+					break;
+				case 3:
+					i.putExtra("aspectX", 3);
+					i.putExtra("aspectY", 2);
+					break;
+				}
+				
 				i.putExtra("scale", false);
 				i.putExtra("outputFormat", "PNG");
 				/*

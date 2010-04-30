@@ -78,6 +78,8 @@ public class SLWP extends GLWallpaperService implements
 	public static String[] randlist;
 	public int curtexidx = -99;
 
+	private long randsynctime=0;
+	
 	private static final Class[] mStartForegroundSignature = new Class[] {
 			int.class, Notification.class };
 	private static final Class[] mStopForegroundSignature = new Class[] { boolean.class };
@@ -273,6 +275,10 @@ public class SLWP extends GLWallpaperService implements
 			Synctime = Long.parseLong(PreferenceManager
 					.getDefaultSharedPreferences(SLWP.this).getString(
 							"Synctime", "60")) * 1000 * 60;
+			
+			randsynctime = Long.parseLong(PreferenceManager
+					.getDefaultSharedPreferences(SLWP.this).getString(
+							"Randrate", "0")) * 1000 * 60;
 
 			Realaxis = PreferenceManager.getDefaultSharedPreferences(this)
 					.getBoolean("Realaxis", false);
@@ -563,6 +569,11 @@ public class SLWP extends GLWallpaperService implements
 					.getDefaultSharedPreferences(SLWP.this).getString(
 							"Cropaspect", "1"));
 		}
+		else if (key.compareToIgnoreCase("Randrate") == 0) {
+			randsynctime = Integer.parseInt(PreferenceManager
+					.getDefaultSharedPreferences(SLWP.this).getString(
+							"Randrate", "0")) * 1000 * 60;
+		} 
 	}
 
 	@Override
@@ -587,7 +598,7 @@ public class SLWP extends GLWallpaperService implements
 		public Handler mHandler = new Handler();
 		// public Runnable downloader = new Downloader();
 		long NOW;
-
+		private long lastrand;
 		@Override
 		public void onCreate(SurfaceHolder surfaceHolder) {
 			super.onCreate(surfaceHolder);
@@ -723,12 +734,15 @@ public class SLWP extends GLWallpaperService implements
 
 		private int randtex() {
 			int rval = -1;
+			long currand = new Date().getTime();
+			if(currand<lastrand+randsynctime) return Tex;
 			if (randlist == null || randlist.length <= 1)
 				return 1;
 			float rmax = randlist.length - 1;
 			while ((rval = (int) Math.rint(Math.random() * rmax)) == curtexidx)
 				;
 			curtexidx = rval;
+			lastrand=currand;
 			return Integer.parseInt(randlist[rval]);
 		}
 

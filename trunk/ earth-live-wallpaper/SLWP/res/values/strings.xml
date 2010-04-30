@@ -86,6 +86,9 @@
 	<string name="p_susecrop">Activate if custom background don\'t show. it force a correct aspect ratio.</string>
 	<string name="p_cropaspect">Crop aspect ratio</string>
 	<string name="p_scropaspect">Choose the crop aspect ratio to compute final texture size</string>
+	<string name="p_randrate">Random refresh rate</string>
+	<string name="p_srandrate">Choose how often the random map change</string>
+	
 	<declare-styleable name="Wallpaper">
 		<!--
 			Component name of an activity that allows the user to modify the
@@ -266,12 +269,34 @@
 		<item>360</item>
 	</string-array>
 	
+	<string-array name="randrate_id">
+		<item>Every wakeup</item>
+		<item>5min</item>
+		<item>15min</item>
+		<item>30min</item>
+		<item>1h</item>
+		<item>3h</item>
+		<item>6h</item>
+	</string-array>
+	
+	<string-array name="randrate_value">
+		<item>0</item>
+		<item>5</item>
+		<item>15</item>
+		<item>30</item>
+		<item>60</item>
+		<item>180</item>
+		<item>360</item>
+	</string-array>
+	
 	<string-array name="cropaspect_id">
 		<item>1/1 (512x512)</item>
+		<item>3/2 (768x512)</item>
 		<item>2/1 (1024x512)</item>
 	</string-array>
 	<string-array name="cropaspect_value">
 		<item>1</item>
+		<item>3</item>
 		<item>2</item>
 	</string-array>
 	
