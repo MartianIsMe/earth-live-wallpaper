@@ -419,7 +419,7 @@ class EglHelper {
 		 */
 		if (!mEgl.eglMakeCurrent(mEglDisplay, mEglSurface, mEglSurface,
 				mEglContext)) {
-			throw new RuntimeException("eglMakeCurrent failed.");
+			//throw new RuntimeException("eglMakeCurrent failed.");
 		}
 
 		GL gl = mEglContext.getGL();
