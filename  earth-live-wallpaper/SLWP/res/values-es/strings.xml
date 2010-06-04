@@ -144,7 +144,12 @@
 		<item>Seneka</item> 
 		<item>Vergilius</item> 
 		<item>Krypton</item>
-		<item>Cybertron</item> 
+		<item>Cybertron</item>
+		<item>Golf ball</item> 
+		<item>Beach ball</item>
+		<item>Soccer ball</item>
+		<item>Old soccer ball</item>
+		<item>Softball ball</item>    
 	</string-array>
 	<string-array name="refresh_id">
 		<item>Siempre (no recom.)</item>

@@ -592,10 +592,28 @@ class Sphere implements Serializable {
 		case 63:
 			mTex = "vergilius";
 			break;
-
+		case 64:
+			mTex = "golfball";
+			break;
+		case 65:
+			mTex = "BeachBall";
+			break;
+		case 66:
+			mTex = "soccer";
+			break;
+		case 67:
+			mTex = "oldsoccer";
+			break;
+		case 68:
+			mTex = "Softball";
+			break;
 		}
 	}
 
+	
+	
+	
+	
 	/*
 	 * public static void setTexture(int t) { intTex = t; switch (t) { case 0:
 	 * mTex = 0; // mTex = R.drawable.land_ocean_ice_cloud_2048; break; case 1:

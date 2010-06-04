@@ -168,6 +168,11 @@
 		<item>Vergilius</item> 
 		<item>Krypton</item>
 		<item>Cybertron</item> 
+		<item>Golf ball</item> 
+		<item>Beach ball</item>
+		<item>Soccer ball</item>
+		<item>Old soccer ball</item>
+		<item>Softball ball</item>   
 	</string-array>
 
 	<string-array name="tex_value">
@@ -235,6 +240,11 @@
 		<item>63</item> 
 		<item>51</item>
 		<item>54</item>
+		<item>64</item>
+		<item>65</item>
+		<item>66</item>
+		<item>67</item>
+		<item>68</item>
 	</string-array>
 	<string-array name="bg_id">
 		<item>From gallery</item>
