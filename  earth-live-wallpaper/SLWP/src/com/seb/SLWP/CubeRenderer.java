@@ -71,8 +71,8 @@ class CubeRenderer implements Renderer, Serializable {
 	private LabelMaker lm = new LabelMaker(true, 1024, 1024);
 	private Paint textPaint;
 	private int labelid;
-	private float mWidth;
-	private float mHeight;
+	private int mWidth;
+	private int mHeight;
 	private CharSequence[] v;
 	public boolean initing = false;
 	public float lypos = 0.25f;
@@ -241,13 +241,16 @@ class CubeRenderer implements Renderer, Serializable {
 			mBg.draw(gl);
 			gl.glDepthMask(true);
 		}
-
-		if (useStarfield)
-			mStarfield.draw(gl);
-
-		gl.glPushMatrix();
+		
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
+		if (useStarfield){
+			//gl.glPushMatrix();
+			mStarfield.draw(gl);
+			//gl.glPopMatrix();
+		}
+		gl.glPushMatrix();
+		
 		gl.glTranslatef(xpos, ypos, -6f);// *Math.max(0.6f,zoomfactor));
 		gl.glScalef(zoomfactor, zoomfactor, zoomfactor);
 
@@ -311,6 +314,9 @@ class CubeRenderer implements Renderer, Serializable {
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
+		mWidth = width;
+		mHeight = height;
+		mRatio = (float) mWidth / mHeight;
 		if (gl != null) {
 			initing = true;
 
@@ -319,11 +325,9 @@ class CubeRenderer implements Renderer, Serializable {
 			 * we draw, but usually a new projection needs to be set when the
 			 * viewport is resized.
 			 */
-			mWidth = width;
-			mHeight = height;
-			mRatio = (float) width / height;
+			
 			mGl = gl;
-			gl.glViewport(0, 0, width, height);
+			gl.glViewport(0, 0, mWidth, mHeight);
 			gl.glEnable(GL10.GL_DEPTH_TEST);
 			// Background.vW=width;
 			// Background.vH=height;
@@ -351,7 +355,7 @@ class CubeRenderer implements Renderer, Serializable {
 				setTex(SLWP.Tex);
 				if (usebg){
 					mBg.Init(gl);
-					mBg.setDims(width, height);
+					mBg.setDims(mWidth, mHeight);
 				}
 				if (mDs == null) {
 					if(deathstar2)mDs = new DeathStar(mContext);

@@ -126,7 +126,7 @@ public class StarField {
 	}
 
 	public void draw(GL10 gl) {
-		
+		//gl11 = (GL11) gl;
 		// gl.glEnableClientState(GL11.GL_COLOR_ARRAY);
 
 		gl.glDisable(GL10.GL_CULL_FACE);
@@ -136,13 +136,13 @@ public class StarField {
 		gl.glAlphaFunc(GL10.GL_GREATER, 0.5f);
 		gl.glEnable(GL10.GL_ALPHA_TEST);
 		tex.setTexture(R.drawable.starfield);
-		gl.glPushMatrix();
+		
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mv);
 		gl11.glVertexPointer(2, GL11.GL_FLOAT, 0, 0);
 		gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, mu);
 		gl11.glTexCoordPointer(2, GL11.GL_FLOAT, 0, 0);
 		for (int i = 0; i < NBSTARS*stardensity; i = i + 20) {
-			
+			gl.glPushMatrix();
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i], stars[i + 1], stars[i + 2]);
 			gl.glScalef(stars[i + 4], stars[i + 4], 1.0f);
@@ -151,7 +151,8 @@ public class StarField {
 				stars[i + 2] = MAXDIST;
 			}
 			gl11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
-			
+			gl.glPopMatrix();
+			gl.glPushMatrix();
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i+5], stars[i + 6], stars[i + 7]);
 			gl.glScalef(stars[i + 9], stars[i + 9], 1.0f);
@@ -160,8 +161,8 @@ public class StarField {
 				stars[i + 7] = MAXDIST;
 			}
 			gl11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
-			
-
+			gl.glPopMatrix();
+			gl.glPushMatrix();
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i+10], stars[i + 11], stars[i + 12]);
 			gl.glScalef(stars[i + 14], stars[i + 14], 1.0f);
@@ -170,7 +171,8 @@ public class StarField {
 				stars[i + 12] = MAXDIST;
 			}
 			gl11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
-			
+			gl.glPopMatrix();
+			gl.glPushMatrix();
 			gl.glLoadIdentity();
 			gl.glTranslatef(stars[i+15], stars[i + 16], stars[i + 17]);
 			gl.glScalef(stars[i + 19], stars[i + 19], 1.0f);
@@ -179,14 +181,15 @@ public class StarField {
 				stars[i + 17] = MAXDIST;
 			}
 			gl11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
-			
+			gl.glPopMatrix();
 			/*
 			 * gl.glVertexPointer(2, GL10.GL_FLOAT, 0, bV); gl.glColorPointer(4,
 			 * GL10.GL_UNSIGNED_BYTE, 0, bC);
 			 * gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
 			 */
 		}
-		gl.glPopMatrix();
+		gl.glScalef(1.0f, 1.0f, 1.0f);
+		
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glDisable(GL10.GL_BLEND);
 		gl.glDisable(GL10.GL_ALPHA_TEST);
