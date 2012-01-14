@@ -80,7 +80,8 @@ class Sphere implements Serializable {
 			httptexture = new HttpTexture(gl11);
 			httptexture.loadTexture();
 		}
-		if (intTex < 4 || intTex == 13 || intTex == 29|| intTex == 35|| intTex == 43|| intTex == 61) {
+		if (intTex < 4 || intTex == 13 || intTex == 29 || intTex == 35
+				|| intTex == 43 || intTex == 61) {
 			if (moon != null)
 				moon.freeTex();
 
@@ -176,8 +177,8 @@ class Sphere implements Serializable {
 			ArrayList<Float> nlist = new ArrayList<Float>();
 			ArrayList<Fp> fplist = new ArrayList<Fp>();
 
-			BufferedReader inb = new BufferedReader(new InputStreamReader(am
-					.open("earth.obj")), 1024);
+			BufferedReader inb = new BufferedReader(new InputStreamReader(
+					am.open("earth.obj")), 1024);
 			while ((str = inb.readLine()) != null) {
 				tmp = str.split(" ");
 				if (tmp[0].equalsIgnoreCase("v")) {
@@ -341,9 +342,11 @@ class Sphere implements Serializable {
 		gl11.glDrawElements(GL11.GL_TRIANGLES, IdxCnt, GL11.GL_UNSIGNED_SHORT,
 				0);
 
-		if (showmoon && (intTex < 4 || intTex == 13 || intTex == 29|| intTex == 35|| intTex == 43|| intTex == 61)) {
-				moon.setTexture();
-			
+		if (showmoon
+				&& (intTex < 4 || intTex == 13 || intTex == 29 || intTex == 35
+						|| intTex == 43 || intTex == 61)) {
+			moon.setTexture();
+
 			gl11.glRotatef(langle -= 0.2f, 0f, 0f, 1f);
 			gl11.glTranslatef(3.2f, 0f, 0f);
 			gl11.glScalef(0.26f, 0.26f, 0.26f);
@@ -596,7 +599,7 @@ class Sphere implements Serializable {
 			mTex = "golfball";
 			break;
 		case 65:
-			mTex = "BeachBall";
+			mTex = "beachball";
 			break;
 		case 66:
 			mTex = "soccer";
@@ -605,15 +608,426 @@ class Sphere implements Serializable {
 			mTex = "oldsoccer";
 			break;
 		case 68:
-			mTex = "Softball";
+			mTex = "softball";
+			break;
+		case 69:
+			mTex = "arthur";
+			break;
+		case 70:
+			mTex = "castra";
+			break;
+		case 71:
+			mTex = "deuteros";
+			break;
+		case 72:
+			mTex = "diyi";
+			break;
+		case 73:
+			mTex = "drittes";
+			break;
+		case 74:
+			
+			mTex = "ektos";
+			break;
+		case 75:
+			mTex = "erstes";
+			break;
+		case 76:
+			mTex = "ford";
+			break;
+		case 77:
+			mTex = "marvin";
+			break;
+		case 78:
+			mTex = "mentos";
+			break;
+		case 79:
+			mTex = "mervaya";
+			break;
+		case 80:
+			mTex = "primus";
+			break;
+		case 81:
+			mTex = "protos";
+			break;
+		case 82:
+			mTex = "quartus";
+			break;
+		case 83:
+			mTex = "quintus";
+			break;
+		case 84:
+			mTex = "realisticearth";
+			break;
+		case 85:
+			mTex = "secundus";
+			break;
+		case 86:
+			mTex = "septimus";
+			break;
+		case 87:
+			mTex = "sextus";
+			break;
+		case 88:
+			mTex = "terraformedpluto";
+			break;
+		case 89:
+			mTex = "tertius";
+			break;
+		case 90:
+			mTex = "tetartos";
+			break;
+		case 91:
+			mTex = "trillian";
+			break;
+		case 92:
+			mTex = "tritos";
+			break;
+		case 93:
+			mTex = "viertes";
+			break;
+		case 94:
+			mTex = "vtoraya";
+			break;
+		case 95:
+			mTex = "zaphod";
+			break;
+		case 96:
+			mTex = "zweites";
+			break;
+		case 97:
+			mTex = "allatu";
+			break;
+		case 98:
+			mTex = "amoon3";
+			break;
+		case 99:
+			mTex = "annunaki";
+			break;
+		case 100:
+			mTex = "anu";
+			break;
+		case 101:
+			mTex = "arazius1";
+			break;
+		case 102:
+			mTex = "arazius2";
+			break;
+		case 103:
+			mTex = "arazius3";
+			break;
+		case 104:
+			mTex = "arazius4";
+			break;
+		case 105:
+			mTex = "arazius4moon";
+			break;
+		case 106:
+			mTex = "arazius5";
+			break;
+		case 107:
+			mTex = "araziusasteroid";
+			break;
+		case 108:
+			mTex = "asteroid";
+			break;
+		case 109:
+			mTex = "batavorum";
+			break;
+		case 110:
+			mTex = "dagan";
+			break;
+		case 111:
+			mTex = "ellil";
+			break;
+		case 112:
+			mTex = "elohim";
+			break;
+		case 113:
+			mTex = "enki";
+			break;
+		case 114:
+			mTex = "enlil";
+			break;
+		case 115:
+			mTex = "enoch";
+			break;
+		case 116:
+			mTex = "eridoe";
+			break;
+		case 117:
+			mTex = "future";
+			break;
+		case 118:
+			mTex = "hanish";
+			break;
+		case 119:
+			mTex = "irra";
+			break;
+		case 120:
+			mTex = "ishtar";
+			break;
+		case 121:
+			mTex = "kishar";
+			break;
+		case 122:
+			mTex = "kukulkan";
+			break;
+		case 123:
+			mTex = "marduk";
+			break;
+		case 124:
+			mTex = "moon4";
+			break;
+		case 125:
+			mTex = "moon5";
+			break;
+		case 126:
+			mTex = "moon8";
+			break;
+		case 127:
+			mTex = "moon_terraformed";
+			break;
+		case 128:
+			mTex = "nabu";
+			break;
+		case 129:
+			mTex = "namtar";
+			break;
+		case 130:
+			mTex = "naphidem";
+			break;
+		case 131:
+			mTex = "nash";
+			break;
+		case 132:
+			mTex = "nazca";
+			break;
+		case 133:
+			mTex = "nephilim";
+			break;
+		case 134:
+			mTex = "nergal";
+			break;
+		case 135:
+			mTex = "ninurta";
+			break;
+		case 136:
+			mTex = "papsukkal";
+			break;
+		case 137:
+			mTex = "qingu";
+			break;
+		case 138:
+			mTex = "sakkara";
+			break;
+		case 139:
+			mTex = "sharru";
+			break;
+		case 140:
+			mTex = "siduri";
+			break;
+		case 141:
+			mTex = "sin";
+			break;
+		case 142:
+			mTex = "snowballearth";
+			break;
+		case 143:
+			mTex = "tarazed_ananda";
+			break;
+		case 144:
+			mTex = "tarazed_aoraki";
+			break;
+		case 145:
+			mTex = "tarazed_aphrodite";
+			break;
+		case 146:
+			mTex = "tarazed_ashura";
+			break;
+		case 147:
+			mTex = "tarazed_castle";
+			break;
+		case 148:
+			mTex = "tarazed_cieloazul";
+			break;
+		case 149:
+			mTex = "tarazed_dragonfire";
+			break;
+		case 150:
+			mTex = "tarazed_eshq";
+			break;
+		case 151:
+			mTex = "tarazed_esperanza";
+			break;
+		case 152:
+			mTex = "tarazed_garden";
+			break;
+		case 153:
+			mTex = "tarazed_honshu";
+			break;
+		case 154:
+			mTex = "tarazed_ib";
+			break;
+		case 155:
+			mTex = "tarazed_iib";
+			break;
+		case 156:
+			mTex = "tarazed_iic";
+			break;
+		case 157:
+			mTex = "tarazed_iid";
+			break;
+		case 158:
+			mTex = "tarazed_iie";
+			break;
+		case 159:
+			mTex = "tarazed_iowa";
+			break;
+		case 160:
+			mTex = "tarazed_ivb";
+			break;
+		case 161:
+			mTex = "tarazed_namaskar";
+			break;
+		case 162:
+			mTex = "tarazed_pratyahara";
+			break;
+		case 163:
+			mTex = "tarazed_purgatory";
+			break;
+		case 164:
+			mTex = "tarazed_rockball";
+			break;
+		case 165:
+			mTex = "tarazed_sys";
+			break;
+		case 166:
+			mTex = "tarazed_vb";
+			break;
+		case 167:
+			mTex = "tarazed_vc";
+			break;
+		case 168:
+			mTex = "tarazed_vd";
+			break;
+		case 169:
+			mTex = "tarazed_vib";
+			break;
+		case 170:
+			mTex = "tarazed_vic";
+			break;
+		case 171:
+			mTex = "tarazed_vid";
+			break;
+		case 172:
+			mTex = "tarazed_viiib";
+			break;
+		case 173:
+			mTex = "tarazed_viiic";
+			break;
+		case 174:
+			mTex = "tarazed_viiid";
+			break;
+		case 175:
+			mTex = "tarazed_viiie";
+			break;
+		case 176:
+			mTex = "tarazed_viiif";
+			break;
+		case 177:
+			mTex = "tarazed_wanderer";
+			break;
+		case 178:
+			mTex = "tarazed_xib";
+			break;
+		case 179:
+			mTex = "tarazed_xic";
+			break;
+		case 180:
+			mTex = "tarazed_xiib";
+			break;
+		case 181:
+			mTex = "tarazed_xiic";
+			break;
+		case 182:
+			mTex = "tarazed_xivb";
+			break;
+		case 183:
+			mTex = "tarazed_xivc";
+			break;
+		case 184:
+			mTex = "tarazed_xivd";
+			break;
+		case 185:
+			mTex = "tarazed_xixb";
+			break;
+		case 186:
+			mTex = "tarazed_xvb";
+			break;
+		case 187:
+			mTex = "tarazed_xvc";
+			break;
+		case 188:
+			mTex = "tarazed_xvd";
+			break;
+		case 189:
+			mTex = "tarazed_xve";
+			break;
+		case 190:
+			mTex = "tarazed_xvf";
+			break;
+		case 191:
+			mTex = "tarazed_xvg";
+			break;
+		case 192:
+			mTex = "tarazed_xvh";
+			break;
+		case 193:
+			mTex = "tarazed_xvib";
+			break;
+		case 194:
+			mTex = "tarazed_xviib";
+			break;
+		case 195:
+			mTex = "tarazed_xviic";
+			break;
+		case 196:
+			mTex = "tarazed_xviiib";
+			break;
+		case 197:
+			mTex = "tarazed_xviiic";
+			break;
+		case 198:
+			mTex = "tarazed_xviiid";
+			break;
+		case 199:
+			mTex = "tarazed_yesod";
+			break;
+		case 200:
+			mTex = "tarazed_yetzirah";
+			break;
+		case 201:
+			mTex = "terraformedmoon";
+			break;
+		case 202:
+			mTex = "tiamat";
+			break;
+		case 203:
+			mTex = "veleda";
+			break;
+		case 204:
+			mTex = "vimana";
+			break;
+		case 205:
+			mTex = "yukatan";
+			break;
+		case 206:
+			mTex = "zaltu";
 			break;
 		}
 	}
 
-	
-	
-	
-	
 	/*
 	 * public static void setTexture(int t) { intTex = t; switch (t) { case 0:
 	 * mTex = 0; // mTex = R.drawable.land_ocean_ice_cloud_2048; break; case 1:
