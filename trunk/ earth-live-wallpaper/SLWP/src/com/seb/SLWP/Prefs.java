@@ -82,6 +82,14 @@ public class Prefs extends PreferenceActivity implements
 						.parse("market://search?q=pub:unixseb")));
 			}
 		});
+		Button bthd = (Button) findViewById(R.id.bt_vhd);
+		bthd.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri
+						.parse("market://search?q=pname:com.seb.SLWP2b")));
+			}
+		});
 		Button bth = (Button) findViewById(R.id.bt_help);
 		bth.setOnClickListener(new OnClickListener() {
 			@Override
